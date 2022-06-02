@@ -1,9 +1,7 @@
-name: CI Main
+name: CI Pull Request
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
 
 jobs:
   build:
@@ -29,4 +27,3 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_N1870 }}"
-          channelId: live
