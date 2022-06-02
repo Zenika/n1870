@@ -1,10 +1,11 @@
 import Submarine from '../objects/submarine'
 import FpsText from '../objects/fpsText'
-import { Body } from 'matter'
+import Background from '../objects/background'
 
 export default class MainScene extends Phaser.Scene {
   fpsText
   submarine: Submarine
+  background: Phaser.GameObjects.TileSprite
   cursors: Phaser.Types.Input.Keyboard.CursorKeys
 
   constructor() {
@@ -13,6 +14,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0)
+    this.background = new Background(this)
     this.fpsText = new FpsText(this)
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -47,6 +49,8 @@ export default class MainScene extends Phaser.Scene {
     {
       this.submarine.setAcceleration(0);
     }
+    this.background.tilePositionX += this.submarine.body.deltaX() * 0.5;
+    this.background.tilePositionY += this.submarine.body.deltaY() * 0.5;
 
     this.fpsText.update()
   }

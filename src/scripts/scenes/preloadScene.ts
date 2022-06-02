@@ -4,6 +4,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('background', 'assets/img/background.png')
     this.load.image('submarine', 'assets/img/submarine.png')
   }
 
