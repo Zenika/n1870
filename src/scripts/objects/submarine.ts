@@ -1,4 +1,4 @@
-export default class Submarine extends Phaser.Physics.Arcade.Image {
+export default class Submarine extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'submarine')
     scene.add.existing(this)
@@ -10,5 +10,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Image {
     this.setDrag(300);
     this.setAngularDrag(400);
     this.setMaxVelocity(600);
+
+    this.play('sub-anim')
   }
 }
