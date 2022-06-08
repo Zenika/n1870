@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "n1870_submarine_spritesheet.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 640,
+				"h": 128
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "n1870_submarine_spritesheet",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 128,
+						"h": 128
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 640,
+						"h": 128
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 128,
+						"h": 128
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:3d20167d094b110eaa1cf7a2bf565e02:b0d7a39723e701ef0198de122cf39399:f57c57b4360d2dd9bde67271bfc9247f$"
+	}
+}
