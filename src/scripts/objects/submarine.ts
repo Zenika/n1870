@@ -10,5 +10,6 @@ export default class Submarine extends Phaser.Physics.Arcade.Image {
     this.setDrag(300);
     this.setAngularDrag(400);
     this.setMaxVelocity(600);
+    this.setCollideWorldBounds(true);
   }
 }
