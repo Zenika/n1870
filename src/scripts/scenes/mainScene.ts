@@ -24,7 +24,9 @@ export default class MainScene extends Phaser.Scene {
         color: '#000000',
         fontSize: '24px'
       })
-      .setOrigin(1, 0)
+      .setPosition(0, 1)
+
+      this.physics.world.setBoundsCollision(true, false, true, true)
   }
 
   update() {
