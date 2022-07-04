@@ -15,7 +15,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'all', frame: 'sub', frameWidth: 128 });
     
-    this.anims.create({ key: 'sub-anim', frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 5 }), frameRate: 10, repeat: -1 });
+    this.anims.create({ key: 'sub-anim', frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 10 }), frameRate: 10, repeat: -1 });
 
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0)
     this.background = new Background(this)
@@ -24,37 +24,41 @@ export default class MainScene extends Phaser.Scene {
 
     // display the Phaser.VERSION
     this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
+      .text(this.cameras.main.width-15, 15, `Phaser v${Phaser.VERSION}`, {
         color: '#000000',
         fontSize: '24px'
       })
-      .setPosition(0, 1)
+      .setPosition(this.cameras.main.width-150, -220)
 
-      this.physics.world.setBoundsCollision(true, false, true, true)
+    this.fpsText.setPosition(this.cameras.main.width-150, -190)  
+    this.physics.world.setBoundsCollision(true, false, true, true)
+    
+    
   }
 
   update() {
     if (this.cursors.left.isDown)
     {
-        this.submarine.setAngularVelocity(-150);
+        this.submarine.setAccelerationX(-150)
     }
     else if (this.cursors.right.isDown)
     {
-      this.submarine.setAngularVelocity(150);
-    }
-    else
-    {
-      this.submarine.setAngularVelocity(0);
+      this.submarine.setAccelerationX(150)
+    } else {
+      this.submarine.setAccelerationX(0)
     }
 
     if (this.cursors.up.isDown)
     {
-        this.physics.velocityFromRotation(this.submarine.rotation, 600, (this.submarine.body as Phaser.Physics.Arcade.Body).acceleration);
+      this.submarine.setAccelerationY(-150)
     }
-    else
+    else if (this.cursors.down.isDown)
     {
-      this.submarine.setAcceleration(0);
+      this.submarine.setAccelerationY(150)
+    }else {
+      this.submarine.setAccelerationY(0)
     }
+
     this.background.tilePositionX += this.submarine.body.deltaX() * 0.5;
     this.background.tilePositionY += this.submarine.body.deltaY() * 0.5;
 
