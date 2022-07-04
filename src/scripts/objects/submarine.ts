@@ -7,10 +7,15 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
 
     this.setDepth(2);
 
-    this.setDrag(300);
-    this.setAngularDrag(400);
-    this.setMaxVelocity(600);
+    this.setMaxVelocity(200)
     this.play('sub-anim')
-    this.setCollideWorldBounds(true);
+    this.setCollideWorldBounds(true)
+
+    //To decelerate
+    this.setDragX(0.05)
+    this.setDragY(0.05)
+
+    this.setDamping(true);
   }
+
 }
