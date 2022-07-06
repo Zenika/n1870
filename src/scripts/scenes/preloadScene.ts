@@ -4,7 +4,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.atlas('all', 'assets/all.png', 'assets/all.json');
+    this.load.atlas('submarine', 'assets/submarine_v2_spritesheet.png', 'assets/submarine_v2_spritesheet.json');
     this.load.image('background', 'assets/img/background.png')
   }
 

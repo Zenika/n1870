@@ -13,9 +13,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'all', frame: 'sub', frameWidth: 128 });
+    this.textures.addSpriteSheetFromAtlas('submarine-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 });
     
-    this.anims.create({ key: 'sub-anim', frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 5 }), frameRate: 10, repeat: -1 });
+    this.anims.create({ key: 'submarine-anim', frames: this.anims.generateFrameNumbers('submarine-sheet', { start: 0, end: 9 }), frameRate: 10, repeat: -1 });
 
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0)
     this.background = new Background(this)
