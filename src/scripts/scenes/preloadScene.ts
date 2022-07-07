@@ -4,8 +4,12 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.atlas('all', 'assets/all.png', 'assets/all.json');
-    this.load.image('background', 'assets/img/background.png')
+    this.load.atlas('all', 'assets/all.png', 'assets/all.json')
+    this.load.image('toplayer', 'assets/background/TopLayer.png')
+    this.load.image('light', 'assets/background/Light.png')
+    this.load.image('middlelayer', 'assets/background/MiddleLayer.png')
+    this.load.image('downlayer', 'assets/background/DownLayer.png')
+    this.load.image('sky', 'assets/background/Sky.png')
   }
 
   create() {
