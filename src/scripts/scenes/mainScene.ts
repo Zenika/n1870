@@ -14,8 +14,11 @@ export default class MainScene extends Phaser.Scene {
     super({ key: 'MainScene' })
   }
 
+
   create() {
     const { width, height } = this.scale
+
+   
 
     this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.background = new Background(this)
@@ -43,9 +46,9 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys()
 
     this.fpsText.setPosition(0, 30).setDepth(7)
-    this.physics.world.setBoundsCollision(true, false, true, true)
 
-    this.physics.world.setBounds(0, 0, 800 - this.submarine.width, 380)
+    this.physics.world.setBounds(0, 0, width - this.submarine.width + 32, 380, true, true, true, true)
+
   }
 
   update() {
@@ -70,5 +73,6 @@ export default class MainScene extends Phaser.Scene {
     }
 
     this.fpsText.update()
+
   }
 }

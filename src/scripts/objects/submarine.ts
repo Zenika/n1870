@@ -16,6 +16,8 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
     this.setDamping(true)
 
     this.setCollideWorldBounds(true)
+
+    
   }
 
 }
