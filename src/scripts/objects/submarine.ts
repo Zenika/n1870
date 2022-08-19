@@ -1,4 +1,9 @@
+import Flashlight from "./flashlight"
+
 export default class Submarine extends Phaser.Physics.Arcade.Sprite {
+
+  light: Flashlight
+  
   constructor(scene: Phaser.Scene, x, y) {
     super(scene, x, y, 'submarine')
     scene.add.existing(this)
@@ -17,7 +22,12 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
 
     this.setCollideWorldBounds(true)
 
+    this.light = new Flashlight(scene, this)
     
+  }
+
+  public update() {
+    this.light.update()
   }
 
 }

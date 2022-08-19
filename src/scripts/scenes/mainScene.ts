@@ -48,6 +48,7 @@ export default class MainScene extends Phaser.Scene {
     this.fpsText.setPosition(0, 30).setDepth(7)
 
     this.physics.world.setBounds(0, 0, width - this.submarine.width + 32, 380, true, true, true, true)
+    this.lights.enable().setAmbientColor(0x555555);
 
   }
 
@@ -68,11 +69,13 @@ export default class MainScene extends Phaser.Scene {
       this.submarine.setAccelerationY(0)
     }
 
-    for (let bg of this.background.layers) {
-      bg.sprite.tilePositionX = this.submarine.body.x * bg.ratioX
-    }
 
+    this.background.update(this.submarine)
     this.fpsText.update()
+    this.submarine.update()
+
 
   }
+
+
 }
