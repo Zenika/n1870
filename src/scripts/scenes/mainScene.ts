@@ -1,4 +1,4 @@
-import Submarine from '../objects/submarine'
+import Submarine, { Movement } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 
@@ -13,7 +13,6 @@ export default class MainScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MainScene' })
   }
-
 
   create() {
     const { width, height } = this.scale
@@ -31,14 +30,7 @@ export default class MainScene extends Phaser.Scene {
       })
       .setDepth(6)
 
-    this.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'all', frame: 'sub', frameWidth: 128 })
 
-    this.anims.create({
-      key: 'sub-anim',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 9 }),
-      frameRate: 10,
-      repeat: -1
-    })
 
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
 
@@ -53,12 +45,18 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+
+    let currentMovement: Movement
+    
     if (this.cursors.left.isDown) {
       this.submarine.setAccelerationX(-150)
+      currentMovement = Movement.Backward
     } else if (this.cursors.right.isDown) {
         this.submarine.setAccelerationX(150)
+        currentMovement = Movement.Forward
     } else {
       this.submarine.setAccelerationX(0)
+      currentMovement = Movement.Stopped
     }
 
     if (this.cursors.up.isDown) {
@@ -72,7 +70,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.background.update(this.submarine)
     this.fpsText.update()
-    this.submarine.update()
+    this.submarine.update(currentMovement)
 
 
   }
