@@ -9,13 +9,13 @@ export default class Background {
     const { width, height } = scene.scale
 
 
-    let coverRec = scene.add
-      .rectangle(0, 0, width, height, 0x1e1f29, 0.8)
-      .setOrigin(0, 0)
-      .setScrollFactor(0, 0)
-      .setDepth(5)
+    // let coverRec = scene.add
+    //   .rectangle(0, 0, width, height, 0x1e1f29, 0.8)
+    //   .setOrigin(0, 0)
+    //   .setScrollFactor(0, 0)
+    //   .setDepth(5)
 
-    coverRec.setBlendMode(Phaser.BlendModes.DIFFERENCE)
+    // coverRec.setBlendMode(Phaser.BlendModes.DIFFERENCE)
 
     var tileSprite = scene.add
       .tileSprite(0, 0, width, height, 'downlayer')
