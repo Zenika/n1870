@@ -11,6 +11,8 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
 
   movement: Movement
 
+  emitter: Phaser.GameObjects.Particles.ParticleEmitter
+
   constructor(scene: Phaser.Scene, x, y) {
     super(scene, x, y, 'submarine')
     scene.add.existing(this)
@@ -55,26 +57,54 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true)
 
     this.light = new Flashlight(scene, this)
+
+    let particles = scene.add.particles('bubble')
+
+    particles.setDepth(2)
+
+    this.emitter = particles.createEmitter({
+      blendMode: Phaser.BlendModes.NORMAL,
+      quantity: 3,
+      speed: 20,
+      frequency: 300,
+      //speed: { random: [0.05, 0.1] },
+      angle: { min: 220, max: 270 },
+      scale: { start: 0, end: 0.02 },
+      lifespan: { random: [1000, 4000] },
+      gravityY: -10,
+      active: true,
+      alpha: 1
+    })
   }
 
   public update(newMovement: Movement) {
     this.light.update()
+    this.emitter.setPosition(this.getTopLeft().x, this.getTopLeft().y + this.height / 2)
 
-    if (newMovement != this.movement) {
-      this.movement = newMovement
-      switch (this.movement) {
-        case Movement.Stopped:
+    switch (newMovement) {
+      case Movement.Stopped:
+        if (newMovement != this.movement) {
+          this.movement = newMovement
           this.play('sub-anim-stopped')
-          break
-        case Movement.Forward:
+        }
+        this.emitter.frequency = 300
+        break
+      case Movement.Forward:
+        if (newMovement != this.movement) {
+          this.movement = newMovement
           this.play('sub-anim-forward')
-          break
-        case Movement.Backward:
+        }
+        this.emitter.frequency = 20
+        break
+      case Movement.Backward:
+        if (newMovement != this.movement) {
+          this.movement = newMovement
           this.play('sub-anim-backward')
-          break
-        default:
-          break
-      }
+        }
+        this.emitter.frequency = 20
+        break
+      default:
+        break
     }
   }
 }
