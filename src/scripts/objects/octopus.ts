@@ -17,7 +17,19 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
         
         //TODO : event after collision
         scene.physics.add.collider(submarine, this,() => {console.log("hit")}, () => {console.log("hit2"); return true});
-        scene.physics.add.overlap(submarine.light.polygon, this)
+        scene.physics.add.overlap(submarine.light.polygon, this, () => {
+            this.setVelocityX(150)
+            this.setFlipX(true)
+
+            if (Math.random() >= 0.5) {
+                let rot = Math.random()*0.8+0.8
+                this.setRotation(rot)
+                this.setVelocityY(100)
+            } else {
+                this.setRotation(-Math.random()*0.8-0.8)
+                this.setVelocityY(-100)
+            }
+        })
         this.setVelocityX(-100)
  
         
@@ -26,7 +38,7 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
 
 
     update(): void {
-        this.setVelocityX(-100)
+      //  this.setVelocityX(-100)
         
     }
 }    
