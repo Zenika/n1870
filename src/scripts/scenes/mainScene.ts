@@ -39,7 +39,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.fpsText.setPosition(0, 30).setDepth(7)
 
-    this.physics.world.setBounds(0, 0, width - this.submarine.width + 32, 380, true, true, true, true)
+    this.physics.world.setBounds(0, 0, width - this.submarine.width, 380, true, true, false, true)
     this.lights.enable().setAmbientColor(0x555555);
 
   }

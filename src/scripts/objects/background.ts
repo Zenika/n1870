@@ -1,9 +1,10 @@
 import Submarine from './submarine'
 
+const SCROLL_SPEED: number = 1
+
 export default class Background {
   layers: { ratioX: number; sprite: Phaser.GameObjects.TileSprite }[] = []
 
-  
 
   constructor(scene: Phaser.Scene) {
     const { width, height } = scene.scale
@@ -53,7 +54,7 @@ export default class Background {
 
   public update(submarine: Submarine) {
     for (let bg of this.layers) {
-      bg.sprite.tilePositionX = submarine.body.x * bg.ratioX
+      bg.sprite.tilePositionX = Math.max(submarine.body.x * bg.ratioX, bg.sprite.tilePositionX + SCROLL_SPEED*bg.ratioX)
     }
   }
 }
