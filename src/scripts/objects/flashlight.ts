@@ -26,9 +26,12 @@ export default class Flashlight {
       0.5
     ).setDepth(3).setBlendMode(Phaser.BlendModes.ADD).setOrigin(x,y)
 
+    scene.physics.add.existing(this.polygon)
+    
   }
 
   public update() { 
     this.polygon.setPosition(this.submarine.getBottomRight().x,this.submarine.getBottomRight().y)
+   // this.polygon.body.position.y = this.submarine.getBottomRight().y - this.polygon.height /2
   }
 }
