@@ -24,12 +24,11 @@ export default class Flashlight {
       ],
       0xe3a433,
       0.5
-    ).setDepth(5).setBlendMode(Phaser.BlendModes.ADD).setOrigin(x,y)
+    ).setDepth(3).setBlendMode(Phaser.BlendModes.ADD).setOrigin(x,y)
 
   }
 
   public update() { 
-    console.log(this.submarine.getBottomRight().x+","+this.submarine.getBottomRight().y)
     this.polygon.setPosition(this.submarine.getBottomRight().x,this.submarine.getBottomRight().y)
   }
 }
