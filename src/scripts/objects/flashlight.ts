@@ -31,7 +31,8 @@ export default class Flashlight {
   }
 
   public update() { 
-    this.polygon.setPosition(this.submarine.getBottomRight().x,this.submarine.getBottomRight().y)
-   // this.polygon.body.position.y = this.submarine.getBottomRight().y - this.polygon.height /2
+    this.polygon.setPosition(this.submarine.getBottomRight().x, this.submarine.getBottomRight().y - 40)
+    // this.polygon.body.position.x = this.submarine.getBottomRight().x
+     this.polygon.body.position.y = this.submarine.getBottomRight().y - 20 - Flashlight.LIGHT_SIZE * 20
   }
 }
