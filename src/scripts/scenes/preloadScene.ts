@@ -11,6 +11,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('downlayer', 'assets/background/DownLayer.png')
     this.load.image('sky', 'assets/background/Sky.png')
     this.load.image('bubble', 'assets/img/bubble.png')
+    this.load.image('octopus', 'assets/img/poulpe.gif')
   }
 
   create() {

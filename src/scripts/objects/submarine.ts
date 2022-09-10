@@ -75,6 +75,8 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
       active: true,
       alpha: 1
     })
+
+    this.body.setSize(128,128)
   }
 
   public update(newMovement: Movement) {
@@ -106,5 +108,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
       default:
         break
     }
+
+   
   }
 }

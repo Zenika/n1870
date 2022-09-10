@@ -1,12 +1,14 @@
 import Submarine, { Movement } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
+import Octopus from '../objects/octopus'
 
 export default class MainScene extends Phaser.Scene {
   fpsText
   submarine: Submarine
   background: Background
   cursors: Phaser.Types.Input.Keyboard.CursorKeys
+  ennemis: Octopus[]
 
   private velocityX = 10
 
@@ -17,10 +19,9 @@ export default class MainScene extends Phaser.Scene {
   create() {
     const { width, height } = this.scale
 
-   
-
     this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.background = new Background(this)
+
 
     // display the Phaser.VERSION
     this.add
@@ -30,16 +31,19 @@ export default class MainScene extends Phaser.Scene {
       })
       .setDepth(6)
 
-
-
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
+
+    this.ennemis = []
+    this.ennemis.push(new Octopus(this, width-50, 100, this.submarine))
+    this.ennemis.push(new Octopus(this, width-50, 250, this.submarine))
+    this.ennemis.push(new Octopus(this, width-50, 350, this.submarine))
 
     this.fpsText = new FpsText(this)
     this.cursors = this.input.keyboard.createCursorKeys()
 
     this.fpsText.setPosition(0, 30).setDepth(7)
 
-    this.physics.world.setBounds(0, 0, width - this.submarine.width, 380, true, true, false, true)
+    this.physics.world.setBounds(0, 0, width, 470, true, true, false, true)
     this.lights.enable().setAmbientColor(0x555555);
 
   }
@@ -72,7 +76,9 @@ export default class MainScene extends Phaser.Scene {
     this.fpsText.update()
     this.submarine.update(currentMovement)
 
-
+    this.ennemis.forEach(ennemi => {
+      ennemi.update()
+    });
   }
 
 
