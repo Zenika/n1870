@@ -1,6 +1,8 @@
+import Submarine, { Movement } from "../objects/submarine"
 
 
 export default class StartScene extends Phaser.Scene {
+  submarine: any
   constructor() {
     super({ key: 'StartScene' })
   }
@@ -16,8 +18,14 @@ export default class StartScene extends Phaser.Scene {
         fontSize: '24px'
       })
       .setDepth(6)
+    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
+
     this.input.keyboard.on('keydown', (e) => {
       this.scene.start('MainScene')
     })
+  }
+
+  update(time: number, delta: number): void {
+    this.submarine.update(Movement.Forward)
   }
 }
