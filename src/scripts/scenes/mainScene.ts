@@ -9,6 +9,9 @@ export default class MainScene extends Phaser.Scene {
   background: Background
   cursors: Phaser.Types.Input.Keyboard.CursorKeys
   ennemis: Octopus[]
+  score: number = 0
+  scoreText: Phaser.GameObjects.Text
+  _time: number = 0
 
   private velocityX = 10
 
@@ -16,7 +19,22 @@ export default class MainScene extends Phaser.Scene {
     super({ key: 'MainScene' })
   }
 
+  init() {
+    this.score = 0
+    this._time = 10
+  }
+
   create() {
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+          this._time--;
+          if(!this._time) {
+              this.scene.start('GameOverScene', {score: this.score});
+          }
+      },
+      loop: true
+    })
     const { width, height } = this.scale
 
     this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
@@ -24,8 +42,8 @@ export default class MainScene extends Phaser.Scene {
 
 
     // display the Phaser.VERSION
-    this.add
-      .text(0, 0, `Phaser v${Phaser.VERSION}`, {
+    this.scoreText = this.add
+      .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
         color: '#000000',
         fontSize: '24px'
       })
@@ -49,6 +67,8 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+    this.score += 100;
+    this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
     let currentMovement: Movement
     
