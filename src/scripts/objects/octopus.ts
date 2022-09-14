@@ -16,8 +16,8 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
         this.setDepth(3)
         
         //TODO : event after collision
-        scene.physics.add.collider(submarine, this,() => {console.log("hit")}, () => {console.log("hit2"); return true});
-        scene.physics.add.overlap(submarine.light.polygon, this, () => {
+        scene.physics.add.collider(submarine, this);
+        scene.physics.add.overlap(submarine.light.armLight, this, () => {
             this.setVelocityX(150)
             this.setFlipX(true)
 

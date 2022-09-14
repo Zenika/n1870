@@ -46,7 +46,8 @@ export default class PreloadScene extends Phaser.Scene {
         percentText.destroy();
         console.log('complete')
     });
-    this.load.atlas('all', 'assets/all.png', 'assets/all.json')
+    this.load.atlas('submarine', 'assets/img/submarine.png', 'assets/img/submarine.json')
+    this.load.atlas('submarinelight', 'assets/img/submarine-light.png', 'assets/img/submarine-light.json')
     this.load.image('toplayer', 'assets/background/TopLayer.png')
     this.load.image('light', 'assets/background/Light.png')
     this.load.image('middlelayer', 'assets/background/MiddleLayer.png')
