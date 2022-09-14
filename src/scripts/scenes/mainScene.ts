@@ -34,30 +34,53 @@ export default class MainScene extends Phaser.Scene {
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
 
     this.ennemis = []
-    this.ennemis.push(new Octopus(this, width-50, 100, this.submarine))
-    this.ennemis.push(new Octopus(this, width-50, 250, this.submarine))
-    this.ennemis.push(new Octopus(this, width-50, 350, this.submarine))
+    this.ennemis.push(new Octopus(this, width - 50, 100, this.submarine))
+    this.ennemis.push(new Octopus(this, width - 50, 250, this.submarine))
+    this.ennemis.push(new Octopus(this, width - 50, 350, this.submarine))
 
     this.fpsText = new FpsText(this)
-    this.cursors = this.input.keyboard.createCursorKeys()
 
     this.fpsText.setPosition(0, 30).setDepth(7)
 
     this.physics.world.setBounds(0, 0, width, 470, true, true, false, true)
-    this.lights.enable().setAmbientColor(0x555555);
+    this.lights.enable().setAmbientColor(0x555555)
 
+    this.cursors = this.input.keyboard.createCursorKeys()
+    this.input.keyboard.on('keyup', event => this.dealWithKeyUp(event))
+
+  }
+
+
+  dealWithKeyUp(event) {
+    
+    switch (event.which) {
+      case Phaser.Input.Keyboard.KeyCodes.ONE:
+        this.submarine.light.lightUp()
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.TWO:
+        this.submarine.light.lightStraight()
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.THREE:
+        this.submarine.light.lightDown()
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.L:
+        this.submarine.light.toggleLight()
+        break;
+      default:
+        break;
+    }
   }
 
   update() {
 
     let currentMovement: Movement
-    
+
     if (this.cursors.left.isDown) {
       this.submarine.setAccelerationX(-150)
       currentMovement = Movement.Backward
     } else if (this.cursors.right.isDown) {
-        this.submarine.setAccelerationX(150)
-        currentMovement = Movement.Forward
+      this.submarine.setAccelerationX(150)
+      currentMovement = Movement.Forward
     } else {
       this.submarine.setAccelerationX(0)
       currentMovement = Movement.Stopped
