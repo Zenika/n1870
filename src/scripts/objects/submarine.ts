@@ -18,7 +18,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this)
     scene.physics.add.existing(this)
 
-    scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'all', frame: 'sub', frameWidth: 128 })
+    scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
 
     this.anims.create({
       key: 'sub-anim-forward',
@@ -79,7 +79,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
     this.body.setSize(128,128)
   }
 
-  public update(newMovement: Movement) {
+  update(newMovement: Movement) {
     this.light.update()
     this.emitter.setPosition(this.getTopLeft().x, this.getTopLeft().y + this.height / 2)
 
