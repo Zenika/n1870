@@ -3,7 +3,7 @@ import Submarine from "./submarine"
 export default class Octopus extends Phaser.Physics.Arcade.Sprite {
 
 
-
+    runsAway: boolean = false
 
     constructor(scene: Phaser.Scene, x, y, submarine: Submarine) {
         super(scene, x, y, 'octopus')
@@ -18,17 +18,22 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
         //TODO : event after collision
         scene.physics.add.collider(submarine, this);
         scene.physics.add.overlap(submarine.light.armLight, this, () => {
-            this.setVelocityX(150)
-            this.setFlipX(true)
 
-            if (Math.random() >= 0.5) {
-                let rot = Math.random()*0.8+0.8
-                this.setRotation(rot)
-                this.setVelocityY(100)
-            } else {
-                this.setRotation(-Math.random()*0.8-0.8)
-                this.setVelocityY(-100)
+            if (!this.runsAway) {
+                this.setVelocityX(150)
+                this.setFlipX(true)
+
+                if (Math.random() >= 0.5) {
+                    let rot = Math.random()*0.8+0.8
+                    this.setRotation(rot)
+                    this.setVelocityY(100)
+                } else {
+                    this.setRotation(-Math.random()*0.8-0.8)
+                    this.setVelocityY(-100)
+                }
+                this.runsAway = true
             }
+
         })
         this.setVelocityX(-100)
  

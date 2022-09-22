@@ -43,6 +43,8 @@ export default class Flashlight {
   currentPos: POSITION = 'STRAIGHT'
   lightActivated: Boolean = false
 
+  lastOrigin: Phaser.Math.Vector2
+
   constructor(scene: Phaser.Scene, submarine: Submarine) {
     this.scene = scene
     this.submarine = submarine
@@ -54,24 +56,32 @@ export default class Flashlight {
     scene.physics.add.existing(this.armLight)
     this.armLight.setDepth(3)
     this.armLight.setOrigin(0, 0)
-    this.armLight.body.setSize(1, 1)
-    this.armLight.body.setOffset(0, this.armLight.height / 2)
+    this.updateLight()
+    this.lightStraight()
+
   }
 
   lightUp() {
-    console.log("up")
     this.currentPos = 'UP'
     this.updateLight()
+    this.armLight.body.setOffset(60, this.armLight.height / 10 - 20)
+    this.armLight.body.setSize(175, 135, false)
   }
 
   lightStraight() {
     this.currentPos = 'STRAIGHT'
     this.updateLight()
+    this.armLight.body.setOffset(60, this.armLight.height / 4 + 20)
+    this.armLight.body.setSize(190, 120, false)
+
   }
 
   lightDown() {
     this.currentPos = 'DOWN'
     this.updateLight()
+    this.armLight.body.setOffset(60, this.armLight.height /2 +10)
+    this.armLight.body.setSize(175, 135, false)
+3
   }
 
   toggleLight() {
@@ -82,6 +92,18 @@ export default class Flashlight {
   private updateLight() {
     let activatedFrame: ACTIVATION = (this.lightActivated ? 'ACTIVATED' : 'DESACTIVATED')
     this.armLight.setTexture('submarinelight', LIGHTS[this.currentPos][activatedFrame]["framename"])
+
+    switch (activatedFrame) {
+      case 'ACTIVATED':
+        this.armLight.body.checkCollision.none = false
+        break;
+      case 'DESACTIVATED':
+        this.armLight.body.checkCollision.none = true
+        break;
+      default:
+        break;
+    }
+
   }
 
   update() {

@@ -19,24 +19,25 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this)
 
     scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
+    let frames = this.anims.generateFrameNames('sub-sheet', { start: 0, end: 9 })
 
     this.anims.create({
       key: 'sub-anim-forward',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 9 }),
+      frames: frames,
       frameRate: 10,
       repeat: -1
     })
 
     this.anims.create({
       key: 'sub-anim-backward',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { start: 9, end: 0 }),
+      frames: frames.reverse(),
       frameRate: 10,
       repeat: -1
     })
 
     this.anims.create({
       key: 'sub-anim-stopped',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { frames: [0] }),
+      frames: frames.slice(0),
       frameRate: 10,
       repeat: 0
     })
