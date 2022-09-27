@@ -13,7 +13,7 @@ export default class GameOverScene extends Phaser.Scene {
   create() {
     const { width, height } = this.scale
 
-    this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
+    this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.add
       .text(150, height / 2, `Game Over`, {
         color: '#000000',

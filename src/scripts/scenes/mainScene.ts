@@ -28,10 +28,10 @@ export default class MainScene extends Phaser.Scene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-          this._time--;
-          if(!this._time) {
-              this.scene.start('GameOverScene', {score: this.score});
-          }
+        this._time--;
+        if (!this._time) {
+          this.scene.start('GameOverScene', { score: this.score });
+        }
       },
       loop: true
     })
@@ -66,11 +66,13 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.input.keyboard.on('keyup', event => this.dealWithKeyUp(event))
 
+
+
   }
 
 
   dealWithKeyUp(event) {
-    
+
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
         this.submarine.light.lightUp()

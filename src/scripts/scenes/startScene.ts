@@ -8,17 +8,19 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
+
     const { width, height } = this.scale
 
-    this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
-    // display the Phaser.VERSION
+    this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.add
-      .text(150, height / 2, `Appuyer sur une touche pour commencer`, {
+      .text(150, height / 2, `Appuyer sur une touche \n pour commencer`, {
         color: '#000000',
-        fontSize: '24px'
+        fontSize: '24px',
+        align: 'center'
+        
       })
       .setDepth(6)
-    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
+    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width/2, height/3)
 
     this.input.keyboard.on('keydown', (e) => {
       this.scene.start('MainScene')
