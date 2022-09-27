@@ -13,7 +13,7 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
         this.setSize(128,64)
     
 
-        this.setDepth(3)
+        this.setDepth(4)
         
         //TODO : event after collision
         scene.physics.add.collider(submarine, this);

@@ -54,7 +54,7 @@ export default class Flashlight {
 
     scene.add.existing(this.armLight)
     scene.physics.add.existing(this.armLight)
-    this.armLight.setDepth(3)
+    this.armLight.setDepth(5)
     this.armLight.setOrigin(0, 0)
     this.updateLight()
     this.lightStraight()

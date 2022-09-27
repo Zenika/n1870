@@ -21,21 +21,21 @@ export default class Background {
     })
 
     tileSprite = scene.add
-      .tileSprite(0, 0, width, height, 'layer1')
+      .tileSprite(0, 0, width, height, 'layer3')
       .setOrigin(0, 0)
       .setScrollFactor(0, 0)
-      .setDepth(2)
+      .setDepth(1)
     this.layers.push({
       ratioX: 0.5,
       sprite: tileSprite
     })
 
-    tileSprite = scene.add.tileSprite(0, 0, width, height, 'layer2').setOrigin(0, 0).setScrollFactor(0, 0).setDepth(4)
+    tileSprite = scene.add.tileSprite(0, 0, width, height, 'layer2').setOrigin(0, 0).setScrollFactor(0, 0).setDepth(2)
     this.layers.push({
       ratioX: 0.7,
       sprite: tileSprite
     })
-    tileSprite = scene.add.tileSprite(0, 0, width, height, 'layer3').setOrigin(0, 0).setScrollFactor(0, 0).setDepth(5)
+    tileSprite = scene.add.tileSprite(0, 0, width, height, 'layer1').setOrigin(0, 0).setScrollFactor(0, 0).setDepth(3)
     this.layers.push({
       ratioX: 1,
       sprite: tileSprite

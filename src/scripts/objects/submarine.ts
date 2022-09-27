@@ -42,7 +42,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
       repeat: 0
     })
 
-    this.setDepth(3)
+    this.setDepth(5)
 
     this.setMaxVelocity(200)
 
@@ -61,7 +61,7 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
 
     let particles = scene.add.particles('bubble')
 
-    particles.setDepth(3)
+    particles.setDepth(5)
 
     this.emitter = particles.createEmitter({
       blendMode: Phaser.BlendModes.NORMAL,
