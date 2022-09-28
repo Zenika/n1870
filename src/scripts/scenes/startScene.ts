@@ -4,7 +4,17 @@ import Submarine, { Movement } from "../objects/submarine"
 export default class StartScene extends Phaser.Scene {
   submarine: any
   constructor() {
-    super({ key: 'StartScene' })
+    super({
+      key: 'StartScene', physics: {
+        default: 'matter',
+        matter: {
+          debug: false,
+          gravity: {
+            y: 0
+          }
+        }
+      }
+    })
   }
 
   create() {
@@ -17,10 +27,10 @@ export default class StartScene extends Phaser.Scene {
         color: '#000000',
         fontSize: '24px',
         align: 'center'
-        
+
       })
       .setDepth(6)
-    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width/2, height/3)
+    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width / 2, height / 3)
 
     this.input.keyboard.on('keydown', (e) => {
       this.scene.start('MainScene')

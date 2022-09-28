@@ -16,12 +16,26 @@ export default class MainScene extends Phaser.Scene {
   private velocityX = 10
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({
+      key: 'MainScene',
+      physics: {
+        arcade: {
+          debug: false,
+          gravity: { y: 0 }
+        },
+        matter: {
+          debug: false,
+          gravity : {
+            y: 0
+          }
+        }
+      }
+    })
   }
 
   init() {
     this.score = 0
-    this._time = 10
+    this._time = 20
   }
 
   create() {
@@ -66,7 +80,7 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys()
     this.input.keyboard.on('keyup', event => this.dealWithKeyUp(event))
 
-
+   
 
   }
 
@@ -98,22 +112,22 @@ export default class MainScene extends Phaser.Scene {
     let currentMovement: Movement
 
     if (this.cursors.left.isDown) {
-      this.submarine.setAccelerationX(-150)
+      this.submarine.setVelocityX(-1)
       currentMovement = Movement.Backward
     } else if (this.cursors.right.isDown) {
-      this.submarine.setAccelerationX(150)
+      this.submarine.setVelocityX(1)
       currentMovement = Movement.Forward
     } else {
-      this.submarine.setAccelerationX(0)
+      this.submarine.setVelocityX(0)
       currentMovement = Movement.Stopped
     }
 
     if (this.cursors.up.isDown) {
-      this.submarine.setAccelerationY(-110)
+      this.submarine.setVelocityY(-1)
     } else if (this.cursors.down.isDown) {
-      this.submarine.setAccelerationY(110)
+      this.submarine.setVelocityY(1)
     } else {
-      this.submarine.setAccelerationY(0)
+      this.submarine.setVelocityY(0)
     }
 
 
