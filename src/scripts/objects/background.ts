@@ -33,6 +33,7 @@ export default class Background {
       .setOrigin(0, 0)
       .setScrollFactor(0, 0)
       .setDepth(1)
+      .setAlpha(0.5,0.5,0.5,0.5)
     this.layers.push({
       ratioX: 0.5,
       sprite: tileSprite,
