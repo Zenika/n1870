@@ -1,3 +1,4 @@
+import { Events } from 'matter'
 import Flashlight from './flashlight'
 
 export enum Movement {
@@ -6,7 +7,7 @@ export enum Movement {
   Backward
 }
 
-export default class Submarine extends Phaser.Physics.Arcade.Sprite {
+export default class Submarine extends Phaser.Physics.Matter.Sprite {
   light: Flashlight
 
   movement: Movement
@@ -14,53 +15,54 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
   emitter: Phaser.GameObjects.Particles.ParticleEmitter
 
   constructor(scene: Phaser.Scene, x, y) {
-    super(scene, x, y, 'submarine')
+    super(scene.matter.world, x, y, 'submarine')
     scene.add.existing(this)
     scene.physics.add.existing(this)
 
     scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
+    let frames = this.anims.generateFrameNames('sub-sheet', { start: 0, end: 9 })
 
     this.anims.create({
       key: 'sub-anim-forward',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { start: 0, end: 9 }),
+      frames: frames,
       frameRate: 10,
       repeat: -1
     })
 
     this.anims.create({
       key: 'sub-anim-backward',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { start: 9, end: 0 }),
+      frames: frames.reverse(),
       frameRate: 10,
       repeat: -1
     })
 
     this.anims.create({
       key: 'sub-anim-stopped',
-      frames: this.anims.generateFrameNumbers('sub-sheet', { frames: [0] }),
+      frames: frames.slice(0),
       frameRate: 10,
       repeat: 0
     })
 
-    this.setDepth(3)
+    this.setDepth(5)
 
-    this.setMaxVelocity(200)
+    //this.setMaxVelocity(200)
 
     this.movement = Movement.Stopped
     this.play('sub-anim-stopped')
 
     //To decelerate
-    this.setDragX(0.05)
-    this.setDragY(0.05)
+    //this.setDragX(0.05)
+    //this.setDragY(0.05)
 
-    this.setDamping(true)
+    //this.setDamping(true)
 
-    this.setCollideWorldBounds(true)
+    //this.setCollideWorldBounds(true)
 
     this.light = new Flashlight(scene, this)
 
     let particles = scene.add.particles('bubble')
 
-    particles.setDepth(2)
+    particles.setDepth(5)
 
     this.emitter = particles.createEmitter({
       blendMode: Phaser.BlendModes.NORMAL,
@@ -76,7 +78,12 @@ export default class Submarine extends Phaser.Physics.Arcade.Sprite {
       alpha: 1
     })
 
-    this.body.setSize(128,128)
+    //this.body.setSize(128,128)
+    
+
+    var body = scene.matter.add.gameObject(this, { frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})  ;
+
+    this.setFixedRotation()
   }
 
   update(newMovement: Movement) {
