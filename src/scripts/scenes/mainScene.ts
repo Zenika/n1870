@@ -1,4 +1,4 @@
-import Submarine, { Movement } from '../objects/submarine'
+import Submarine, { Ballast, Movement } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Octopus from '../objects/octopus'
@@ -12,6 +12,10 @@ export default class MainScene extends Phaser.Scene {
   score: number = 0
   scoreText: Phaser.GameObjects.Text
   _time: number = 0
+  currentMovement: Movement = Movement.Stopped
+  ballaste: Ballast = Ballast.Keep;
+  moving: boolean = false;
+
 
   private velocityX = 10
 
@@ -35,7 +39,7 @@ export default class MainScene extends Phaser.Scene {
 
   init() {
     this.score = 0
-    this._time = 20
+    this._time = 200
   }
 
   create() {
@@ -58,7 +62,7 @@ export default class MainScene extends Phaser.Scene {
     // display the Phaser.VERSION
     this.scoreText = this.add
       .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
-        color: '#000000',
+        color: '#ffffff',
         fontSize: '24px'
       })
       .setDepth(6)
@@ -77,68 +81,88 @@ export default class MainScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, width, 470, true, true, false, true)
     this.lights.enable().setAmbientColor(0x555555)
 
-    this.cursors = this.input.keyboard.createCursorKeys()
-    this.input.keyboard.on('keyup', event => this.dealWithKeyUp(event))
-
-   
+    this.input.keyboard.on('keydown', event => this.dealWithKeyDown(event))
+    this.input.keyboard.on('keyup', event => this.resetCommand())
 
   }
 
 
-  dealWithKeyUp(event) {
-
+  dealWithKeyDown(event) {
+    console.log(event.which);
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
-        this.submarine.light.lightUp()
+        this.submarine.light.lightDown()
         break;
       case Phaser.Input.Keyboard.KeyCodes.TWO:
         this.submarine.light.lightStraight()
         break;
       case Phaser.Input.Keyboard.KeyCodes.THREE:
-        this.submarine.light.lightDown()
+        this.submarine.light.lightUp()
         break;
       case Phaser.Input.Keyboard.KeyCodes.L:
         this.submarine.light.toggleLight()
         break;
+      case Phaser.Input.Keyboard.KeyCodes.LEFT:
+        this.currentMovement = Movement.Backward
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+        this.currentMovement = Movement.Forward
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.C:
+        this.ballaste = Ballast.Fill;
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.B:
+        this.ballaste = Ballast.Empty;
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.A:
+        this.moving = true;
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.P:
+        this.scene.start('GameOverScene', { score: 0 });
+        break;  
       default:
         break;
     }
   }
 
   update() {
-    this.score += 100;
+    
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
-    let currentMovement: Movement
-
-    if (this.cursors.left.isDown) {
-      this.submarine.setVelocityX(-1)
-      currentMovement = Movement.Backward
-    } else if (this.cursors.right.isDown) {
-      this.submarine.setVelocityX(1)
-      currentMovement = Movement.Forward
-    } else {
-      this.submarine.setVelocityX(0)
-      currentMovement = Movement.Stopped
-    }
-
-    if (this.cursors.up.isDown) {
-      this.submarine.setVelocityY(-1)
-    } else if (this.cursors.down.isDown) {
-      this.submarine.setVelocityY(1)
+    if (this.ballaste === Ballast.Empty) {
+      this.submarine.setVelocityY(-5)
+    } else if (this.ballaste === Ballast.Fill) {
+      this.submarine.setVelocityY(5)
     } else {
       this.submarine.setVelocityY(0)
+    }
+
+    if (this.moving) {
+      if (this.currentMovement === Movement.Forward) {
+        this.submarine.setVelocityX(1)
+      } else if (this.currentMovement === Movement.Backward) {
+        this.submarine.setVelocityX(-1)
+      }
+      this.submarine.update(this.currentMovement);
+    }
+    else {
+      this.submarine.setVelocityX(0)
+      this.submarine.update(Movement.Stopped);
     }
 
 
     this.background.update(this.submarine)
     this.fpsText.update()
-    this.submarine.update(currentMovement)
+    
 
     this.ennemis.forEach(ennemi => {
       ennemi.update()
     });
   }
 
+  resetCommand() {
+    this.moving = false;
+    this.ballaste = Ballast.Keep;
+  }
 
 }

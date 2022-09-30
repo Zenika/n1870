@@ -7,6 +7,12 @@ export enum Movement {
   Backward
 }
 
+export enum Ballast {
+  Keep,
+  Empty,
+  Fill,
+}
+
 export default class Submarine extends Phaser.Physics.Matter.Sprite {
   light: Flashlight
 
