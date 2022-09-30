@@ -108,13 +108,13 @@ export default class MainScene extends Phaser.Scene {
       case Phaser.Input.Keyboard.KeyCodes.RIGHT:
         this.currentMovement = Movement.Forward
         break;
-      case Phaser.Input.Keyboard.KeyCodes.C:
+      case Phaser.Input.Keyboard.KeyCodes.DOWN:
         this.ballaste = Ballast.Fill;
         break;
-      case Phaser.Input.Keyboard.KeyCodes.B:
+      case Phaser.Input.Keyboard.KeyCodes.UP:
         this.ballaste = Ballast.Empty;
         break;
-      case Phaser.Input.Keyboard.KeyCodes.A:
+      case Phaser.Input.Keyboard.KeyCodes.SPACE:
         this.moving = true;
         break;
       case Phaser.Input.Keyboard.KeyCodes.P:
