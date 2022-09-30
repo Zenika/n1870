@@ -35,9 +35,7 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
             }
 
         })
-        this.setVelocityX(-100)
- 
-        
+        this.setVelocityX(-100)       
     }
 
 

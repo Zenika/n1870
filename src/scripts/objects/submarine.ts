@@ -45,18 +45,8 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
 
     this.setDepth(5)
 
-    //this.setMaxVelocity(200)
-
     this.movement = Movement.Stopped
     this.play('sub-anim-stopped')
-
-    //To decelerate
-    //this.setDragX(0.05)
-    //this.setDragY(0.05)
-
-    //this.setDamping(true)
-
-    //this.setCollideWorldBounds(true)
 
     this.light = new Flashlight(scene, this)
 
@@ -69,7 +59,6 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
       quantity: 3,
       speed: 20,
       frequency: 300,
-      //speed: { random: [0.05, 0.1] },
       angle: { min: 220, max: 270 },
       scale: { start: 0, end: 0.02 },
       lifespan: { random: [1000, 4000] },
@@ -77,11 +66,10 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
       active: true,
       alpha: 1
     })
-
-    //this.body.setSize(128,128)
     
+    var shapes = scene.cache.json.get('submarine-box')
 
-    var body = scene.matter.add.gameObject(this, { frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})  ;
+    this.setBody(shapes.submarine,{ isStatic: false, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})
 
     this.setFixedRotation()
   }

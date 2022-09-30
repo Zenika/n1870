@@ -55,6 +55,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('octopus', 'assets/img/poulpe.gif')
 
     this.load.json('rock', 'assets/background/layer1-shapes.json')
+    this.load.json('submarine-box', 'assets/img/submarine-shapes.json')
   }
 
   create() {
