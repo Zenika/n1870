@@ -139,15 +139,15 @@ export default class MainScene extends Phaser.Scene {
 
     if (this.moving) {
       if (this.currentMovement === Movement.Forward) {
-        this.submarine.setVelocityX(1)
+        this.submarine.setVelocityX(2)
       } else if (this.currentMovement === Movement.Backward) {
-        this.submarine.setVelocityX(-1)
+        this.submarine.setVelocityX(-2)
       }
       this.submarine.update(this.currentMovement);
     }
     else {
       this.submarine.setVelocityX(0)
-      this.submarine.update(Movement.Stopped);
+      this.submarine.update(this.currentMovement);
     }
 
 
