@@ -151,8 +151,9 @@ export default class MainScene extends Phaser.Scene {
       this.submarine.update(this.currentMovement);
     }
 
-
-    this.background.update(this.submarine)
+    if (this.currentMovement !== Movement.Stopped) {
+      this.background.update(this.submarine)
+    }
     this.fpsText.update()
     
 
