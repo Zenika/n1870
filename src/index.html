@@ -33,6 +33,30 @@
         height: 100%;
         margin: 0;
         background-color: #000000;
+        color: white;
+      }
+      dl {
+        column-count: 3;
+      }
+
+      dt, dd {
+        margin: 0 1em;
+        padding: 0;
+      }
+
+      dt {
+        font-weight: bold;
+        width: 5px;
+      }
+
+      kbd {
+        border: dotted 1px white;
+        padding: 2px 15px;
+        border-radius: 5px;
+      }
+
+      dd {
+        width: 200px;
       }
     </style>
 
@@ -49,5 +73,31 @@
   </head>
   <body>
     <div id="phaser-game"></div>
+
+    <h1>Commandes</h1>
+    <dl>
+      <dt><kbd>UP</kbd></dt>
+      <dd>Ajoute de l'eau dans les balastres</dd>
+      <dt><kbd>DOWN</kbd></dt>
+      <dd>Vide l'eau dans les balastres</dd>
+      <dt><kbd>RIGHT</kbd></dt>
+      <dd>Enclenche la marche avant</dd>
+      <dt><kbd>LEFT</kbd></dt>
+      <dd>Enclenche la marche arrière</dd>
+      <dt><kbd>SPACE</kbd></dt>
+      <dd>Active le moteur</dd>
+      <dt><kbd>L</kbd></dt>
+      <dd>Alume la lumière</dd>
+      <dt><kbd>1</kbd></dt>
+      <dd>Oriente la lumière vers le bas</dd>
+      <dt><kbd>2</kbd></dt>
+      <dd>Oriente la lumière vers le centre</dd>
+      <dt><kbd>3</kbd></dt>
+      <dd>Oriente la lumière vers le haut</dd>
+      <dt><kbd>P</kbd></dt>
+      <dd>Démarre le jeu ou arrête le jeu</dd>
+      <dt><kbd>F</kbd></dt>
+      <dd>Met en fullscreen (fonctionne seulement dans l'écran d'accueil)</dd>
+    </dl>
   </body>
 </html>
