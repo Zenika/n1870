@@ -1,22 +1,25 @@
 import Submarine from "./submarine"
 
-export default class Octopus extends Phaser.Physics.Arcade.Sprite {
+type EnemyType = 'octopus' | 'shark'
+export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 
     runsAway: boolean = false
+    yPosition: number = 0
+    verticalMovement = Math.random() * 100 - 50
 
-    constructor(scene: Phaser.Scene, x, y, submarine: Submarine) {
-        super(scene, x, y, 'octopus')
+    constructor(scene: Phaser.Scene, x, y, enemyType: EnemyType,  submarine: Submarine, onCollision: () => void) {
+        super(scene, x, y, enemyType.toString())
+        this.yPosition = y
         scene.add.existing(this)
         scene.physics.add.existing(this)
-       
-        this.setSize(128,64)
-    
 
+        this.setSize(128,64)
         this.setDepth(4)
+        this.setVelocityY(this.verticalMovement)
         
         //TODO : event after collision
-        scene.physics.add.collider(submarine, this);
+        scene.physics.add.collider(submarine, this, onCollision);
         scene.physics.add.overlap(submarine.light.armLight, this, () => {
 
             if (!this.runsAway) {
@@ -44,6 +47,11 @@ export default class Octopus extends Phaser.Physics.Arcade.Sprite {
 
     update(): void {
       //  this.setVelocityX(-100)
-        
+        if (this.body.y <= this.yPosition - this.verticalMovement) {
+            this.setVelocityY(this.verticalMovement)
+        }
+        if (this.body.y >= this.yPosition + this.verticalMovement) {
+            this.setVelocityY(-this.verticalMovement)
+        }
     }
 }    
