@@ -33,7 +33,12 @@ export default class StartScene extends Phaser.Scene {
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width / 2, height / 3)
 
     this.input.keyboard.on('keydown', (e) => {
-      this.scene.start('MainScene')
+      if (e.which === Phaser.Input.Keyboard.KeyCodes.F) {
+        document.querySelector("#phaser-game")?.requestFullscreen();
+      }
+      else {
+        this.scene.start('MainScene')
+      }
     })
   }
 
