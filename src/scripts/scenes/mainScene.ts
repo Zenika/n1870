@@ -123,6 +123,7 @@ export default class MainScene extends Phaser.Scene {
       default:
         break;
     }
+    event.preventDefault();
   }
 
   update() {
