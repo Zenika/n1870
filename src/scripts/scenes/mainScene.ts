@@ -24,11 +24,11 @@ export default class MainScene extends Phaser.Scene {
       key: 'MainScene',
       physics: {
         arcade: {
-          debug: false,
+          debug: true,
           gravity: { y: 0 }
         },
         matter: {
-          debug: false,
+          debug: true,
           gravity : {
             y: 0
           }

@@ -1,12 +1,13 @@
 import Submarine from './submarine'
 
 const SCROLL_SPEED: number = 1
+const NB_BACKGROUND_COLLISION: number = 10
 
 export default class Background {
   layers: {
     ratioX: number
     sprite: Phaser.GameObjects.TileSprite
-    composite?: MatterJS.CompositeType
+    composites?: MatterJS.CompositeType[]
   }[] = []
 
   scene: Phaser.Scene
@@ -47,22 +48,28 @@ export default class Background {
 
     var shapes = scene.cache.json.get('rock')
 
-    var composite = scene.matter.composite.create()
-    var bodyUp = scene.matter.body.create({ isStatic: true, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})
-    var bodyDown = scene.matter.body.create({ isStatic: true, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0 })
-    scene.matter.body.setParts(bodyUp, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[0].vertices))
-    scene.matter.body.setParts(bodyDown, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[1].vertices))
-    scene.matter.composite.add(composite,bodyUp)
-    scene.matter.composite.add(composite,bodyDown)
+    var composites: MatterJS.CompositeType[] = []
+    for (let index = 0; index < NB_BACKGROUND_COLLISION; index++) {
+      var composite = scene.matter.composite.create()
+      var bodyUp = scene.matter.body.create({ isStatic: true, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})
+      var bodyDown = scene.matter.body.create({ isStatic: true, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0 })
+      scene.matter.body.setParts(bodyUp, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[0].vertices))
+      scene.matter.body.setParts(bodyDown, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[1].vertices))
+      scene.matter.composite.add(composite,bodyUp)
+      scene.matter.composite.add(composite,bodyDown)
+  
+      scene.matter.world.add(composite);
+      scene.matter.composite.translate(composite,{ x: -405 + 2400 * index, y: 0})
 
-    scene.matter.world.add(composite);
-    scene.matter.composite.translate(composite,{ x: -405, y: 0})
+      composites.push(composite)
+      
+    }
 
     tileSprite = scene.add.tileSprite(0, 0, width, height, 'layer1').setOrigin(0, 0).setScrollFactor(0, 0).setDepth(3)
     this.layers.push({
       ratioX: 1,
       sprite: tileSprite,
-      composite: composite
+      composites: composites
     })
 
   }
@@ -75,8 +82,12 @@ export default class Background {
       bg.sprite.tilePositionX = xPos
       
 
-      if(bg.composite) {
-        this.scene.matter.composite.translate(bg.composite, { x: -SCROLL_SPEED, y: 0})
+      if(bg.composites) {
+
+        bg.composites.forEach(composite => {
+          this.scene.matter.composite.translate(composite, { x: -SCROLL_SPEED, y: 0})
+        });
+        
       }
     })
   }
