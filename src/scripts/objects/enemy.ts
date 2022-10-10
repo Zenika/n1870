@@ -38,9 +38,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             }
 
         })
-        this.setVelocityX(-100)
- 
-        
+        this.setVelocityX(-100)       
     }
 
 

@@ -87,7 +87,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.input.keyboard.on('keydown', event => this.dealWithKeyDown(event))
     this.input.keyboard.on('keyup', event => this.resetCommand())
-
   }
 
   onCollision() {
@@ -117,10 +116,10 @@ export default class MainScene extends Phaser.Scene {
       case Phaser.Input.Keyboard.KeyCodes.RIGHT:
         this.currentMovement = Movement.Forward
         break;
-      case Phaser.Input.Keyboard.KeyCodes.DOWN:
+      case Phaser.Input.Keyboard.KeyCodes.UP:
         this.ballaste = Ballast.Fill;
         break;
-      case Phaser.Input.Keyboard.KeyCodes.UP:
+      case Phaser.Input.Keyboard.KeyCodes.DOWN:
         this.ballaste = Ballast.Empty;
         break;
       case Phaser.Input.Keyboard.KeyCodes.SPACE:
@@ -139,10 +138,10 @@ export default class MainScene extends Phaser.Scene {
     
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
-    if (this.ballaste === Ballast.Empty) {
-      this.submarine.setVelocityY(-5)
-    } else if (this.ballaste === Ballast.Fill) {
+    if (this.ballaste === Ballast.Fill) {
       this.submarine.setVelocityY(5)
+    } else if (this.ballaste === Ballast.Empty) {
+      this.submarine.setVelocityY(-5)
     } else {
       this.submarine.setVelocityY(0)
     }
