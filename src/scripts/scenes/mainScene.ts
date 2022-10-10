@@ -1,14 +1,14 @@
 import Submarine, { Ballast, Movement } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
-import Octopus from '../objects/octopus'
+import Enemy from '../objects/enemy'
 
 export default class MainScene extends Phaser.Scene {
   fpsText
   submarine: Submarine
   background: Background
   cursors: Phaser.Types.Input.Keyboard.CursorKeys
-  ennemis: Octopus[]
+  ennemis: Enemy[]
   score: number = 0
   scoreText: Phaser.GameObjects.Text
   _time: number = 0
@@ -70,9 +70,13 @@ export default class MainScene extends Phaser.Scene {
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
 
     this.ennemis = []
-    this.ennemis.push(new Octopus(this, width - 50, 100, this.submarine))
-    this.ennemis.push(new Octopus(this, width - 50, 250, this.submarine))
-    this.ennemis.push(new Octopus(this, width - 50, 350, this.submarine))
+    this.ennemis.push(new Enemy(this, width, 100, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 2, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 3, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 4, 100, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 4, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 5, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
 
     this.fpsText = new FpsText(this)
 
@@ -83,6 +87,11 @@ export default class MainScene extends Phaser.Scene {
 
     this.input.keyboard.on('keydown', event => this.dealWithKeyDown(event))
     this.input.keyboard.on('keyup', event => this.resetCommand())
+  }
+
+  onCollision() {
+    this.score -= 500;
+    this.currentMovement = Movement.Stopped;
   }
 
 
