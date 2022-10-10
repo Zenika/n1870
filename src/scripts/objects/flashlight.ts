@@ -88,6 +88,16 @@ export default class Flashlight {
     this.updateLight()
   }
 
+  activateLight() {
+    this.lightActivated = true
+    this.updateLight()
+  }
+
+  switchOffLight() {
+    this.lightActivated = false
+    this.updateLight()
+  }
+
   private updateLight() {
     let activatedFrame: ACTIVATION = (this.lightActivated ? 'ACTIVATED' : 'DESACTIVATED')
     this.armLight.setTexture('submarinelight', LIGHTS[this.currentPos][activatedFrame]["framename"])
