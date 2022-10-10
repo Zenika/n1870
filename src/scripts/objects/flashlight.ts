@@ -79,9 +79,8 @@ export default class Flashlight {
   lightDown() {
     this.currentPos = 'DOWN'
     this.updateLight()
-    this.armLight.body.setOffset(60, this.armLight.height /2 +10)
+    this.armLight.body.setOffset(60, this.armLight.height / 2 + 10)
     this.armLight.body.setSize(175, 135, false)
-3
   }
 
   toggleLight() {
@@ -107,6 +106,8 @@ export default class Flashlight {
   }
 
   update() {
-    this.armLight.setPosition(this.submarine.getBottomLeft().x + this.submarine.width / 2, this.submarine.getBottomLeft().y - this.armLight.height / 2 - 7)
+    var x = this.submarine.getBottomLeft().x + this.submarine.width / 2
+    var y = this.submarine.getBottomLeft().y - this.armLight.height / 2 - 7
+    this.armLight.setPosition(x, y)
   }
 }
