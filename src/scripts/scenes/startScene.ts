@@ -254,7 +254,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 11:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Si vous cogniez contre un rocher, il faut enclencher la marche arrière\nMettez le sous-marin en marche arrière`);
+        this.text.setText(`Si vous vous cogniez contre un rocher, il faut enclencher la marche arrière\nMettez le sous-marin en marche arrière`);
         break;
       case 12:
         this.submarine.update(Movement.Stopped)
