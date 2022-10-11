@@ -84,6 +84,9 @@ export default class StartScene extends Phaser.Scene {
       case Phaser.Input.Keyboard.KeyCodes.SPACE:
         this.moving = true;
         break;
+      case Phaser.Input.Keyboard.KeyCodes.F:
+        document.querySelector("#phaser-game")?.requestFullscreen();
+        break;
       case Phaser.Input.Keyboard.KeyCodes.P:
          if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
           this.scene.start('MainScene');
