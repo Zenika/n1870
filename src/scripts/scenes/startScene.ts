@@ -243,7 +243,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant\nMettez le sous-marin en marche avant`);
+        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant\nMettez le sous-marin en marche avant.`);
         break;
       case 9:
         this.submarine.update(Movement.Stopped)
@@ -254,7 +254,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 11:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Si vous cogniez contre un rocher, il faut enclencher la marche arrière\nMettez le sous-marin en marche arrière`);
+        this.text.setText(`Si vous vous cogniez contre un rocher, il faut enclencher la marche arrière.\nMettez le sous-marin en marche arrière`);
         break;
       case 12:
         this.submarine.update(Movement.Stopped)
@@ -264,7 +264,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Maintenant que la marche arrière est enclenchée,\nappuyez sur la touche marche autant de fois que nécessaire pour reculer`);
         break;
       case 14:
-        this.text.setText(`Une lampe est placée sur le sous-marin,\nApprenez à la manipuler ...`);
+        this.text.setText(`Une lampe est placée sur le sous-marin,\napprenez à la manipuler ...`);
         setTimeout(() => {
         this.etape = 15;
         }, 2000);
