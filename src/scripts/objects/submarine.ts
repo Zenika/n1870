@@ -13,10 +13,14 @@ export enum Ballast {
   Fill,
 }
 
+const INIT_SUBMARINE_XPOS = 300
+
 export default class Submarine extends Phaser.Physics.Matter.Sprite {
   light: Flashlight
 
   movement: Movement
+
+  moving: boolean
 
   emitter: Phaser.GameObjects.Particles.ParticleEmitter
 
@@ -25,6 +29,8 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
     scene.add.existing(this)
     scene.physics.add.existing(this)
 
+    this.setPosition(INIT_SUBMARINE_XPOS, 350)
+
     scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
     let frames = this.anims.generateFrameNames('sub-sheet', { start: 0, end: 9 })
 
@@ -32,14 +38,14 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
       key: 'sub-anim-forward',
       frames: frames,
       frameRate: 10,
-      repeat: -1
+      repeat: 0
     })
 
     this.anims.create({
       key: 'sub-anim-backward',
       frames: frames.reverse(),
       frameRate: 10,
-      repeat: -1
+      repeat: 0
     })
 
     this.anims.create({
@@ -72,15 +78,21 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
       active: true,
       alpha: 1
     })
-    
+
     var shapes = scene.cache.json.get('submarine-box')
 
-    this.setBody(shapes.submarine,{ isStatic: false, frictionStatic : 0,  friction : 0, frictionAir: 0, slop: 0})
+    this.setBody(shapes.submarine, { isStatic: false, frictionStatic : 0 ,friction: 1, frictionAir: 0 })
 
     this.setFixedRotation()
+    this.setVelocityX(0)
+
+    this.moving = false
+
   }
 
   update(newMovement: Movement) {
+
+
     this.light.update()
     this.emitter.setPosition(this.getTopLeft().x, this.getTopLeft().y + this.height / 2)
 
@@ -88,28 +100,37 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
       case Movement.Stopped:
         if (newMovement != this.movement) {
           this.movement = newMovement
-          this.play('sub-anim-stopped')
         }
+        this.play('sub-anim-stopped')
         this.emitter.frequency = 300
         break
       case Movement.Forward:
         if (newMovement != this.movement) {
           this.movement = newMovement
-          this.play('sub-anim-forward')
         }
-        this.emitter.frequency = 20
+        if (this.moving) {
+          this.emitter.frequency = 20
+          this.play('sub-anim-forward', true)
+        } else {
+          this.play('sub-anim-stopped')
+          this.emitter.frequency = 300
+        }
         break
       case Movement.Backward:
         if (newMovement != this.movement) {
           this.movement = newMovement
-          this.play('sub-anim-backward')
         }
-        this.emitter.frequency = 20
+        if (this.moving) {
+          this.play('sub-anim-backward', true)
+          this.emitter.frequency = 20
+        } else {
+          this.play('sub-anim-stopped')
+          this.emitter.frequency = 300
+        }
         break
       default:
         break
     }
 
-   
   }
 }
