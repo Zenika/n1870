@@ -1,4 +1,4 @@
-import { Events } from 'matter'
+import { Body, Events } from 'matter'
 import Flashlight from './flashlight'
 
 export enum Movement {
