@@ -63,13 +63,13 @@ export default class Flashlight {
     this.lightStraight()
 
     var shapes = scene.cache.json.get('submarine-light-box')
-    var body = this.scene.matter.add.fromPhysicsEditor(400, 300, shapes.straight);
+    var body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.straight);
     body.render.visible = false
     this.bodyForCollision.set('straight-light', body)
-    body = this.scene.matter.add.fromPhysicsEditor(400, 300, shapes.up);
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.up);
     body.render.visible = false
     this.bodyForCollision.set('up-light', body)
-    body = this.scene.matter.add.fromPhysicsEditor(400, 300, shapes.down);
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.down);
     body.render.visible = false
     this.bodyForCollision.set('down-light', body)
 
@@ -127,6 +127,16 @@ export default class Flashlight {
           this.currentBody = body
           this.currentBody.render.visible = true
         }
+
+        this.scene.time.addEvent({
+          delay: 3000,
+          callback: () => {
+            this.lightActivated = false
+            this.updateLight()
+          },
+          loop: false
+        })
+
         break;
       case 'DESACTIVATED':
         this.armLight.body.checkCollision.none = true
@@ -146,6 +156,7 @@ export default class Flashlight {
     this.armLight.setPosition(x, y)
 
     if (this.currentBody) {
+
       this.currentBody.position.x = this.submarine.getBottomLeft().x + this.submarine.width + 100
 
       if (this.currentPos == 'UP')
