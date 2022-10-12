@@ -3,6 +3,11 @@ import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy from '../objects/enemy'
 
+
+const SUBMARINE_SPEED_STEP = 5
+export const NB_BACKGROUND = 10;
+
+
 export default class MainScene extends Phaser.Scene {
   fpsText
   submarine: Submarine
@@ -14,22 +19,20 @@ export default class MainScene extends Phaser.Scene {
   _time: number = 0
   currentMovement: Movement = Movement.Stopped
   ballaste: Ballast = Ballast.Keep;
-  moving: boolean = false;
 
-
-  private velocityX = 10
 
   constructor() {
     super({
       key: 'MainScene',
       physics: {
+        default: "matter",
         arcade: {
-          debug: false,
+          debug: true,
           gravity: { y: 0 }
         },
         matter: {
-          debug: false,
-          gravity : {
+          debug: true,
+          gravity: {
             y: 0
           }
         }
@@ -55,19 +58,24 @@ export default class MainScene extends Phaser.Scene {
     })
     const { width, height } = this.scale
 
-    this.add.image(0, 0, 'sky').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
+    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0)
+
+    this.cameras.main.startFollow(this.submarine)
+    this.cameras.main.setLerp(1, 0)
+    this.cameras.main.setBounds(0, 0, 2400 * NB_BACKGROUND, height)
+
     this.background = new Background(this)
 
 
     // display the Phaser.VERSION
     this.scoreText = this.add
-      .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
+      .text(0, 50, `Time: ${this._time} Score: ${this.score}`, {
         color: '#ffffff',
         fontSize: '24px'
       })
       .setDepth(6)
 
-    this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(400, 200)
+
 
     this.ennemis = []
     this.ennemis.push(new Enemy(this, width, 100, 'shark', this.submarine, this.onCollision.bind(this)))
@@ -80,13 +88,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.fpsText = new FpsText(this)
 
-    this.fpsText.setPosition(0, 30).setDepth(7)
-
-    this.physics.world.setBounds(0, 0, width, 470, true, true, false, true)
+    this.fpsText.setPosition(0, 80).setDepth(7)
+    
+    this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
+    this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
     this.lights.enable().setAmbientColor(0x555555)
 
     this.input.keyboard.on('keydown', event => this.dealWithKeyDown(event))
-    this.input.keyboard.on('keyup', event => this.resetCommand())
+    this.input.keyboard.on('keyup', event => this.resetCommand(event))
   }
 
   onCollision() {
@@ -96,7 +105,7 @@ export default class MainScene extends Phaser.Scene {
 
 
   dealWithKeyDown(event) {
-    console.log(event.which);
+
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
         this.submarine.light.lightDown()
@@ -123,11 +132,11 @@ export default class MainScene extends Phaser.Scene {
         this.ballaste = Ballast.Empty;
         break;
       case Phaser.Input.Keyboard.KeyCodes.SPACE:
-        this.moving = true;
+        this.submarine.moving = true;
         break;
       case Phaser.Input.Keyboard.KeyCodes.P:
         this.scene.start('GameOverScene', { score: 0 });
-        break;  
+        break;
       default:
         break;
     }
@@ -135,7 +144,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
-    
+
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
     if (this.ballaste === Ballast.Fill) {
@@ -146,34 +155,46 @@ export default class MainScene extends Phaser.Scene {
       this.submarine.setVelocityY(0)
     }
 
-    if (this.moving) {
+    if (this.submarine.moving) {
       if (this.currentMovement === Movement.Forward) {
-        this.submarine.setVelocityX(2)
+        this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
         this.score += 10;
       } else if (this.currentMovement === Movement.Backward) {
-        this.submarine.setVelocityX(-2)
+        this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
       this.submarine.update(this.currentMovement);
-    }
-    else {
+
+    } else {
       this.submarine.setVelocityX(0)
       this.submarine.update(this.currentMovement);
     }
 
-    if (this.currentMovement !== Movement.Stopped) {
-      this.background.update(this.submarine)
-    }
     this.fpsText.update()
-    
+    this.background.update()
+
 
     this.ennemis.forEach(ennemi => {
       ennemi.update()
     });
   }
 
-  resetCommand() {
-    this.moving = false;
-    this.ballaste = Ballast.Keep;
+  resetCommand(event) {
+    switch (event.which) {
+      case Phaser.Input.Keyboard.KeyCodes.SPACE:
+        this.submarine.moving = false;
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.UP:
+        this.ballaste = Ballast.Keep;
+        break;
+      case Phaser.Input.Keyboard.KeyCodes.DOWN:
+        this.ballaste = Ballast.Keep;
+        break;
+      default:
+        break;
+    }
+
+
+
   }
 
 }
