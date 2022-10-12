@@ -1,16 +1,16 @@
 {
   "type": "fromPhysicsEditor",
   "isStatic": false,
-  "density": 0.8,
-  "restitution": 0.1,
-  "friction": 0.1,
+  "density": 0.1,
+  "restitution": 0.0,
+  "friction": 1,
   "frictionAir": 0.001,
   "frictionStatic": 0.5,
-  "collisionFilter": { "group": 0, "category": 1, "mask": 255 },
-  "label": "shark.png",
+  "collisionFilter": { "group": 1, "category": 2, "mask": 2 },
+  "label": "shark",
   "fixtures": [
     {
-      "label": "shark.png-fixture-0",
+      "label": "ennemy",
       "isSensor": false,
       "vertices": [
         [

@@ -2,16 +2,17 @@
     "up" : {
         "type": "fromPhysicsEditor",
         "isStatic": false,
+        "isSensor": true,
         "density": 0.8,
         "restitution": 0.1,
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 0, "category": 1, "mask": 255 },
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
         "label": "up",
         "fixtures": [
           {
-            "label": "submarine-light.png-fixture-0",
+            "label": "submarine-light",
             "isSensor": true,
             "vertices": [
               [
@@ -43,16 +44,17 @@
       "straight" : {
         "type": "fromPhysicsEditor",
         "isStatic": false,
+        "isSensor": true,
         "density": 0.8,
         "restitution": 0.1,
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 0, "category": 1, "mask": 255 },
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
         "label": "straight",
         "fixtures": [
           {
-            "label": "submarine-light.png-fixture-0",
+            "label": "submarine-light",
             "isSensor": true,
             "vertices": [
               [
@@ -90,16 +92,17 @@
       "down" : {
         "type": "fromPhysicsEditor",
         "isStatic": false,
+        "isSensor": true,
         "density": 0.8,
         "restitution": 0.1,
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 0, "category": 1, "mask": 255 },
-        "label": "submarine-light.png",
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "label": "down",
         "fixtures": [
           {
-            "label": "down",
+            "label": "submarine-light",
             "isSensor": true,
             "vertices": [
               [
