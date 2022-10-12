@@ -1,6 +1,31 @@
 import Submarine from "./submarine"
 
 type EnemyType = 'octopus' | 'shark'
+
+interface EnemyConfig {
+    name: string;
+    width: number;
+    heigth: number;
+    frames: number;
+    animName: string;
+}
+
+const infos = {
+    'octopus': {
+        name: 'octopus',
+        width: 128,
+        heigth: 128,
+        frames: 8,
+        animName: 'octopus-anim'
+    },
+    'shark': {
+        name: 'shark',
+        width: 140,
+        heigth: 55,
+        frames: 10,
+        animName: 'shark-anim'
+    }
+}
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
 
@@ -10,6 +35,18 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     constructor(scene: Phaser.Scene, x, y, enemyType: EnemyType,  submarine: Submarine, onCollision: () => void) {
         super(scene, x, y, enemyType.toString())
+
+        const enemyConfig: EnemyConfig = infos[enemyType]
+        scene.textures.addSpriteSheetFromAtlas(enemyConfig.name + '-sheet', { atlas: enemyConfig.name, frame: enemyConfig.name, frameWidth: enemyConfig.width, frameHeight: enemyConfig.heigth })
+        let frames = this.anims.generateFrameNames(enemyConfig.name + '-sheet', { start: 0, end: enemyConfig.frames - 1 })
+
+        this.anims.create({
+            key: enemyConfig.animName,
+            frames: frames,
+            frameRate: enemyConfig.frames,
+            repeat: -1
+        })
+        this.play(enemyConfig.animName)
         this.yPosition = y
         scene.add.existing(this)
         scene.physics.add.existing(this)

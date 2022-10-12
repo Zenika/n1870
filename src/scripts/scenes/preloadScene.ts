@@ -52,8 +52,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('layer2', 'assets/background/layer2.png')
     this.load.image('layer3', 'assets/background/layer3.png')
     this.load.image('bubble', 'assets/img/bubble.png')
-    this.load.image('octopus', 'assets/img/poulpe.gif')
-    this.load.image('shark', 'assets/img/shark.png')
+    this.load.atlas('octopus', 'assets/img/octopus-animated.png', 'assets/img/octopus-animated.json')
+    this.load.atlas('shark', 'assets/img/shark-animated.png', 'assets/img/shark-animated.json')
 
     this.load.json('rock', 'assets/background/layer1-shapes.json')
     this.load.json('submarine-box', 'assets/img/submarine-shapes.json')

@@ -1,0 +1,41 @@
+{
+	"textures": [
+		{
+			"image": "shark-animated.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 700,
+				"h": 110
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "shark",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 700,
+						"h": 110
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 700,
+						"h": 110
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 700,
+						"h": 110
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:3d20167d094b110eaa1cf7a2bf565e02:b0d7a39723e701ef0198de122cf39399:f57c57b4360d2dd9bde67271bfc9247f$"
+	}
+}
