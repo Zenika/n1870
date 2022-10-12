@@ -1,0 +1,42 @@
+ 
+{
+	"textures": [
+		{
+			"image": "shark.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1280,
+				"h": 50
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "ennemy",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 1280,
+						"h": 50
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 50
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 1280,
+						"h": 50
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:3d20167d094b110eaa1cf7a2bf565e02:b0d7a39723e701ef0198de122cf39399:f57c57b4360d2dd9bde67271bfc9247f$"
+	}
+}

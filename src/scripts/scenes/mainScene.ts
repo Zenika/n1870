@@ -27,7 +27,7 @@ export default class MainScene extends Phaser.Scene {
       physics: {
         default: "matter",
         arcade: {
-          debug: true,
+          debug: false,
           gravity: { y: 0 }
         },
         matter: {
@@ -78,13 +78,18 @@ export default class MainScene extends Phaser.Scene {
 
 
     this.ennemis = []
-    this.ennemis.push(new Enemy(this, width, 100, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 2, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 2.5, 300, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 3, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 4, 100, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 4, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 5, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
+
+    this.ennemis.push(new Enemy(this, width, 100, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 4, 100, 'shark', this.submarine, this.onCollision.bind(this)))
+
+    this.ennemis.push(new Enemy(this, width * 5, 100, 'fish', this.submarine, this.onCollision.bind(this)))
+
 
     this.fpsText = new FpsText(this)
 
@@ -100,7 +105,6 @@ export default class MainScene extends Phaser.Scene {
 
   onCollision() {
     this.score -= 500;
-    this.currentMovement = Movement.Stopped;
   }
 
 

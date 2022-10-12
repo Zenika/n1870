@@ -17,7 +17,7 @@ export default class StartScene extends Phaser.Scene {
       key: 'StartScene', physics: {
         default: 'matter',
         matter: {
-          debug: false,
+          debug: true,
           gravity: {
             y: 0
           }
