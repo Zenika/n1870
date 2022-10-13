@@ -8,10 +8,11 @@
   "frictionStatic": 0.5,
   "collisionFilter": { "group": 1, "category": 2, "mask": 2 },
   "label": "shark",
+  "bounce": 0,
   "fixtures": [
     {
       "label": "ennemy",
-      "isSensor": false,
+      "isSensor": true,
       "vertices": [
         [
           { "x": 45, "y": 13 },

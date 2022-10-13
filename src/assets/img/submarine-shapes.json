@@ -6,7 +6,8 @@
 		"isStatic": false,
 		"density": 10,
 		"restitution": 0,
-		"friction": 10,
+		"friction": 0,
+		"bounce": 0,
 		"frictionAir": 0.1,
 		"frictionStatic": 0.5,
 		"collisionFilter": {
@@ -17,7 +18,6 @@
 		"fixtures": [
 			{
 				"label": "submarine",
-				"isSensor": false,
 				"vertices": [
 					[ { "x":5, "y":79.5 }, { "x":6.5, "y":78 }, { "x":6.5, "y":69 }, { "x":5.5, "y":67 }, { "x":4.5, "y":67 }, { "x":3.5, "y":69 }, { "x":3.5, "y":78 } ],
 					[ { "x":5, "y":49.5 }, { "x":3.5, "y":51 }, { "x":3.5, "y":60 }, { "x":4.5, "y":62 }, { "x":5.5, "y":62 }, { "x":6.5, "y":60 }, { "x":6.5, "y":51 } ],
@@ -56,7 +56,6 @@
 			},
 			{
 				"label": "submarine",
-				"isSensor": false,
 				"vertices": [
 					[ { "x":126, "y":128 }, { "x":115, "y":83 }, { "x":62, "y":96 }, { "x":68, "y":128 } ]
 				]
