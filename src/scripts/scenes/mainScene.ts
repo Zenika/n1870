@@ -20,6 +20,8 @@ export default class MainScene extends Phaser.Scene {
   currentMovement: Movement = Movement.Stopped
   ballaste: Ballast = Ballast.Keep;
 
+  lastScorePos: number = 0
+
 
   constructor() {
     super({
@@ -42,6 +44,7 @@ export default class MainScene extends Phaser.Scene {
 
   init() {
     this.score = 0
+    this.lastScorePos = 0
     this._time = 200
   }
 
@@ -118,6 +121,8 @@ export default class MainScene extends Phaser.Scene {
 
     this.scoreText.setScrollFactor(0)
     //this.fpsText.setScrollFactor(0)
+
+    this.lastScorePos = this.submarine.x
   }
 
   onCollision() {
@@ -173,6 +178,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
+
     if (this.ballaste === Ballast.Fill) {
       this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
     } else if (this.ballaste === Ballast.Empty) {
@@ -184,7 +190,12 @@ export default class MainScene extends Phaser.Scene {
     if (this.submarine.moving) {
       if (this.currentMovement === Movement.Forward) {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
-        this.score += 10;
+
+        if(this.submarine.x > this.lastScorePos) {
+          this.lastScorePos = this.submarine.x
+          this.score += Math.floor(this.lastScorePos/1000)
+        }
+        
       } else if (this.currentMovement === Movement.Backward) {
         this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
