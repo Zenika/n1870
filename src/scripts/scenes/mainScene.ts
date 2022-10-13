@@ -105,9 +105,9 @@ export default class MainScene extends Phaser.Scene {
     });
 
 
-    this.fpsText = new FpsText(this)
+    // this.fpsText = new FpsText(this)
 
-    this.fpsText.setPosition(0, 80).setDepth(7)
+    // this.fpsText.setPosition(0, 80).setDepth(7)
 
     this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
     this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
@@ -117,7 +117,7 @@ export default class MainScene extends Phaser.Scene {
     this.input.keyboard.on('keyup', event => this.resetCommand(event))
 
     this.scoreText.setScrollFactor(0)
-    this.fpsText.setScrollFactor(0)
+    //this.fpsText.setScrollFactor(0)
   }
 
   onCollision() {
@@ -190,7 +190,7 @@ export default class MainScene extends Phaser.Scene {
       }
     } 
 
-    this.fpsText.update()
+    //this.fpsText.update()
     this.background.update()
     this.submarine.update(this.currentMovement)
 
