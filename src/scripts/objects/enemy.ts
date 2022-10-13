@@ -1,3 +1,4 @@
+import MainScene from "../scenes/mainScene"
 import Submarine, { Movement } from "./submarine"
 
 type EnemyType = 'octopus' | 'shark' | 'fish'
@@ -12,15 +13,17 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     verticalMovement = Math.random() * 100 - 50
     submarine: Submarine
     currentVelocity: integer = -ENNEMY_DEFAULT_SPEED
+    scene : MainScene
 
-    constructor(scene: Phaser.Scene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
+    constructor(scene: MainScene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
         super(scene.matter.world, x, y, enemyType.toString())
         this.yPosition = y
         scene.add.existing(this)
         scene.physics.add.existing(this)
 
         this.submarine = submarine
-        this.setDepth(4)
+        this.setDepth(6)
+        this.scene = scene
 
         var nbFrames = 0
         var width = 0, height = 0
@@ -82,6 +85,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
     escape(): void {
         if (!this.runsAway) {
+            this.scene.score += 200
             this.setVelocityX(ENNEMY_DEFAULT_SPEED+2)
             this.setFlipX(true)
 
