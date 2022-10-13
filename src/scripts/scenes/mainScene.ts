@@ -192,8 +192,8 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
 
         if(this.submarine.x > this.lastScorePos) {
+          this.score += Math.floor(this.submarine.x-this.lastScorePos)
           this.lastScorePos = this.submarine.x
-          this.score += Math.floor(this.lastScorePos/1000)
         }
         
       } else if (this.currentMovement === Movement.Backward) {
