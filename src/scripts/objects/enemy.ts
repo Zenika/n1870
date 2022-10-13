@@ -61,13 +61,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
         var shapes = scene.cache.json.get(`${enemyType}-box`)
 
         this.setBody(shapes)
-        this.setBounce(1)
-
-
         this.setFixedRotation()
-
-
         this.setVelocityX(this.currentVelocity)
+
     }
 
 

@@ -5,13 +5,14 @@
     "restitution": 0.0,
     "friction": 1,
     "frictionAir": 0.001,
+    "bounce": 0,
     "frictionStatic": 0.5,
     "collisionFilter": { "group": 1, "category": 2, "mask": 2 },
     "label": "fish",
     "fixtures": [
       {
         "label": "ennemy",
-        "isSensor": false,
+        "isSensor": true,
         "vertices": [
           [ { "x": 25, "y": 25 }, { "x": 34, "y": 21 }, { "x": 35, "y": 28 } ],
           [ { "x": 48, "y": 35 }, { "x": 35, "y": 28 }, { "x": 47, "y": 29 } ],
