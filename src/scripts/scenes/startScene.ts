@@ -32,7 +32,7 @@ export default class StartScene extends Phaser.Scene {
 
     this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.text = this.add
-      .text(10, height / 2, `Appuyer sur une touche pour commencer`, {
+      .text(10, height / 2, `Bienvenue dans le tutoriel du Jeu\nAppuyer sur une touche pour commencer`, {
         color: '#000000',
         fontSize: '18px',
         align: 'center',
@@ -94,7 +94,7 @@ export default class StartScene extends Phaser.Scene {
         else {
           this.etape = 100;
         }
-        break;  
+        break;
       default:
         break;
     }
@@ -173,7 +173,7 @@ export default class StartScene extends Phaser.Scene {
         if (this.lightPosition === 2) {
           this.etape = 21;
         }
-        break;  
+        break;
       }
     });
     this.input.keyboard.on('keyup', event => {
@@ -212,7 +212,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Vous regardez dans le periscope du sous-marin,\nvotre collègue devra utiliser les commandes,\nvoyons comment les utiliser ...\n`);
         setTimeout(() => {
         this.etape = 2;
-        }, 2000);
+        }, 4000);
         break;
       case 2:
         this.submarine.update(Movement.Stopped)
@@ -226,8 +226,8 @@ export default class StartScene extends Phaser.Scene {
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est lesté, il va donc \ns'enfoncer dans les profondeurs ...`);
         setTimeout(() => {
-        this.etape = 5;
-        }, 2000);
+          this.etape = 5;
+        }, 3000);
         break;
       case 5:
         this.submarine.update(Movement.Stopped)
@@ -239,25 +239,25 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 7:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Le sous-marin est remplie d'air, il va donc remonter vers la surface ...`);
+        this.text.setText(`Le sous-marin est rempli d'air, il va donc remonter vers la surface ...`);
         setTimeout(() => {
-        this.etape = 8;
-        }, 2000);
+          this.etape = 8;
+        }, 4000);
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant\nMettez le sous-marin en marche avant.`);
+        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant\nMettez le sous-marin en marche avant en mettant le commutateur de droite sur la position 2.`);
         break;
       case 9:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Mettez le sous-marin en marche avant`);
         break;
       case 10:
-        this.text.setText(`Maintenant que la marche avant est enclenchée,\nappuyez sur la touche marche autant de fois que nécessaire pour avancer`);
+        this.text.setText(`Maintenant que la marche avant est enclenchée,\nappuyez sur la touche marche autant de fois que nécessaire pour avancer,\nla led verte sur le poste de commande s'allume à chaque appui.`);
         break;
       case 11:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Si vous vous cogniez contre un rocher, il faut enclencher la marche arrière.\nMettez le sous-marin en marche arrière`);
+        this.text.setText(`Si vous vous cogniez contre un rocher, il faut enclencher la marche arrière.\nMettez le sous-marin en marche arrière le commutateur de droite sur la position 1.`);
         break;
       case 12:
         this.submarine.update(Movement.Stopped)
@@ -269,17 +269,17 @@ export default class StartScene extends Phaser.Scene {
       case 14:
         this.text.setText(`Une lampe est placée sur le sous-marin,\napprenez à la manipuler ...`);
         setTimeout(() => {
-        this.etape = 15;
+          this.etape = 15;
         }, 2000);
         break;
       case 15:
-        this.text.setText(`Le contacteur trois positions permet de mettre le bras en haut, en bas ou au milieu\nAppuyez sur le contacteur pour le mettre en position basse ou haute`);
+        this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu\nTourner le contacteur pour le mettre en position basse (0) ou haute (2)`);
         break;
       case 16:
-        this.text.setText(`Appuyez sur le contacteur pour le mettre en position basse ou haute`);
+        this.text.setText(`Actionner sur le contacteur pour le mettre en position basse ou haute`);
         break;
       case 17:
-        this.text.setText(`Allumer la lampe en appuyant sur le bouton lampe`);
+        this.text.setText(`Allumer la lampe en appuyant sur le bouton blanc de gauche, intitulé MS\nLa led jaune s'allume aussi longtemps que la lampe`);
         break;
       case 18:
         this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nla monstre sera écrasé par la lampe et s'eloignera du sous-marin`);
@@ -288,22 +288,22 @@ export default class StartScene extends Phaser.Scene {
         }, 2000);
         break;
       case 19:
-        this.text.setText(`Remettez le bras en position centrale, pour continuer ...`);
+        this.text.setText(`Remettez le bras en position centrale, commutateur de gauche en position 1, pour continuer ...`);
         break;
       case 20:
         this.text.setText(`Mettez le bras en position centrale`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nD'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nd'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
         setTimeout(() => {
-        this.etape = 22;
-        }, 2000);
+          this.etape = 22;
+        }, 4000);
         break;
       case 22:
-        this.text.setText(`Dès que vous êtes prêt, appuyez sur la touche start pour commencer ...`);
+        this.text.setText(`Dès que vous êtes prêt, appuyez simultannément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur le bouton start`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultannément sur les boutons blancs 'TSC' et 'PB'`)
         break;
     }
   }
