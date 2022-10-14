@@ -1,10 +1,10 @@
-import Submarine, { Ballast, Movement } from '../objects/submarine'
+import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy from '../objects/enemy'
 
 
-const SUBMARINE_SPEED_STEP = 2
+
 export const NB_BACKGROUND = 10;
 
 
@@ -33,7 +33,7 @@ export default class MainScene extends Phaser.Scene {
           gravity: { y: 0 }
         },
         matter: {
-          debug: false ,
+          debug: false,
           gravity: { 
             y: 0
           }

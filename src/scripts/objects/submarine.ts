@@ -15,6 +15,7 @@ export enum Ballast {
 }
 
 const INIT_SUBMARINE_XPOS = 300
+export const SUBMARINE_SPEED_STEP = 1
 
 export default class Submarine extends Phaser.Physics.Matter.Sprite {
   light: Flashlight

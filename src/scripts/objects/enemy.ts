@@ -3,7 +3,7 @@ import Submarine, { Movement } from "./submarine"
 
 type EnemyType = 'octopus' | 'shark' | 'fish'
 
-const ENNEMY_DEFAULT_SPEED = 1
+const ENNEMY_DEFAULT_SPEED = 0.5
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
@@ -34,19 +34,19 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 nbFrames = 8
                 width = 128
                 height = 128
-                this.speed = 1
+                this.speed = 0.5
                 break;
             case 'shark':
                 nbFrames = 10
                 width = 128
                 height = 50
-                this.speed = 2
+                this.speed = 0.75
                 break;
             case 'fish':
                 nbFrames = 10
                 width = 64
                 height = 64
-                this.speed = 3
+                this.speed = 1
                 break;
             default:
                 break;
