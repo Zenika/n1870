@@ -2,6 +2,7 @@ import Submarine, { Ballast, Movement } from "../objects/submarine"
 
 const SUBMARINE_SPEED_STEP = 2
 
+
 export default class StartScene extends Phaser.Scene {
   submarine: Submarine
   text: Phaser.GameObjects.Text
@@ -29,6 +30,8 @@ export default class StartScene extends Phaser.Scene {
 
   create() {
 
+
+
     const { width, height } = this.scale
 
     this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
@@ -51,25 +54,32 @@ export default class StartScene extends Phaser.Scene {
         this.ballaste = Ballast.Keep
       },
     });
+
     this.input.keyboard.on('keydown', (event) => {
       switch (event.which) {
         case Phaser.Input.Keyboard.KeyCodes.ONE:
           this.submarine.light.lightDown()
+          this.lightPosition = 1;
           break;
         case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
           this.submarine.light.lightDown()
+          this.lightPosition = 1;
           break;
         case Phaser.Input.Keyboard.KeyCodes.TWO:
           this.submarine.light.lightStraight()
+          this.lightPosition = 2;
           break;
         case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
           this.submarine.light.lightStraight()
+          this.lightPosition = 2;
           break;
         case Phaser.Input.Keyboard.KeyCodes.THREE:
           this.submarine.light.lightUp()
+          this.lightPosition = 3;
           break;
         case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
           this.submarine.light.lightUp()
+          this.lightPosition = 3;
           break;
         case Phaser.Input.Keyboard.KeyCodes.L:
           this.submarine.light.toggleLight()
