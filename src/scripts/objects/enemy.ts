@@ -100,7 +100,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     escape(): void {
         if (!this.runsAway) {
             this.scene.score += 200
-            this.setVelocityX(this.speed)
+            this.setVelocityX(this.speed+1)
             this.setFlipX(true)
 
 
