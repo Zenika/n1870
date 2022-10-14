@@ -53,127 +53,133 @@ export default class StartScene extends Phaser.Scene {
     });
     this.input.keyboard.on('keydown', (event) => {
       switch (event.which) {
-      case Phaser.Input.Keyboard.KeyCodes.ONE:
-        this.submarine.light.lightDown()
-        this.lightPosition = 1;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.TWO:
-        this.submarine.light.lightStraight()
-        this.lightPosition = 2;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.THREE:
-        this.submarine.light.lightUp()
-        this.lightPosition = 3;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.L:
-        this.submarine.light.toggleLight()
-        this.light = !this.light;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.LEFT:
-        this.currentMovement = Movement.Backward
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.RIGHT:
-        this.currentMovement = Movement.Forward
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.UP:
-        this.ballaste = Ballast.Fill;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.DOWN:
-        this.ballaste = Ballast.Empty;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.SPACE:
-        this.moving = true;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.F:
-        document.querySelector("#phaser-game")?.requestFullscreen();
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.P:
-         if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
-          this.scene.start('MainScene');
-        }
-        else {
-          this.etape = 100;
-        }
-        break;
-      default:
-        break;
-    }
-    event.preventDefault();
-    switch (this.etape) {
-      case 0:
-      case 1:
-        this.etape++;
-        break;
-      case 2:
-      case 3:
-        if (this.ballaste === Ballast.Fill) {
-          this.etape = 4;
-        }
-        if (this.ballaste === Ballast.Empty) {
-          this.etape = 3;
-        }
-        break;
-      case 5:
-      case 6:
-        if (this.ballaste === Ballast.Empty) {
-          this.etape = 7;
-        }
-        if (this.ballaste === Ballast.Fill) {
-          this.etape = 6;
-        }
-        break;
-      case 8:
-      case 9:
-        if (this.currentMovement === Movement.Forward) {
-          this.etape = 10;
-        }
-        if (this.currentMovement === Movement.Backward) {
-          this.etape = 9;
-        }
-        break;
-      case 10:
-        if (this.moving) {
-          this.etape = 11;
-        }
-        break;
-      case 11:
-      case 12:
-        if (this.currentMovement === Movement.Backward) {
-          this.etape = 13;
-        }
-        if (this.currentMovement === Movement.Forward) {
-          this.etape = 12;
-        }
-        break;
-      case 13:
-        if (this.moving) {
-          this.etape = 14;
-        }
-        break;
-      case 15:
-      case 16:
-        if (this.lightPosition === 1 || this.lightPosition === 3) {
-          this.etape = 17;
-        }
-        if (this.lightPosition === 2) {
-          this.etape = 16;
-        }
-        break;
-      case 17:
-        if (this.light) {
-          this.etape = 18;
-        }
-        break;
-      case 19:
-      case 20:
-        this.submarine.light.switchOffLight()
-        if (this.lightPosition === 1 || this.lightPosition === 3) {
-          this.etape = 20;
-        }
-        if (this.lightPosition === 2) {
-          this.etape = 21;
-        }
-        break;
+        case Phaser.Input.Keyboard.KeyCodes.ONE:
+          this.submarine.light.lightDown()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
+          this.submarine.light.lightDown()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.TWO:
+          this.submarine.light.lightStraight()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
+          this.submarine.light.lightStraight()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.THREE:
+          this.submarine.light.lightUp()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
+          this.submarine.light.lightUp()
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.L:
+          this.submarine.light.toggleLight()
+          this.light = !this.light;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.LEFT:
+          this.currentMovement = Movement.Backward
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+          this.currentMovement = Movement.Forward
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.UP:
+          this.ballaste = Ballast.Fill;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.DOWN:
+          this.ballaste = Ballast.Empty;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.SPACE:
+          this.moving = true;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.F:
+          document.querySelector("#phaser-game")?.requestFullscreen();
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.P:
+          if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
+            this.scene.start('MainScene');
+          }
+          else {
+            this.etape = 100;
+          }
+          break;
+        default:
+          break;
+      }
+      event.preventDefault();
+      switch (this.etape) {
+        case 0:
+        case 1:
+          this.etape++;
+          break;
+        case 2:
+        case 3:
+          if (this.ballaste === Ballast.Fill) {
+            this.etape = 4;
+          }
+          if (this.ballaste === Ballast.Empty) {
+            this.etape = 3;
+          }
+          break;
+        case 5:
+        case 6:
+          if (this.ballaste === Ballast.Empty) {
+            this.etape = 7;
+          }
+          if (this.ballaste === Ballast.Fill) {
+            this.etape = 6;
+          }
+          break;
+        case 8:
+        case 9:
+          if (this.currentMovement === Movement.Forward) {
+            this.etape = 10;
+          }
+          if (this.currentMovement === Movement.Backward) {
+            this.etape = 9;
+          }
+          break;
+        case 10:
+          if (this.moving) {
+            this.etape = 11;
+          }
+          break;
+        case 11:
+        case 12:
+          if (this.currentMovement === Movement.Backward) {
+            this.etape = 13;
+          }
+          if (this.currentMovement === Movement.Forward) {
+            this.etape = 12;
+          }
+          break;
+        case 13:
+          if (this.moving) {
+            this.etape = 14;
+          }
+          break;
+        case 15:
+        case 16:
+          if (this.lightPosition === 1 || this.lightPosition === 3) {
+            this.etape = 17;
+          }
+          if (this.lightPosition === 2) {
+            this.etape = 16;
+          }
+          break;
+        case 17:
+          if (this.light) {
+            this.etape = 18;
+          }
+          break;
+        case 19:
+        case 20:
+          this.submarine.light.switchOffLight()
+          if (this.lightPosition === 1 || this.lightPosition === 3) {
+            this.etape = 20;
+          }
+          if (this.lightPosition === 2) {
+            this.etape = 21;
+          }
+          break;
       }
     });
     this.input.keyboard.on('keyup', event => {
@@ -211,7 +217,7 @@ export default class StartScene extends Phaser.Scene {
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Vous regardez dans le periscope du sous-marin,\nvotre collègue devra utiliser les commandes,\nvoyons comment les utiliser ...\n`);
         setTimeout(() => {
-        this.etape = 2;
+          this.etape = 2;
         }, 4000);
         break;
       case 2:
@@ -284,7 +290,7 @@ export default class StartScene extends Phaser.Scene {
       case 18:
         this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nla monstre sera écrasé par la lampe et s'eloignera du sous-marin`);
         setTimeout(() => {
-        this.etape = 19;
+          this.etape = 19;
         }, 2000);
         break;
       case 19:

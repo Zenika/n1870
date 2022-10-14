@@ -34,7 +34,7 @@ export default class MainScene extends Phaser.Scene {
         },
         matter: {
           debug: false,
-          gravity: { 
+          gravity: {
             y: 0
           }
         }
@@ -126,7 +126,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   onCollision() {
-    if(!this.submarine.flashing) {
+    if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
       this.score -= 50;
@@ -137,16 +137,27 @@ export default class MainScene extends Phaser.Scene {
 
   dealWithKeyDown(event) {
 
+    console.log('event '+event)
+
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
         this.submarine.light.lightDown()
         break;
+      case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
+        this.submarine.light.lightDown()
+        break;
       case Phaser.Input.Keyboard.KeyCodes.TWO:
+        this.submarine.light.lightStraight()
+        break;      
+      case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
         this.submarine.light.lightStraight()
         break;
       case Phaser.Input.Keyboard.KeyCodes.THREE:
         this.submarine.light.lightUp()
         break;
+      case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
+          this.submarine.light.lightUp()
+          break;
       case Phaser.Input.Keyboard.KeyCodes.L:
         this.submarine.light.toggleLight()
         break;
@@ -191,15 +202,15 @@ export default class MainScene extends Phaser.Scene {
       if (this.currentMovement === Movement.Forward) {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
 
-        if(this.submarine.x > this.lastScorePos) {
-          this.score += Math.floor(this.submarine.x-this.lastScorePos)
+        if (this.submarine.x > this.lastScorePos) {
+          this.score += Math.floor(this.submarine.x - this.lastScorePos)
           this.lastScorePos = this.submarine.x
         }
-        
+
       } else if (this.currentMovement === Movement.Backward) {
         this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
-    } 
+    }
 
     //this.fpsText.update()
     this.background.update()
@@ -210,7 +221,7 @@ export default class MainScene extends Phaser.Scene {
       ennemi.update()
     });
 
-   
+
   }
 
   resetCommand(event) {
