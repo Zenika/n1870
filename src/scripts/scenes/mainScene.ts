@@ -137,7 +137,6 @@ export default class MainScene extends Phaser.Scene {
 
   dealWithKeyDown(event) {
 
-    console.log('event '+event)
 
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
