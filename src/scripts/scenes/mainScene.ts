@@ -219,17 +219,18 @@ export default class MainScene extends Phaser.Scene {
 
   generateRandomEnemies(): Array<Enemy> {
     const MAX_SCALE = 50
-    const MAX_SPAWNING_AT_THE_SAME_TIME = 2
+    const MIN_Y_POSITION = 150
+    const MAX_Y_POSITION = this.scale.height - 150
+
     const enemies: Array<Enemy> = []
-    let randomNumber = 0
-    for (let i = 1; i < MAX_SCALE; i++) {
-      randomNumber = Math.floor(Math.random() * 2)
-      for (let j = 0; j < MAX_SPAWNING_AT_THE_SAME_TIME; j++) {
+    let randomYPosition = 0
+    for (let i = 2; i < MAX_SCALE; i+=0.5) {
         const randomEnemyType: EnemyType = Enemy.getRandomEnemyType()
+        randomYPosition = Math.floor(Math.random() * (MAX_Y_POSITION - MIN_Y_POSITION) + MIN_Y_POSITION)
         enemies.push(
-          new Enemy(this, this.scale.width * i, 400, randomEnemyType, this.submarine, this.onCollision.bind(this))
+          new Enemy(this, this.scale.width * i, randomYPosition, randomEnemyType, this.submarine, this.onCollision.bind(this))
         )
-      }
+      
     }
     return enemies
   }
