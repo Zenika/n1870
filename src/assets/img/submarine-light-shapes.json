@@ -1,0 +1,136 @@
+{
+    "up" : {
+        "type": "fromPhysicsEditor",
+        "isStatic": false,
+        "isSensor": true,
+        "density": 0.8,
+        "restitution": 0.1,
+        "friction": 0.1,
+        "frictionAir": 0.001,
+        "frictionStatic": 0.5,
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "label": "up",
+        "fixtures": [
+          {
+            "label": "submarine-light",
+            "isSensor": true,
+            "vertices": [
+              [
+                { "x": 320, "y": 145 },
+                { "x": 313, "y": 152 },
+                { "x": 299, "y": 150 }
+              ],
+              [
+                { "x": 320, "y": 145 },
+                { "x": 305, "y": 135 },
+                { "x": 321, "y": 127 }
+              ],
+              [
+                { "x": 321, "y": 127 },
+                { "x": 405, "y": 37 },
+                { "x": 439, "y": 19 },
+                { "x": 465, "y": 30 },
+                { "x": 477, "y": 44 },
+                { "x": 482, "y": 63 },
+                { "x": 482, "y": 84 },
+                { "x": 465, "y": 102 },
+                { "x": 421, "y": 121 },
+                { "x": 320, "y": 145 }
+              ]
+            ]
+          }
+        ]
+      },
+      "straight" : {
+        "type": "fromPhysicsEditor",
+        "isStatic": false,
+        "isSensor": true,
+        "density": 0.8,
+        "restitution": 0.1,
+        "friction": 0.1,
+        "frictionAir": 0.001,
+        "frictionStatic": 0.5,
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "label": "straight",
+        "fixtures": [
+          {
+            "label": "submarine-light",
+            "isSensor": true,
+            "vertices": [
+              [
+                { "x": 838, "y": 175 },
+                { "x": 891, "y": 192 },
+                { "x": 872, "y": 187 }
+              ],
+              [
+                { "x": 872, "y": 187 },
+                { "x": 856, "y": 184 },
+                { "x": 838, "y": 175 }
+              ],
+              [
+                { "x": 980, "y": 122 },
+                { "x": 1005, "y": 119 },
+                { "x": 1022, "y": 131 }
+              ],
+              [
+                { "x": 1022, "y": 131 },
+                { "x": 1030, "y": 149 },
+                { "x": 1029, "y": 168 },
+                { "x": 1015, "y": 191 },
+                { "x": 983, "y": 211 },
+                { "x": 935, "y": 204 },
+                { "x": 891, "y": 192 },
+                { "x": 838, "y": 175 },
+                { "x": 839, "y": 155 },
+                { "x": 963, "y": 123 },
+                { "x": 980, "y": 122 }
+              ]
+            ]
+          }
+        ]
+      },
+      "down" : {
+        "type": "fromPhysicsEditor",
+        "isStatic": false,
+        "isSensor": true,
+        "density": 0.8,
+        "restitution": 0.1,
+        "friction": 0.1,
+        "frictionAir": 0.001,
+        "frictionStatic": 0.5,
+        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "label": "down",
+        "fixtures": [
+          {
+            "label": "submarine-light",
+            "isSensor": true,
+            "vertices": [
+              [
+                { "x": 1432, "y": 204 },
+                { "x": 1467, "y": 214 },
+                { "x": 1438, "y": 283 },
+                { "x": 1425, "y": 265 }
+              ],
+              [
+                { "x": 1425, "y": 265 },
+                { "x": 1389, "y": 239 },
+                { "x": 1342, "y": 195 },
+                { "x": 1350, "y": 176 },
+                { "x": 1432, "y": 204 }
+              ],
+              [
+                { "x": 1467, "y": 214 },
+                { "x": 1494, "y": 220 },
+                { "x": 1511, "y": 232 },
+                { "x": 1519, "y": 250 },
+                { "x": 1518, "y": 269 },
+                { "x": 1504, "y": 293 },
+                { "x": 1472, "y": 313 },
+                { "x": 1451, "y": 302 },
+                { "x": 1438, "y": 283 }
+              ]
+            ]
+          }
+        ]
+      }
+}

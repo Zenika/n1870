@@ -1,0 +1,37 @@
+{
+    "type": "fromPhysicsEditor",
+    "isStatic": false,
+    "density": 0.01,
+    "restitution": 0.0,
+    "friction": 1,
+    "frictionAir": 0.001,
+    "bounce": 0,
+    "frictionStatic": 0.5,
+    "collisionFilter": { "group": 1, "category": 2, "mask": 2 },
+    "label": "fish",
+    "fixtures": [
+      {
+        "label": "ennemy",
+        "isSensor": true,
+        "vertices": [
+          [ { "x": 25, "y": 25 }, { "x": 34, "y": 21 }, { "x": 35, "y": 28 } ],
+          [ { "x": 48, "y": 35 }, { "x": 35, "y": 28 }, { "x": 47, "y": 29 } ],
+          [
+            { "x": 47, "y": 29 },
+            { "x": 57, "y": 19 },
+            { "x": 59, "y": 38 },
+            { "x": 48, "y": 35 }
+          ],
+          [
+            { "x": 48, "y": 35 },
+            { "x": 45, "y": 41 },
+            { "x": 32, "y": 43 },
+            { "x": 0, "y": 37 },
+            { "x": 4, "y": 29 },
+            { "x": 25, "y": 25 },
+            { "x": 35, "y": 28 }
+          ]
+        ]
+      }
+    ]
+  }

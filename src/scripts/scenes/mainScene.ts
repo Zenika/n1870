@@ -4,7 +4,7 @@ import Background from '../objects/background'
 import Enemy from '../objects/enemy'
 
 
-const SUBMARINE_SPEED_STEP = 5
+const SUBMARINE_SPEED_STEP = 2
 export const NB_BACKGROUND = 10;
 
 
@@ -27,11 +27,11 @@ export default class MainScene extends Phaser.Scene {
       physics: {
         default: "matter",
         arcade: {
-          debug: true,
+          debug: false,
           gravity: { y: 0 }
         },
         matter: {
-          debug: true,
+          debug: false,
           gravity: {
             y: 0
           }
@@ -75,32 +75,49 @@ export default class MainScene extends Phaser.Scene {
       })
       .setDepth(6)
 
-
-
     this.ennemis = []
-    this.ennemis.push(new Enemy(this, width, 100, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 2, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 2.5, 300, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 3, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 4, 100, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 4, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 5, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
+
+    this.ennemis.push(new Enemy(this, width, 200, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 4, 400, 'shark', this.submarine, this.onCollision.bind(this)))
+
+    this.ennemis.push(new Enemy(this, width * 5, 300, 'fish', this.submarine, this.onCollision.bind(this)))
+
+    this.matter.world.on("collisionstart", (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
+      if (bodyA.label === "submarine-light" && bodyB.label === "ennemy") {
+        bodyB.gameObject.escape()
+      } else if (bodyB.label === "submarine-light" && bodyA.label === "ennemy") {
+        bodyA.gameObject.escape()
+      } else if (bodyA.label === "submarine" && bodyB.label === "ennemy") {
+        this.onCollision()
+      } else if (bodyB.label === "submarine" && bodyA.label === "ennemy") {
+        this.onCollision()
+      }
+    });
+
 
     this.fpsText = new FpsText(this)
 
     this.fpsText.setPosition(0, 80).setDepth(7)
-    
+
     this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
     this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
     this.lights.enable().setAmbientColor(0x555555)
 
     this.input.keyboard.on('keydown', event => this.dealWithKeyDown(event))
     this.input.keyboard.on('keyup', event => this.resetCommand(event))
+
+    this.scoreText.setScrollFactor(0)
+    this.fpsText.setScrollFactor(0)
   }
 
   onCollision() {
     this.score -= 500;
-    this.currentMovement = Movement.Stopped;
   }
 
 
@@ -148,9 +165,9 @@ export default class MainScene extends Phaser.Scene {
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
     if (this.ballaste === Ballast.Fill) {
-      this.submarine.setVelocityY(5)
+      this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
     } else if (this.ballaste === Ballast.Empty) {
-      this.submarine.setVelocityY(-5)
+      this.submarine.setVelocityY(-SUBMARINE_SPEED_STEP)
     } else {
       this.submarine.setVelocityY(0)
     }
@@ -176,6 +193,8 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis.forEach(ennemi => {
       ennemi.update()
     });
+
+   
   }
 
   resetCommand(event) {

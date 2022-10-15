@@ -1,5 +1,6 @@
 import Submarine, { Ballast, Movement } from "../objects/submarine"
 
+const SUBMARINE_SPEED_STEP = 2
 
 export default class StartScene extends Phaser.Scene {
   submarine: Submarine
@@ -47,7 +48,6 @@ export default class StartScene extends Phaser.Scene {
     this.ballasteTimer = this.time.addEvent({
       delay: 2000,
       callback: () => {
-        console.log('ballasteTimer')
         this.ballaste = Ballast.Keep
       },
     });
@@ -184,17 +184,17 @@ export default class StartScene extends Phaser.Scene {
 
   update(time: number, delta: number): void {
     if (this.ballaste === Ballast.Fill) {
-      this.submarine.setVelocityY(10)
+      this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
     } else if (this.ballaste === Ballast.Empty) {
-      this.submarine.setVelocityY(-10)
+      this.submarine.setVelocityY(-SUBMARINE_SPEED_STEP)
     } else {
       this.submarine.setVelocityY(0)
     }
     if (this.moving) {
       if (this.currentMovement === Movement.Forward) {
-        this.submarine.setVelocityX(15)
+        this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
       } else if (this.currentMovement === Movement.Backward) {
-        this.submarine.setVelocityX(-15)
+        this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
       this.submarine.update(this.currentMovement);
     }

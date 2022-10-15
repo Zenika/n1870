@@ -45,6 +45,9 @@ export default class Flashlight {
 
   lastOrigin: Phaser.Math.Vector2
 
+  bodyForCollision: Map<string, MatterJS.BodyType> = new Map<string, MatterJS.BodyType>()
+  currentBody: MatterJS.BodyType
+
   constructor(scene: Phaser.Scene, submarine: Submarine) {
     this.scene = scene
     this.submarine = submarine
@@ -58,6 +61,17 @@ export default class Flashlight {
     this.armLight.setOrigin(0, 0)
     this.updateLight()
     this.lightStraight()
+
+    var shapes = scene.cache.json.get('submarine-light-box')
+    var body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.straight);
+    body.render.visible = false
+    this.bodyForCollision.set('straight-light', body)
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.up);
+    body.render.visible = false
+    this.bodyForCollision.set('up-light', body)
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.down);
+    body.render.visible = false
+    this.bodyForCollision.set('down-light', body)
 
   }
 
@@ -105,9 +119,30 @@ export default class Flashlight {
     switch (activatedFrame) {
       case 'ACTIVATED':
         this.armLight.body.checkCollision.none = false
+        if (this.currentBody) {
+          this.currentBody.render.visible = false
+        }
+        var body = this.bodyForCollision.get(LIGHTS[this.currentPos][activatedFrame]["framename"])
+        if (body) {
+          this.currentBody = body
+          this.currentBody.render.visible = true
+        }
+
+        this.scene.time.addEvent({
+          delay: 3000,
+          callback: () => {
+            this.lightActivated = false
+            this.updateLight()
+          },
+          loop: false
+        })
+
         break;
       case 'DESACTIVATED':
         this.armLight.body.checkCollision.none = true
+        if (this.currentBody) {
+          this.currentBody.render.visible = false
+        }
         break;
       default:
         break;
@@ -119,5 +154,17 @@ export default class Flashlight {
     var x = this.submarine.getBottomLeft().x + this.submarine.width / 2
     var y = this.submarine.getBottomLeft().y - this.armLight.height / 2 - 7
     this.armLight.setPosition(x, y)
+
+    if (this.currentBody) {
+
+      this.currentBody.position.x = this.submarine.getBottomLeft().x + this.submarine.width + 100
+
+      if (this.currentPos == 'UP')
+        this.currentBody.position.y = this.submarine.getBottomRight().y - 70
+      else if (this.currentPos == 'DOWN')
+        this.currentBody.position.y = this.submarine.getBottomRight().y + 70
+      else
+        this.currentBody.position.y = this.submarine.getBottomRight().y
+    }
   }
 }

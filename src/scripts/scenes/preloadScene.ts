@@ -46,17 +46,22 @@ export default class PreloadScene extends Phaser.Scene {
         percentText.destroy();
     });
     this.load.atlas('submarine', 'assets/img/submarine.png', 'assets/img/submarine.json')
+    this.load.atlas('octopus', 'assets/img/octopus.png', 'assets/img/octopus.json')
+    this.load.atlas('shark', 'assets/img/shark.png', 'assets/img/shark.json')
+    this.load.atlas('fish', 'assets/img/fish.png', 'assets/img/fish.json')       
     this.load.atlas('submarinelight', 'assets/img/submarine-light.png', 'assets/img/submarine-light.json')
     this.load.image('background', 'assets/background/background.png')
     this.load.image('layer1', 'assets/background/layer1.png')
     this.load.image('layer2', 'assets/background/layer2.png')
     this.load.image('layer3', 'assets/background/layer3.png')
     this.load.image('bubble', 'assets/img/bubble.png')
-    this.load.image('octopus', 'assets/img/poulpe.gif')
-    this.load.image('shark', 'assets/img/shark.png')
 
     this.load.json('rock', 'assets/background/layer1-shapes.json')
     this.load.json('submarine-box', 'assets/img/submarine-shapes.json')
+    this.load.json('submarine-light-box', 'assets/img/submarine-light-shapes.json')
+    this.load.json('shark-box', 'assets/img/shark-shapes.json')
+    this.load.json('octopus-box', 'assets/img/octopus-shapes.json')
+    this.load.json('fish-box', 'assets/img/fish-shapes.json')
   }
 
   create() {

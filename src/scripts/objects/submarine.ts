@@ -1,4 +1,4 @@
-import { Events } from 'matter'
+import { Body, Events } from 'matter'
 import Flashlight from './flashlight'
 
 export enum Movement {
@@ -81,7 +81,7 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
 
     var shapes = scene.cache.json.get('submarine-box')
 
-    this.setBody(shapes.submarine, { isStatic: false, frictionStatic : 0 ,friction: 1, frictionAir: 0 })
+    this.setBody(shapes.submarine)
 
     this.setFixedRotation()
     this.setVelocityX(0)
