@@ -12,6 +12,7 @@ export default class StartScene extends Phaser.Scene {
   lightPosition: number = 0
   light = false;
   ballasteTimer: Phaser.Time.TimerEvent
+  swithToEtapeTimout?: NodeJS.Timeout
 
   constructor() {
     super({
@@ -92,8 +93,12 @@ export default class StartScene extends Phaser.Scene {
           this.scene.start('MainScene');
         }
         else {
-          this.etape = 100;
+          this.swithToEtape(100);
         }
+        break;
+        // For test
+      case Phaser.Input.Keyboard.KeyCodes.X:
+          this.scene.start('MainScene');
         break;
       default:
         break;
@@ -107,71 +112,71 @@ export default class StartScene extends Phaser.Scene {
       case 2:
       case 3:
         if (this.ballaste === Ballast.Fill) {
-          this.etape = 4;
+          this.swithToEtape(4);
         }
         if (this.ballaste === Ballast.Empty) {
-          this.etape = 3;
+          this.swithToEtape(3);
         }
         break;
       case 5:
       case 6:
         if (this.ballaste === Ballast.Empty) {
-          this.etape = 7;
+          this.swithToEtape(7);
         }
         if (this.ballaste === Ballast.Fill) {
-          this.etape = 6;
+          this.swithToEtape(6);
         }
         break;
       case 8:
       case 9:
         if (this.currentMovement === Movement.Forward) {
-          this.etape = 10;
+          this.swithToEtape(10);
         }
         if (this.currentMovement === Movement.Backward) {
-          this.etape = 9;
+          this.swithToEtape(9);
         }
         break;
       case 10:
         if (this.moving) {
-          this.etape = 11;
+          this.swithToEtape(11);
         }
         break;
       case 11:
       case 12:
         if (this.currentMovement === Movement.Backward) {
-          this.etape = 13;
+          this.swithToEtape(13);
         }
         if (this.currentMovement === Movement.Forward) {
-          this.etape = 12;
+          this.swithToEtape(12);
         }
         break;
       case 13:
         if (this.moving) {
-          this.etape = 14;
+          this.swithToEtape(14);
         }
         break;
       case 15:
       case 16:
         if (this.lightPosition === 1 || this.lightPosition === 3) {
-          this.etape = 17;
+          this.swithToEtape(17);
         }
         if (this.lightPosition === 2) {
-          this.etape = 16;
+          this.swithToEtape(16);
         }
         break;
       case 17:
         if (this.light) {
-          this.etape = 18;
+          this.swithToEtape(18);
         }
         break;
       case 19:
       case 20:
         this.submarine.light.switchOffLight()
         if (this.lightPosition === 1 || this.lightPosition === 3) {
-          this.etape = 20;
+          this.swithToEtape(20);
         }
         if (this.lightPosition === 2) {
-          this.etape = 21;
+          this.swithToEtape(21);
         }
         break;
       }
@@ -210,9 +215,7 @@ export default class StartScene extends Phaser.Scene {
       case 1:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Vous regardez dans le periscope du sous-marin,\nvotre collègue devra utiliser les commandes,\nvoyons comment les utiliser ...\n`);
-        setTimeout(() => {
-        this.etape = 2;
-        }, 4000);
+        this.swithToEtape(2, 4000);
         break;
       case 2:
         this.submarine.update(Movement.Stopped)
@@ -225,9 +228,7 @@ export default class StartScene extends Phaser.Scene {
       case 4:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est lesté, il va donc \ns'enfoncer dans les profondeurs ...`);
-        setTimeout(() => {
-          this.etape = 5;
-        }, 3000);
+        this.swithToEtape(5, 3000);
         break;
       case 5:
         this.submarine.update(Movement.Stopped)
@@ -240,9 +241,7 @@ export default class StartScene extends Phaser.Scene {
       case 7:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est rempli d'air, il va donc remonter vers la surface ...`);
-        setTimeout(() => {
-          this.etape = 8;
-        }, 4000);
+        this.swithToEtape(8, 4000);
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
@@ -268,9 +267,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 14:
         this.text.setText(`Une lampe est placée sur le sous-marin,\napprenez à la manipuler ...`);
-        setTimeout(() => {
-          this.etape = 15;
-        }, 2000);
+        this.swithToEtape(15, 2000);
         break;
       case 15:
         this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu\nTourner le contacteur pour le mettre en position basse (0) ou haute (2)`);
@@ -283,9 +280,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 18:
         this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nla monstre sera écrasé par la lampe et s'eloignera du sous-marin`);
-        setTimeout(() => {
-        this.etape = 19;
-        }, 2000);
+        this.swithToEtape(19, 6000);
         break;
       case 19:
         this.text.setText(`Remettez le bras en position centrale, commutateur de gauche en position 1, pour continuer ...`);
@@ -294,10 +289,8 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le bras en position centrale`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nd'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
-        setTimeout(() => {
-          this.etape = 22;
-        }, 4000);
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nD'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
+        this.swithToEtape(22, 4000);
         break;
       case 22:
         this.text.setText(`Dès que vous êtes prêt, appuyez simultannément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
@@ -306,5 +299,20 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultannément sur les boutons blancs 'TSC' et 'PB'`)
         break;
     }
+  }
+
+  swithToEtape(toEtape, delay = 0) {
+      if (this.swithToEtapeTimout) {
+          clearTimeout(this.swithToEtapeTimout);
+          this.swithToEtapeTimout = undefined;
+      }
+      if (delay === 0) {
+          this.etape = toEtape;
+      }
+      else {
+          this.swithToEtapeTimout = setTimeout(() => {
+              this.etape = toEtape;
+          }, delay)
+      }
   }
 }
