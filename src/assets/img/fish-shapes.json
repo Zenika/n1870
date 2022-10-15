@@ -11,7 +11,7 @@
     "label": "fish",
     "fixtures": [
       {
-        "label": "ennemy",
+        "label": "enemy",
         "isSensor": true,
         "vertices": [
           [ { "x": 1, "y": 41 }, { "x": 1, "y": 21 }, { "x": 15, "y": 26 } ],

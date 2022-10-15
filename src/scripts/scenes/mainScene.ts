@@ -4,6 +4,7 @@ import Enemy, { EnemyType } from '../objects/enemy'
 
 
 export const NB_BACKGROUND = 10
+export const INIT_TIME = 200
 
 export default class MainScene extends Phaser.Scene {
   fpsText
@@ -41,7 +42,7 @@ export default class MainScene extends Phaser.Scene {
   init() {
     this.score = 0
     this.lastScorePos = 0
-    this._time = 200
+    this._time = INIT_TIME
   }
 
   create() {
@@ -65,7 +66,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.background = new Background(this)
 
-    // display the Phaser.VERSION
     this.scoreText = this.add
       .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
         color: '#ffffff',
@@ -78,19 +78,19 @@ export default class MainScene extends Phaser.Scene {
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
       if (
         bodyA.label === 'submarine-light' &&
-        bodyB.label === 'ennemy' &&
+        bodyB.label === 'enemy' &&
         this.submarine.light.currentBody.render.visible
       ) {
         bodyB.gameObject.escape()
       } else if (
         bodyB.label === 'submarine-light' &&
-        bodyA.label === 'ennemy' &&
+        bodyA.label === 'enemy' &&
         this.submarine.light.currentBody.render.visible
       ) {
         bodyA.gameObject.escape()
-      } else if (bodyA.label === 'submarine' && bodyB.label === 'ennemy') {
+      } else if (bodyA.label === 'submarine' && bodyB.label === 'enemy') {
         this.onCollision()
-      } else if (bodyB.label === 'submarine' && bodyA.label === 'ennemy') {
+      } else if (bodyB.label === 'submarine' && bodyA.label === 'enemy') {
         this.onCollision()
       }
     })

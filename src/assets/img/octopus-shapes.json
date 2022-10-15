@@ -12,7 +12,7 @@
     "label": "octopus",
     "fixtures": [
       {
-        "label": "ennemy",
+        "label": "enemy",
         "isSensor": true,
         "vertices": [
           [
