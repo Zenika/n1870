@@ -101,9 +101,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
             this.scene.score += 200
             this.setVelocityX(this.speed+1)
             this.setFlipX(true)
-
-
-
             if (this.enemyType === "octopus") {
                 if (Math.random() >= 0.5) {
                     let rot = Math.random() * 0.8

@@ -30,6 +30,8 @@ export default class StartScene extends Phaser.Scene {
 
   create() {
 
+
+
     const { width, height } = this.scale
 
     this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
@@ -52,59 +54,63 @@ export default class StartScene extends Phaser.Scene {
         this.ballaste = Ballast.Keep
       },
     });
+
     this.input.keyboard.on('keydown', (event) => {
       switch (event.which) {
-      case Phaser.Input.Keyboard.KeyCodes.ONE:
-        this.submarine.light.lightDown()
-        this.lightPosition = 1;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.TWO:
-        this.submarine.light.lightStraight()
-        this.lightPosition = 2;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.THREE:
-        this.submarine.light.lightUp()
-        this.lightPosition = 3;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.L:
-        this.submarine.light.toggleLight()
-        this.light = !this.light;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.LEFT:
-        this.currentMovement = Movement.Backward
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.RIGHT:
-        this.currentMovement = Movement.Forward
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.UP:
-        this.ballaste = Ballast.Fill;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.DOWN:
-        this.ballaste = Ballast.Empty;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.SPACE:
-        this.moving = true;
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.F:
-        document.querySelector("#phaser-game")?.requestFullscreen();
-        break;
-      case Phaser.Input.Keyboard.KeyCodes.P:
-         if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
+        case Phaser.Input.Keyboard.KeyCodes.ONE:
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
+          this.submarine.light.lightDown()
+          this.lightPosition = 1;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.TWO:
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
+          this.submarine.light.lightStraight()
+          this.lightPosition = 2;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.THREE:
+        case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
+          this.submarine.light.lightUp()
+          this.lightPosition = 3;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.L:
+          this.submarine.light.toggleLight()
+          this.light = !this.light;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.LEFT:
+          this.currentMovement = Movement.Backward
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.RIGHT:
+          this.currentMovement = Movement.Forward
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.UP:
+          this.ballaste = Ballast.Fill;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.DOWN:
+          this.ballaste = Ballast.Empty;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.SPACE:
+          this.moving = true;
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.F:
+          document.querySelector("#phaser-game")?.requestFullscreen();
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.P:
+          if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
+            this.scene.start('MainScene');
+          }
+          else {
+            this.swithToEtape(100);
+          }
+          break;
+       // For test
+       case Phaser.Input.Keyboard.KeyCodes.X:
           this.scene.start('MainScene');
-        }
-        else {
-          this.swithToEtape(100);
-        }
-        break;
-        // For test
-      case Phaser.Input.Keyboard.KeyCodes.X:
-          this.scene.start('MainScene');
-        break;
-      default:
-        break;
-    }
-    event.preventDefault();
-    switch (this.etape) {
+          break;
+        default:
+          break;
+      }
+      event.preventDefault();
+      switch (this.etape) {
       case 0:
       case 1:
         this.etape++;
