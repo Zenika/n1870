@@ -1,7 +1,7 @@
 import MainScene from "../scenes/mainScene"
 import Submarine, { Movement } from "./submarine"
 
-type EnemyType = 'octopus' | 'shark' | 'fish'
+export type EnemyType = 'octopus' | 'shark' | 'fish'
 
 const ENNEMY_DEFAULT_SPEED = 0.5
 
@@ -127,6 +127,19 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 loop: false
             })
         }
+  }
 
+  static getRandomEnemyType(): EnemyType {
+    const randomNumber = Math.floor(Math.random() * 3)
+    switch (randomNumber) {
+      case 0:
+        return 'octopus'
+      case 1:
+        return 'shark'
+      case 2:
+        return 'fish'
+      default:
+        return 'octopus'
     }
 }    
+}
