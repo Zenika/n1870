@@ -149,7 +149,7 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.moving = true
         break
       case Phaser.Input.Keyboard.KeyCodes.P:
-        if (this._time < 200) {
+        if (this._time < INIT_TIME) {
           this.scene.start('GameOverScene', { score: 0 })
         }
         break
