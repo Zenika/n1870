@@ -1,26 +1,31 @@
+import MainScene from "../scenes/mainScene"
 import Submarine, { Movement } from "./submarine"
 
 type EnemyType = 'octopus' | 'shark' | 'fish'
 
-const ENNEMY_DEFAULT_SPEED = 2
+const ENNEMY_DEFAULT_SPEED = 0.5
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
 
     runsAway: boolean = false
     yPosition: number = 0
-    verticalMovement = Math.random() * 100 - 50
+    verticalMovement = Math.floor(Math.random() * 100) - 50
     submarine: Submarine
-    currentVelocity: integer = -ENNEMY_DEFAULT_SPEED
+    scene: MainScene
+    enemyType: EnemyType
+    speed: number = ENNEMY_DEFAULT_SPEED
 
-    constructor(scene: Phaser.Scene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
+    constructor(scene: MainScene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
         super(scene.matter.world, x, y, enemyType.toString())
         this.yPosition = y
         scene.add.existing(this)
         scene.physics.add.existing(this)
+        this.enemyType = enemyType
 
         this.submarine = submarine
-        this.setDepth(4)
+        this.setDepth(6)
+        this.scene = scene
 
         var nbFrames = 0
         var width = 0, height = 0
@@ -29,23 +34,26 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 nbFrames = 8
                 width = 128
                 height = 128
+                this.speed = 0.5
                 break;
             case 'shark':
                 nbFrames = 10
                 width = 128
                 height = 50
+                this.speed = 0.75
                 break;
             case 'fish':
                 nbFrames = 10
                 width = 64
                 height = 64
+                this.speed = 1
                 break;
             default:
                 break;
         }
         this.setSize(width, height)
 
-        var textture = scene.textures.addSpriteSheetFromAtlas(`${enemyType}-sheet`, { atlas: enemyType.toString(), frame: 'ennemy', frameWidth: width, frameHeight: height })
+        scene.textures.addSpriteSheetFromAtlas(`${enemyType}-sheet`, { atlas: enemyType.toString(), frame: 'ennemy', frameWidth: width, frameHeight: height })
         let frames = this.anims.generateFrameNames(`${enemyType}-sheet`, { start: 0, end: nbFrames - 1 })
 
 
@@ -62,47 +70,61 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
         this.setBody(shapes)
         this.setFixedRotation()
-        this.setVelocityX(this.currentVelocity)
+
+        this.setVelocityX(-this.speed)
+
+        if (this.enemyType === "octopus")
+            if (Math.random() > 0.5) {
+                this.setVelocityY(-this.speed)
+            } else {
+                this.setVelocityY(this.speed)
+            }
 
     }
 
 
 
     update(): void {
+        if (!this.runsAway && this.enemyType === "octopus") {
+            if (this.body.position.y <= (this.yPosition - this.verticalMovement)) {
+                this.setVelocityY(this.speed)
+            }
+            if (this.body.position.y >= (this.yPosition + this.verticalMovement)) {
+                this.setVelocityY(-this.speed)
+            }
 
-        //this.setVelocityX(this.currentVelocity)
-
-        if (this.body.position.y <= this.yPosition - this.verticalMovement) {
-            this.setVelocityY(this.verticalMovement)
-        }
-        if (this.body.position.y >= this.yPosition + this.verticalMovement) {
-            this.setVelocityY(-this.verticalMovement)
         }
     }
 
     escape(): void {
         if (!this.runsAway) {
-            this.setVelocityX(ENNEMY_DEFAULT_SPEED+2)
+            this.scene.score += 200
+            this.setVelocityX(this.speed+1)
             this.setFlipX(true)
 
-            if (Math.random() >= 0.5) {
-                let rot = Math.random() * 0.8 + 0.8
-                this.setRotation(rot)
-                this.setVelocityY(ENNEMY_DEFAULT_SPEED)
-            } else {
-                this.setRotation(-Math.random() * 0.8 - 0.8)
-                this.setVelocityY(-ENNEMY_DEFAULT_SPEED)
+
+
+            if (this.enemyType === "octopus") {
+                if (Math.random() >= 0.5) {
+                    let rot = Math.random() * 0.8
+                    this.setAngle(rot)
+                    this.setVelocityY(this.speed)
+                } else {
+                    let rot = -Math.random() * 0.8
+                    this.setAngle(rot)
+                    this.setVelocityY(-this.speed)
+                }
             }
             this.runsAway = true
 
             this.scene.time.addEvent({
                 delay: 10000,
                 callback: () => {
-                  this.runsAway = false
-                  this.setVelocityX(ENNEMY_DEFAULT_SPEED)
+                    this.runsAway = false
+                    this.setVelocityX(this.speed)
                 },
                 loop: false
-              })
+            })
         }
 
     }

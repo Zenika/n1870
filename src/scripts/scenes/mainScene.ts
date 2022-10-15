@@ -1,10 +1,8 @@
-import Submarine, { Ballast, Movement } from '../objects/submarine'
+import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy from '../objects/enemy'
 
-
-const SUBMARINE_SPEED_STEP = 2
 export const NB_BACKGROUND = 10;
 
 
@@ -20,6 +18,8 @@ export default class MainScene extends Phaser.Scene {
   currentMovement: Movement = Movement.Stopped
   ballaste: Ballast = Ballast.Keep;
 
+  lastScorePos: number = 0
+
 
   constructor() {
     super({
@@ -32,7 +32,7 @@ export default class MainScene extends Phaser.Scene {
         },
         matter: {
           debug: false,
-          gravity: {
+          gravity: { 
             y: 0
           }
         }
@@ -42,6 +42,7 @@ export default class MainScene extends Phaser.Scene {
 
   init() {
     this.score = 0
+    this.lastScorePos = 0
     this._time = 200
   }
 
@@ -69,16 +70,18 @@ export default class MainScene extends Phaser.Scene {
 
     // display the Phaser.VERSION
     this.scoreText = this.add
-      .text(0, 50, `Time: ${this._time} Score: ${this.score}`, {
+      .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
         color: '#ffffff',
         fontSize: '24px'
       })
       .setDepth(6)
 
     this.ennemis = []
+    this.ennemis.push(new Enemy(this, width * 2, 400, 'fish', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 2, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 2.5, 300, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 3, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
+    this.ennemis.push(new Enemy(this, width * 3, 400, 'fish', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 4, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 5, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
 
@@ -86,12 +89,13 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 4, 400, 'shark', this.submarine, this.onCollision.bind(this)))
 
+    this.ennemis.push(new Enemy(this, width * 5, 200, 'fish', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 5, 300, 'fish', this.submarine, this.onCollision.bind(this)))
 
     this.matter.world.on("collisionstart", (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
-      if (bodyA.label === "submarine-light" && bodyB.label === "ennemy") {
+      if (bodyA.label === "submarine-light" && bodyB.label === "ennemy" && this.submarine.light.currentBody.render.visible) {
         bodyB.gameObject.escape()
-      } else if (bodyB.label === "submarine-light" && bodyA.label === "ennemy") {
+      } else if (bodyB.label === "submarine-light" && bodyA.label === "ennemy" && this.submarine.light.currentBody.render.visible) {
         bodyA.gameObject.escape()
       } else if (bodyA.label === "submarine" && bodyB.label === "ennemy") {
         this.onCollision()
@@ -100,10 +104,9 @@ export default class MainScene extends Phaser.Scene {
       }
     });
 
+    // this.fpsText = new FpsText(this)
 
-    this.fpsText = new FpsText(this)
-
-    this.fpsText.setPosition(0, 80).setDepth(7)
+    // this.fpsText.setPosition(0, 80).setDepth(7)
 
     this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
     this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
@@ -113,11 +116,18 @@ export default class MainScene extends Phaser.Scene {
     this.input.keyboard.on('keyup', event => this.resetCommand(event))
 
     this.scoreText.setScrollFactor(0)
-    this.fpsText.setScrollFactor(0)
+    //this.fpsText.setScrollFactor(0)
+
+    this.lastScorePos = this.submarine.x
   }
 
   onCollision() {
-    this.score -= 500;
+    if(!this.submarine.flashing) {
+      this.submarine.moving = false
+      this.submarine.setVelocityX(0)
+      this.score -= 50;
+      this.submarine.startFlash()
+    }
   }
 
 
@@ -164,6 +174,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
+
     if (this.ballaste === Ballast.Fill) {
       this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
     } else if (this.ballaste === Ballast.Empty) {
@@ -175,19 +186,20 @@ export default class MainScene extends Phaser.Scene {
     if (this.submarine.moving) {
       if (this.currentMovement === Movement.Forward) {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
-        this.score += 10;
+
+        if(this.submarine.x > this.lastScorePos) {
+          this.score += Math.floor(this.submarine.x-this.lastScorePos)
+          this.lastScorePos = this.submarine.x
+        }
+        
       } else if (this.currentMovement === Movement.Backward) {
         this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
-      this.submarine.update(this.currentMovement);
+    } 
 
-    } else {
-      this.submarine.setVelocityX(0)
-      this.submarine.update(this.currentMovement);
-    }
-
-    this.fpsText.update()
+    //this.fpsText.update()
     this.background.update()
+    this.submarine.update(this.currentMovement)
 
 
     this.ennemis.forEach(ennemi => {

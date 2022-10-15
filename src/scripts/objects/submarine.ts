@@ -1,4 +1,5 @@
 import { Body, Events } from 'matter'
+import GraphicHelper from '../utils/GraphiHelper'
 import Flashlight from './flashlight'
 
 export enum Movement {
@@ -14,6 +15,7 @@ export enum Ballast {
 }
 
 const INIT_SUBMARINE_XPOS = 300
+export const SUBMARINE_SPEED_STEP = 1
 
 export default class Submarine extends Phaser.Physics.Matter.Sprite {
   light: Flashlight
@@ -23,6 +25,8 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
   moving: boolean
 
   emitter: Phaser.GameObjects.Particles.ParticleEmitter
+
+  flashing: boolean
 
   constructor(scene: Phaser.Scene, x, y) {
     super(scene.matter.world, x, y, 'submarine')
@@ -87,7 +91,32 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
     this.setVelocityX(0)
 
     this.moving = false
+    this.flashing = false
 
+  }
+
+  startFlash() {
+
+    if (!this.flashing) {
+      this.flashing = true
+
+      GraphicHelper.flashElement(this.scene,this,2,'Linear',500,100)
+      GraphicHelper.flashElement(this.scene,this.light.armLight,2,'Linear',500,100)
+    
+      this.scene.time.addEvent({
+        delay: 1000,
+        callback: () => {
+          this.endFlash()
+        },
+        loop: false
+      })
+
+    }
+
+  }
+
+  endFlash() {
+    this.flashing = false
   }
 
   update(newMovement: Movement) {
