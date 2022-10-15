@@ -85,7 +85,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
 
     update(): void {
-
         if (!this.runsAway && this.enemyType === "octopus") {
             if (this.body.position.y <= (this.yPosition - this.verticalMovement)) {
                 this.setVelocityY(this.speed)
@@ -126,6 +125,33 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 },
                 loop: false
             })
+        }
+
+    }
+
+    escape(): void {
+        if (!this.runsAway) {
+            this.setVelocityX(ENNEMY_DEFAULT_SPEED+2)
+            this.setFlipX(true)
+
+            if (Math.random() >= 0.5) {
+                let rot = Math.random() * 0.8 + 0.8
+                this.setRotation(rot)
+                this.setVelocityY(ENNEMY_DEFAULT_SPEED)
+            } else {
+                this.setRotation(-Math.random() * 0.8 - 0.8)
+                this.setVelocityY(-ENNEMY_DEFAULT_SPEED)
+            }
+            this.runsAway = true
+
+            this.scene.time.addEvent({
+                delay: 10000,
+                callback: () => {
+                  this.runsAway = false
+                  this.setVelocityX(ENNEMY_DEFAULT_SPEED)
+                },
+                loop: false
+              })
         }
 
     }
