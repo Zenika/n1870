@@ -1,5 +1,4 @@
 import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
-import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
 
@@ -96,10 +95,6 @@ export default class MainScene extends Phaser.Scene {
       }
     })
 
-    // this.fpsText = new FpsText(this)
-
-    // this.fpsText.setPosition(0, 80).setDepth(7)
-
     this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
     this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
     this.lights.enable().setAmbientColor(0x555555)
@@ -108,7 +103,6 @@ export default class MainScene extends Phaser.Scene {
     this.input.keyboard.on('keyup', event => this.resetCommand(event))
 
     this.scoreText.setScrollFactor(0)
-    //this.fpsText.setScrollFactor(0)
 
     this.lastScorePos = this.submarine.x
   }
@@ -155,7 +149,9 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.moving = true
         break
       case Phaser.Input.Keyboard.KeyCodes.P:
-        this.scene.start('GameOverScene', { score: 0 })
+        if (this._time < 200) {
+          this.scene.start('GameOverScene', { score: 0 })
+        }
         break
       default:
         break
@@ -188,7 +184,6 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
-    //this.fpsText.update()
     this.background.update()
     this.submarine.update(this.currentMovement)
 
