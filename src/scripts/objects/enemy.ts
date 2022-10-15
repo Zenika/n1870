@@ -85,7 +85,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
 
     update(): void {
-
         if (!this.runsAway && this.enemyType === "octopus") {
             if (this.body.position.y <= (this.yPosition - this.verticalMovement)) {
                 this.setVelocityY(this.speed)
@@ -141,5 +140,5 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
       default:
         return 'octopus'
     }
-}    
+  }    
 }

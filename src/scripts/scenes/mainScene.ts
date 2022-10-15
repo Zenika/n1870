@@ -3,6 +3,7 @@ import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
 
+
 export const NB_BACKGROUND = 10
 
 export default class MainScene extends Phaser.Scene {
@@ -124,23 +125,17 @@ export default class MainScene extends Phaser.Scene {
   dealWithKeyDown(event) {
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
-        this.submarine.light.lightDown()
-        break
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
         this.submarine.light.lightDown()
         break
-      case Phaser.Input.Keyboard.KeyCodes.TWO:
-        this.submarine.light.lightStraight()
-        break
+      case Phaser.Input.Keyboard.KeyCodes.TWO:     
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
         this.submarine.light.lightStraight()
         break
       case Phaser.Input.Keyboard.KeyCodes.THREE:
-        this.submarine.light.lightUp()
-        break
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
-        this.submarine.light.lightUp()
-        break
+          this.submarine.light.lightUp()
+          break;
       case Phaser.Input.Keyboard.KeyCodes.L:
         this.submarine.light.toggleLight()
         break
@@ -170,6 +165,7 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
+
 
     if (this.ballaste === Ballast.Fill) {
       this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
