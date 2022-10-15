@@ -1,10 +1,10 @@
 import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
-import Enemy from '../objects/enemy'
+import Enemy, { EnemyType } from '../objects/enemy'
 
-export const NB_BACKGROUND = 10;
 
+export const NB_BACKGROUND = 10
 
 export default class MainScene extends Phaser.Scene {
   fpsText
@@ -16,16 +16,15 @@ export default class MainScene extends Phaser.Scene {
   scoreText: Phaser.GameObjects.Text
   _time: number = 0
   currentMovement: Movement = Movement.Stopped
-  ballaste: Ballast = Ballast.Keep;
+  ballaste: Ballast = Ballast.Keep
 
   lastScorePos: number = 0
-
 
   constructor() {
     super({
       key: 'MainScene',
       physics: {
-        default: "matter",
+        default: 'matter',
         arcade: {
           debug: false,
           gravity: { y: 0 }
@@ -50,9 +49,9 @@ export default class MainScene extends Phaser.Scene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-        this._time--;
+        this._time--
         if (!this._time) {
-          this.scene.start('GameOverScene', { score: this.score });
+          this.scene.start('GameOverScene', { score: this.score })
         }
       },
       loop: true
@@ -67,7 +66,6 @@ export default class MainScene extends Phaser.Scene {
 
     this.background = new Background(this)
 
-
     // display the Phaser.VERSION
     this.scoreText = this.add
       .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
@@ -76,33 +74,27 @@ export default class MainScene extends Phaser.Scene {
       })
       .setDepth(6)
 
-    this.ennemis = []
-    this.ennemis.push(new Enemy(this, width * 2, 400, 'fish', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 2, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 2.5, 300, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 3, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 3, 400, 'fish', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 4, 350, 'octopus', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 5, 250, 'octopus', this.submarine, this.onCollision.bind(this)))
+    this.ennemis = this.generateRandomEnemies()
 
-    this.ennemis.push(new Enemy(this, width, 200, 'shark', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 4, 400, 'shark', this.submarine, this.onCollision.bind(this)))
-
-    this.ennemis.push(new Enemy(this, width * 5, 200, 'fish', this.submarine, this.onCollision.bind(this)))
-    this.ennemis.push(new Enemy(this, width * 5, 300, 'fish', this.submarine, this.onCollision.bind(this)))
-
-    this.matter.world.on("collisionstart", (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
-      if (bodyA.label === "submarine-light" && bodyB.label === "ennemy" && this.submarine.light.currentBody.render.visible) {
+    this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
+      if (
+        bodyA.label === 'submarine-light' &&
+        bodyB.label === 'ennemy' &&
+        this.submarine.light.currentBody.render.visible
+      ) {
         bodyB.gameObject.escape()
-      } else if (bodyB.label === "submarine-light" && bodyA.label === "ennemy" && this.submarine.light.currentBody.render.visible) {
+      } else if (
+        bodyB.label === 'submarine-light' &&
+        bodyA.label === 'ennemy' &&
+        this.submarine.light.currentBody.render.visible
+      ) {
         bodyA.gameObject.escape()
-      } else if (bodyA.label === "submarine" && bodyB.label === "ennemy") {
+      } else if (bodyA.label === 'submarine' && bodyB.label === 'ennemy') {
         this.onCollision()
-      } else if (bodyB.label === "submarine" && bodyA.label === "ennemy") {
+      } else if (bodyB.label === 'submarine' && bodyA.label === 'ennemy') {
         this.onCollision()
       }
-    });
+    })
 
     // this.fpsText = new FpsText(this)
 
@@ -125,57 +117,53 @@ export default class MainScene extends Phaser.Scene {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
-      this.score -= 50;
+      this.score -= 50
       this.submarine.startFlash()
     }
   }
 
-
   dealWithKeyDown(event) {
-
-
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
         this.submarine.light.lightDown()
-        break;
+        break
       case Phaser.Input.Keyboard.KeyCodes.TWO:     
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
         this.submarine.light.lightStraight()
-        break;
+        break
       case Phaser.Input.Keyboard.KeyCodes.THREE:
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
           this.submarine.light.lightUp()
           break;
       case Phaser.Input.Keyboard.KeyCodes.L:
         this.submarine.light.toggleLight()
-        break;
+        break
       case Phaser.Input.Keyboard.KeyCodes.LEFT:
         this.currentMovement = Movement.Backward
-        break;
+        break
       case Phaser.Input.Keyboard.KeyCodes.RIGHT:
         this.currentMovement = Movement.Forward
-        break;
+        break
       case Phaser.Input.Keyboard.KeyCodes.UP:
-        this.ballaste = Ballast.Fill;
-        break;
+        this.ballaste = Ballast.Fill
+        break
       case Phaser.Input.Keyboard.KeyCodes.DOWN:
-        this.ballaste = Ballast.Empty;
-        break;
+        this.ballaste = Ballast.Empty
+        break
       case Phaser.Input.Keyboard.KeyCodes.SPACE:
-        this.submarine.moving = true;
-        break;
+        this.submarine.moving = true
+        break
       case Phaser.Input.Keyboard.KeyCodes.P:
-        this.scene.start('GameOverScene', { score: 0 });
-        break;
+        this.scene.start('GameOverScene', { score: 0 })
+        break
       default:
-        break;
+        break
     }
-    event.preventDefault();
+    event.preventDefault()
   }
 
   update() {
-
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
 
@@ -195,7 +183,6 @@ export default class MainScene extends Phaser.Scene {
           this.score += Math.floor(this.submarine.x - this.lastScorePos)
           this.lastScorePos = this.submarine.x
         }
-
       } else if (this.currentMovement === Movement.Backward) {
         this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
@@ -205,29 +192,43 @@ export default class MainScene extends Phaser.Scene {
     this.background.update()
     this.submarine.update(this.currentMovement)
 
-
     this.ennemis.forEach(ennemi => {
       ennemi.update()
-    });
+    })
   }
 
   resetCommand(event) {
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.SPACE:
-        this.submarine.moving = false;
-        break;
+        this.submarine.moving = false
+        break
       case Phaser.Input.Keyboard.KeyCodes.UP:
-        this.ballaste = Ballast.Keep;
-        break;
+        this.ballaste = Ballast.Keep
+        break
       case Phaser.Input.Keyboard.KeyCodes.DOWN:
-        this.ballaste = Ballast.Keep;
-        break;
+        this.ballaste = Ballast.Keep
+        break
       default:
-        break;
+        break
     }
-
-
-
   }
 
+  generateRandomEnemies(): Array<Enemy> {
+    const MAX_SCALE = 75
+    const SPAWNING_FREQUENCY = 1
+    const MIN_Y_POSITION = 150
+    const MAX_Y_POSITION = this.scale.height - 150
+
+    const enemies: Array<Enemy> = []
+    let randomYPosition = 0
+    for (let i = 2; i < MAX_SCALE; i+=SPAWNING_FREQUENCY) {
+        const randomEnemyType: EnemyType = Enemy.getRandomEnemyType()
+        randomYPosition = Math.floor(Math.random() * (MAX_Y_POSITION - MIN_Y_POSITION) + MIN_Y_POSITION)
+        enemies.push(
+          new Enemy(this, this.scale.width * i, randomYPosition, randomEnemyType, this.submarine, this.onCollision.bind(this))
+        )
+      
+    }
+    return enemies
+  }
 }
