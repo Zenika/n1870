@@ -111,7 +111,9 @@ export default class MainScene extends Phaser.Scene {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
-      this.score -= 50
+      if (this.score > 0) {
+        this.score -= 50
+      }
       this.submarine.startFlash()
     }
   }
