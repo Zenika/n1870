@@ -85,7 +85,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
 
     update(): void {
-
         if (!this.runsAway && this.enemyType === "octopus") {
             if (this.body.position.y <= (this.yPosition - this.verticalMovement)) {
                 this.setVelocityY(this.speed)
@@ -102,9 +101,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
             this.scene.score += 200
             this.setVelocityX(this.speed+1)
             this.setFlipX(true)
-
-
-
             if (this.enemyType === "octopus") {
                 if (Math.random() >= 0.5) {
                     let rot = Math.random() * 0.8

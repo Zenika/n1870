@@ -3,8 +3,6 @@ import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy from '../objects/enemy'
 
-
-
 export const NB_BACKGROUND = 10;
 
 
@@ -91,7 +89,6 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis.push(new Enemy(this, width * 3, 350, 'shark', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 4, 400, 'shark', this.submarine, this.onCollision.bind(this)))
 
-
     this.ennemis.push(new Enemy(this, width * 5, 200, 'fish', this.submarine, this.onCollision.bind(this)))
     this.ennemis.push(new Enemy(this, width * 5, 300, 'fish', this.submarine, this.onCollision.bind(this)))
 
@@ -106,7 +103,6 @@ export default class MainScene extends Phaser.Scene {
         this.onCollision()
       }
     });
-
 
     // this.fpsText = new FpsText(this)
 
@@ -140,8 +136,6 @@ export default class MainScene extends Phaser.Scene {
 
     switch (event.which) {
       case Phaser.Input.Keyboard.KeyCodes.ONE:
-        this.submarine.light.lightDown()
-        break;
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
         this.submarine.light.lightDown()
         break;
@@ -219,8 +213,6 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis.forEach(ennemi => {
       ennemi.update()
     });
-
-
   }
 
   resetCommand(event) {
