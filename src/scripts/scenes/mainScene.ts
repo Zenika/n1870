@@ -139,15 +139,11 @@ export default class MainScene extends Phaser.Scene {
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_ONE:
         this.submarine.light.lightDown()
         break;
-      case Phaser.Input.Keyboard.KeyCodes.TWO:
-        this.submarine.light.lightStraight()
-        break;      
+      case Phaser.Input.Keyboard.KeyCodes.TWO:     
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_TWO:
         this.submarine.light.lightStraight()
         break;
       case Phaser.Input.Keyboard.KeyCodes.THREE:
-        this.submarine.light.lightUp()
-        break;
       case Phaser.Input.Keyboard.KeyCodes.NUMPAD_THREE:
           this.submarine.light.lightUp()
           break;
