@@ -67,9 +67,11 @@ export default class MainScene extends Phaser.Scene {
     this.background = new Background(this)
 
     this.scoreText = this.add
-      .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
+      .text(100, 50, `Time: ${this._time} Score: ${this.score}`, {
         color: '#ffffff',
-        fontSize: '24px'
+        fontSize: '24px',
+        align: 'center',
+        fixedWidth: 400,
       })
       .setDepth(6)
 
@@ -111,7 +113,7 @@ export default class MainScene extends Phaser.Scene {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
-      if (this.score > 0) {
+      if (this.score > 50) {
         this.score -= 50
       }
       this.submarine.startFlash()

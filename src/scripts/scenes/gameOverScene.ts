@@ -23,7 +23,8 @@ export default class GameOverScene extends Phaser.Scene {
     this.add
       .text(150, height / 2 + 50, `Votre score ${this.score}`, {
         color: '#000000',
-        fontSize: '24px'
+        fontSize: '24px',
+        align: 'center',
       })
       .setDepth(6)
     this.input.keyboard.on('keydown', (event) => {
