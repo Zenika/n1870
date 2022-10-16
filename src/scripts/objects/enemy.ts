@@ -3,7 +3,7 @@ import Submarine, { Movement } from "./submarine"
 
 export type EnemyType = 'octopus' | 'shark' | 'fish'
 
-const ENNEMY_DEFAULT_SPEED = 0.5
+const ENEMY_DEFAULT_SPEED = 0.5
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
@@ -14,7 +14,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     submarine: Submarine
     scene: MainScene
     enemyType: EnemyType
-    speed: number = ENNEMY_DEFAULT_SPEED
+    speed: number = ENEMY_DEFAULT_SPEED
 
     constructor(scene: MainScene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
         super(scene.matter.world, x, y, enemyType.toString())

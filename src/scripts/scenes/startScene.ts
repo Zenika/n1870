@@ -112,8 +112,10 @@ export default class StartScene extends Phaser.Scene {
       event.preventDefault();
       switch (this.etape) {
       case 0:
+        this.swithToEtape(1);
+        break;
       case 1:
-        this.etape++;
+        this.swithToEtape(2);
         break;
       case 2:
       case 3:
@@ -213,6 +215,9 @@ export default class StartScene extends Phaser.Scene {
       this.submarine.setVelocityX(0)
       this.submarine.update(this.currentMovement);
     }
+  }
+
+  updateEtapeText() {
     switch (this.etape) {
       case 0:
         this.submarine.update(Movement.Forward)
@@ -285,7 +290,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Allumer la lampe en appuyant sur le bouton blanc de gauche, intitulé MS\nLa led jaune s'allume aussi longtemps que la lampe`);
         break;
       case 18:
-        this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nla monstre sera écrasé par la lampe et s'eloignera du sous-marin`);
+        this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nle monstre sera éffrayé par la lampe et s'eloignera du sous-marin`);
         this.swithToEtape(19, 6000);
         break;
       case 19:
@@ -308,16 +313,20 @@ export default class StartScene extends Phaser.Scene {
   }
 
   swithToEtape(toEtape, delay = 0) {
+    console.log(`switch to etape ${toEtape} with delay ${delay}`)
       if (this.swithToEtapeTimout) {
           clearTimeout(this.swithToEtapeTimout);
           this.swithToEtapeTimout = undefined;
       }
       if (delay === 0) {
           this.etape = toEtape;
+          this.updateEtapeText();
       }
       else {
           this.swithToEtapeTimout = setTimeout(() => {
+              this.swithToEtapeTimout = undefined;
               this.etape = toEtape;
+              this.updateEtapeText();
           }, delay)
       }
   }
