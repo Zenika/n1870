@@ -13,7 +13,8 @@ const config = {
   height: DEFAULT_HEIGHT,
   scale: {
     parent: 'phaser-game',
-  //  mode: Phaser.Scale.FIT,
+    expandParent: true,
+    mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [PreloadScene, StartScene, MainScene, GameOverScene],

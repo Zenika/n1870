@@ -11,7 +11,7 @@
   "label": "shark",
   "fixtures": [
     {
-      "label": "ennemy",
+      "label": "enemy",
       "isSensor": true,
       "vertices": [
         [

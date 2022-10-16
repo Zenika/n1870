@@ -1,11 +1,11 @@
 import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
-import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
 import Bullet from '../objects/bullet'
 
 
 export const NB_BACKGROUND = 10
+export const INIT_TIME = 200
 
 export default class MainScene extends Phaser.Scene {
   fpsText
@@ -44,7 +44,7 @@ export default class MainScene extends Phaser.Scene {
   init() {
     this.score = 0
     this.lastScorePos = 0
-    this._time = 200
+    this._time = INIT_TIME
   }
 
   create() {
@@ -68,11 +68,12 @@ export default class MainScene extends Phaser.Scene {
 
     this.background = new Background(this)
 
-    // display the Phaser.VERSION
     this.scoreText = this.add
-      .text(0, 0, `Time: ${this._time} Score: ${this.score}`, {
+      .text(100, 50, `Time: ${this._time} Score: ${this.score}`, {
         color: '#ffffff',
-        fontSize: '24px'
+        fontSize: '24px',
+        align: 'center',
+        fixedWidth: 400,
       })
       .setDepth(6)
 
@@ -82,19 +83,19 @@ export default class MainScene extends Phaser.Scene {
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
       if (
         bodyA.label === 'submarine-light' &&
-        bodyB.label === 'ennemy' &&
+        bodyB.label === 'enemy' &&
         this.submarine.light.currentBody.render.visible
       ) {
         bodyB.gameObject.escape()
       } else if (
         bodyB.label === 'submarine-light' &&
-        bodyA.label === 'ennemy' &&
+        bodyA.label === 'enemy' &&
         this.submarine.light.currentBody.render.visible
       ) {
         bodyA.gameObject.escape()
-      } else if (bodyA.label === 'submarine' && bodyB.label === 'ennemy') {
+      } else if (bodyA.label === 'submarine' && bodyB.label === 'enemy') {
         this.onCollision()
-      } else if (bodyB.label === 'submarine' && bodyA.label === 'ennemy') {
+      } else if (bodyB.label === 'submarine' && bodyA.label === 'enemy') {
         this.onCollision()
       } else if ((bodyB.label === 'bullet' && bodyA.label === 'ennemy') 
       || (bodyA.label === 'bullet' && bodyB.label === 'ennemy')) {
@@ -104,10 +105,6 @@ export default class MainScene extends Phaser.Scene {
       }
     })
 
-    // this.fpsText = new FpsText(this)
-
-    // this.fpsText.setPosition(0, 80).setDepth(7)
-
     this.matter.world.setBounds(0, 0, 2400 * NB_BACKGROUND, 600, 64, true, true, true, true)
     this.physics.world.setBounds(0, 0, width, 600, true, true, true, true)
     this.lights.enable().setAmbientColor(0x555555)
@@ -116,7 +113,6 @@ export default class MainScene extends Phaser.Scene {
     this.input.keyboard.on('keyup', event => this.resetCommand(event))
 
     this.scoreText.setScrollFactor(0)
-    //this.fpsText.setScrollFactor(0)
 
     this.lastScorePos = this.submarine.x
   }
@@ -125,7 +121,9 @@ export default class MainScene extends Phaser.Scene {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
-      this.score -= 50
+      if (this.score > 50) {
+        this.score -= 50
+      }
       this.submarine.startFlash()
     }
   }
@@ -163,7 +161,9 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.moving = true
         break
       case Phaser.Input.Keyboard.KeyCodes.P:
-        this.scene.start('GameOverScene', { score: 0 })
+        if (this._time < INIT_TIME) {
+          this.scene.start('GameOverScene', { score: 0 })
+        }
         break
       case Phaser.Input.Keyboard.KeyCodes.T:
         if (!this.bullet.active && !this.submarine.flashing) {
@@ -201,7 +201,6 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
-    //this.fpsText.update()
     this.background.update()
     this.submarine.update(this.currentMovement)
 
