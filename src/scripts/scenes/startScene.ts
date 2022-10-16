@@ -294,16 +294,16 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le bras en position centrale`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nd'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nd'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers\n\nC'est un vieux sous marin, il faut être délicat avec le panneau de commande ;)`);
         setTimeout(() => {
           this.etape = 22;
         }, 4000);
         break;
       case 22:
-        this.text.setText(`Dès que vous êtes prêt, appuyez simultannément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultannément sur les boutons blancs 'TSC' et 'PB'`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultanément sur les boutons blancs 'TSC' et 'PB'`)
         break;
     }
   }
