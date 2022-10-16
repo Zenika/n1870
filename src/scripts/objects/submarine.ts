@@ -35,7 +35,9 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
 
     this.setPosition(INIT_SUBMARINE_XPOS, 350)
 
-    scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
+    if (!scene.textures.exists('sub-sheet')) {
+      scene.textures.addSpriteSheetFromAtlas('sub-sheet', { atlas: 'submarine', frame: 'sub', frameWidth: 128 })
+    }
     let frames = this.anims.generateFrameNames('sub-sheet', { start: 0, end: 9 })
 
     this.anims.create({
