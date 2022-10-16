@@ -1,3 +1,4 @@
+
 export default class Bullet extends Phaser.Physics.Matter.Sprite {
     speed: number;
     initPositionX: number;
@@ -21,6 +22,12 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
         this.setCollisionCategory(0x0004)
         this.setCollidesWith(0x0002)
         this.speed = Phaser.Math.GetSpeed(400, 1)
+        this.scene.anims.create({
+            key: 'explode',
+            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 23, first: 23 }),
+            frameRate: 20,
+            repeat: 0
+        });
     }
 
     fire(x:number, y:number) {
@@ -35,6 +42,12 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
     explode() {
         this.setActive(false)
         this.setVisible(false)
+        console.log('explode')
+        var boom = this.scene.add.sprite(this.x, this.y, 'explosion');
+        boom.anims.play('explode').addListener(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            console.log('end')
+            boom.destroy();
+        });
         this.setPosition(0, 0)
     }
 

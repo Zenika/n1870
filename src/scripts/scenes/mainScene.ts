@@ -166,7 +166,7 @@ export default class MainScene extends Phaser.Scene {
         this.scene.start('GameOverScene', { score: 0 })
         break
       case Phaser.Input.Keyboard.KeyCodes.T:
-        if (!this.bullet.active) {
+        if (!this.bullet.active && !this.submarine.flashing) {
           this.bullet.fire(this.submarine.x, this.submarine.y)
         }
         break
