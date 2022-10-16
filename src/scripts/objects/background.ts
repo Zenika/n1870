@@ -50,6 +50,8 @@ export default class Background {
       var composite = scene.matter.composite.create()
       var bodyUp = scene.matter.body.create({ isStatic: true })
       var bodyDown = scene.matter.body.create({ isStatic: true })
+      bodyUp.label = 'background'
+      bodyDown.label = 'background'
       scene.matter.body.setParts(bodyUp, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[0].vertices))
       scene.matter.body.setParts(bodyDown, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[1].vertices))
       scene.matter.composite.add(composite, bodyUp)

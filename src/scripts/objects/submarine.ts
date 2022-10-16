@@ -86,7 +86,8 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
     var shapes = scene.cache.json.get('submarine-box')
 
     this.setBody(shapes.submarine)
-
+    this.setCollisionCategory(0x0001)
+    this.setCollidesWith([0x0001, 0x0002])
     this.setFixedRotation()
     this.setVelocityX(0)
 

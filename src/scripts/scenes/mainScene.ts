@@ -2,6 +2,7 @@ import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/s
 import FpsText from '../objects/fpsText'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
+import Bullet from '../objects/bullet'
 
 
 export const NB_BACKGROUND = 10
@@ -17,6 +18,7 @@ export default class MainScene extends Phaser.Scene {
   _time: number = 0
   currentMovement: Movement = Movement.Stopped
   ballaste: Ballast = Ballast.Keep
+  bullet: Bullet
 
   lastScorePos: number = 0
 
@@ -75,6 +77,7 @@ export default class MainScene extends Phaser.Scene {
       .setDepth(6)
 
     this.ennemis = this.generateRandomEnemies()
+    this.bullet = new Bullet(this)
 
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
       if (
@@ -93,6 +96,12 @@ export default class MainScene extends Phaser.Scene {
         this.onCollision()
       } else if (bodyB.label === 'submarine' && bodyA.label === 'ennemy') {
         this.onCollision()
+      } else if (bodyB.label === 'bullet' && bodyA.label === 'ennemy') {
+        this.score += 500
+        bodyA.gameObject.escape()
+      } else if (bodyA.label === 'bullet' && bodyB.label === 'ennemy') {
+        this.score += 500
+        bodyB.gameObject.escape()
       }
     })
 
@@ -157,13 +166,18 @@ export default class MainScene extends Phaser.Scene {
       case Phaser.Input.Keyboard.KeyCodes.P:
         this.scene.start('GameOverScene', { score: 0 })
         break
+      case Phaser.Input.Keyboard.KeyCodes.T:
+        if (!this.bullet.active) {
+          this.bullet.fire(this.submarine.x, this.submarine.y)
+        }
+        break
       default:
         break
     }
     event.preventDefault()
   }
 
-  update() {
+  update(time: number, delta: number) {
     this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
 
 
@@ -195,6 +209,9 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis.forEach(ennemi => {
       ennemi.update()
     })
+    if (this.bullet.active) {
+      this.bullet.update(time, delta)
+    }
   }
 
   resetCommand(event) {
