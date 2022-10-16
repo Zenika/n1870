@@ -129,7 +129,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 loop: false
             })
         }
-  }
+   }
+
+   explode() {
+    this.setActive(false)
+    this.setVisible(false)
+   }
 
   static getRandomEnemyType(): EnemyType {
     const randomNumber = Math.floor(Math.random() * 3)

@@ -20,12 +20,6 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
         })
         this.setCollisionCategory(0x0004)
         this.setCollidesWith(0x0002)
-        this.setOnCollide(collision => {
-            console.log(collision)
-            this.setActive(false)
-            this.setVisible(false)
-            this.setPosition(0, 0)
-        })
         this.speed = Phaser.Math.GetSpeed(400, 1)
     }
 
@@ -36,7 +30,13 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
 
         this.setActive(true)
         this.setVisible(true)
-    }   
+    }
+
+    explode() {
+        this.setActive(false)
+        this.setVisible(false)
+        this.setPosition(0, 0)
+    }
 
     update (time: number, delta: number)
     {

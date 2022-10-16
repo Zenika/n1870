@@ -96,12 +96,11 @@ export default class MainScene extends Phaser.Scene {
         this.onCollision()
       } else if (bodyB.label === 'submarine' && bodyA.label === 'ennemy') {
         this.onCollision()
-      } else if (bodyB.label === 'bullet' && bodyA.label === 'ennemy') {
+      } else if ((bodyB.label === 'bullet' && bodyA.label === 'ennemy') 
+      || (bodyA.label === 'bullet' && bodyB.label === 'ennemy')) {
         this.score += 500
-        bodyA.gameObject.escape()
-      } else if (bodyA.label === 'bullet' && bodyB.label === 'ennemy') {
-        this.score += 500
-        bodyB.gameObject.escape()
+        bodyA.gameObject.explode()
+        bodyB.gameObject.explode()
       }
     })
 
