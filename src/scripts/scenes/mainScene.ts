@@ -78,6 +78,7 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis = this.generateRandomEnemies()
 
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
+      console.log(bodyA, bodyB)
       if (
         bodyA.label === 'submarine-light' &&
         bodyB.label === 'enemy' &&
@@ -90,10 +91,11 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.light.currentBody.render.visible
       ) {
         bodyA.gameObject.escape()
-      } else if (bodyA.label === 'submarine' && bodyB.label === 'enemy') {
+      } else if ((bodyA.label === 'submarine' && bodyB.label === 'enemy') 
+      || (bodyB.label === 'submarine' && bodyA.label === 'enemy')) {
         this.onCollision()
-      } else if (bodyB.label === 'submarine' && bodyA.label === 'enemy') {
-        this.onCollision()
+      } else {
+        
       }
     })
 

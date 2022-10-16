@@ -63,13 +63,34 @@ export default class Flashlight {
     this.lightStraight()
 
     var shapes = scene.cache.json.get('submarine-light-box')
-    var body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.straight);
+    var body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.straight, {
+      label: 'submarine-light',
+      collisionFilter: {
+        category: 0x0008,
+        mask: 0x0004,
+        group: 0,
+      },
+    });
     body.render.visible = false
     this.bodyForCollision.set('straight-light', body)
-    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.up);
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.up, {
+      label: 'submarine-light',
+      collisionFilter: {
+        category: 0x0008,
+        mask: 0x0004,
+        group: 0,
+      },
+    });
     body.render.visible = false
     this.bodyForCollision.set('up-light', body)
-    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.down);
+    body = this.scene.matter.add.fromPhysicsEditor(0, 0, shapes.down, {
+      label: 'submarine-light',
+      collisionFilter: {
+        category: 0x0008,
+        mask: 0x0004,
+        group: 0,
+      },
+    });
     body.render.visible = false
     this.bodyForCollision.set('down-light', body)
 
