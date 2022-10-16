@@ -1,3 +1,4 @@
+import Bullet from "../objects/bullet"
 import Submarine, { Ballast, Movement } from "../objects/submarine"
 
 const SUBMARINE_SPEED_STEP = 2
@@ -13,6 +14,8 @@ export default class StartScene extends Phaser.Scene {
   light = false;
   ballasteTimer: Phaser.Time.TimerEvent
   swithToEtapeTimout?: NodeJS.Timeout
+  torpille: boolean
+  bullet: Bullet
 
   constructor() {
     super({
@@ -54,6 +57,7 @@ export default class StartScene extends Phaser.Scene {
         this.ballaste = Ballast.Keep
       },
     });
+    this.bullet = new Bullet(this)
 
     this.input.keyboard.on('keydown', (event) => {
       switch (event.which) {
@@ -93,6 +97,9 @@ export default class StartScene extends Phaser.Scene {
           break;
         case Phaser.Input.Keyboard.KeyCodes.F:
           document.querySelector("#phaser-game")?.requestFullscreen();
+          break;
+        case Phaser.Input.Keyboard.KeyCodes.T:
+          this.torpille = true
           break;
         case Phaser.Input.Keyboard.KeyCodes.P:
           if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
@@ -187,6 +194,10 @@ export default class StartScene extends Phaser.Scene {
           this.swithToEtape(21);
         }
         break;
+      case 21:
+        if (this.torpille) {
+          this.swithToEtape(22);
+        }
       }
     });
     this.input.keyboard.on('keyup', event => {
@@ -214,6 +225,16 @@ export default class StartScene extends Phaser.Scene {
     else {
       this.submarine.setVelocityX(0)
       this.submarine.update(this.currentMovement);
+    }
+    if (this.torpille) {
+      this.bullet.fire(this.submarine.x, this.submarine.y)
+      this.torpille = false
+    }
+    if (this.bullet.active) {
+      this.bullet.update(time, delta)
+      if (this.bullet.x > 600) {
+        this.bullet.explode()
+      }
     }
   }
 
@@ -300,10 +321,13 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le bras en position centrale`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nD'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers`);
-        this.swithToEtape(22, 4000);
+        this.text.setText(`Dernière commande, la possibilité d'envoyer une torpille\nAppuyer sur le bouton tir pour envoyer une torpille`);
         break;
       case 22:
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nD'éviter les monstres, de les éloigner avec la lampe ou de les tuer avec la torpille\net de ne pas toucher les rochers`);
+        this.swithToEtape(23, 4000);
+        break;
+      case 23:
         this.text.setText(`Dès que vous êtes prêt, appuyez simultannément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
         break;
       case 100:

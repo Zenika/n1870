@@ -55,10 +55,11 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite {
     {
         this.x += this.speed * delta;
 
-        if (this.x > this.initPositionX + 820)
+        if (this.x > this.initPositionX + 400)
         {
             this.setActive(false)
             this.setVisible(false)
+            this.setPosition(0, 0)
         }
     }
 
