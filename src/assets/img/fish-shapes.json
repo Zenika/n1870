@@ -6,7 +6,7 @@
     "bounce": 0,
     "frictionAir": 0,
     "frictionStatic": 0,
-    "collisionFilter": { "group": 1, "category": 2, "mask": 2 },
+    "collisionFilter": { "group": 0, "category": 4, "mask": 9 },
     "slop": 1,
     "label": "fish",
     "fixtures": [
