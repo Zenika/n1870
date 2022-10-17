@@ -313,10 +313,10 @@ export default class StartScene extends Phaser.Scene {
         this.swithToEtape(23, 4000);
         break;
       case 23:
-        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur le bouton rouge en position [START] pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, appuyez ouvrez le capot rouge du bouton [START] et lever l'interrupteur pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur le bouton rouge en position [START].`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin basculer en position haute le bouton rouge [START].`)
         break;
     }
   }
