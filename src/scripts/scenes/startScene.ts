@@ -36,7 +36,7 @@ export default class StartScene extends Phaser.Scene {
 
     this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
     this.text = this.add
-      .text(10, height / 2, `Bienvenue dans le tutoriel du Jeu\nAppuyer sur une touche pour commencer`, {
+      .text(10, height / 2, `Bienvenue dans le tutoriel du Jeu.\nAppuyez sur une touche pour commencer.`, {
         color: '#000000',
         fontSize: '18px',
         align: 'center',
@@ -225,86 +225,86 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 1:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Vous regardez dans le periscope du sous-marin,\nvotre collègue devra utiliser les commandes,\nvoyons comment les utiliser ...\n`);
+        this.text.setText(`Vous regardez dans le periscope du sous-marin.\nVotre collègue devra utiliser les commandes.\nVoyons comment les utiliser...\n`);
         this.swithToEtape(2, 4000);
         break;
       case 2:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Un sous-marin possède des ballasts pour plonger\nAppuyer sur le bouton + pour le remplir d'eau`);
+        this.text.setText(`Un sous-marin possède des ballasts pour plonger.\nAppuyez sur le bouton [+] pour le remplir d'eau.`);
         break;
       case 3:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Appuyer sur le bouton + pour remplir les ballasts`);
+        this.text.setText(`Appuyez sur le bouton [+] pour remplir les ballasts.`);
         break;
       case 4:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Le sous-marin est lesté, il va donc \ns'enfoncer dans les profondeurs ...`);
+        this.text.setText(`Le sous-marin est maintenant lesté, il va s'enfoncer dans les profondeurs...`);
         this.swithToEtape(5, 3000);
         break;
       case 5:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Vidons maintenant les ballasts.\nAppuyer sur le bouton - pour les vider`);
+        this.text.setText(`Vidons maintenant les ballasts.\nAppuyez sur le bouton [-] pour les vider.`);
         break;
       case 6:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Appuyer sur le bouton - pour vider les ballasts`);
+        this.text.setText(`Appuyez sur le bouton [-] pour vider les ballasts.`);
         break;
       case 7:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Le sous-marin est rempli d'air, il va donc remonter vers la surface ...`);
+        this.text.setText(`Le sous-marin est rempli d'air, il va maintenant remonter vers la surface...`);
         this.swithToEtape(8, 4000);
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant\nMettez le sous-marin en marche avant en mettant le commutateur de droite sur la position 2.`);
+        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant.\nMettez le sous-marin en marche avant en mettant le commutateur de droite sur la position [2].`);
         break;
       case 9:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Mettez le sous-marin en marche avant`);
+        this.text.setText(`Mettez le sous-marin en marche avant.`);
         break;
       case 10:
-        this.text.setText(`Maintenant que la marche avant est enclenchée,\nappuyez sur la touche marche autant de fois que nécessaire pour avancer,\nla led verte sur le poste de commande s'allume à chaque appui.`);
+        this.text.setText(`Maintenant que la marche avant est enclenchée, appuyez sur la touche [marche] autant de fois que nécessaire pour avancer, la led verte sur le poste de commande s'allume à chaque appui.`);
         break;
       case 11:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Si vous vous cogniez contre un rocher, il faut enclencher la marche arrière.\nMettez le sous-marin en marche arrière le commutateur de droite sur la position 1.`);
+        this.text.setText(`Si vous buttez contre un rocher, il faut enclencher la marche arrière.\nMettez le sous-marin en marche arrière avec le commutateur de droite sur la position [1].`);
         break;
       case 12:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Mettez le sous-marin en marche arrière`);
+        this.text.setText(`Mettez le sous-marin en marche arrière.`);
         break;
       case 13:
-        this.text.setText(`Maintenant que la marche arrière est enclenchée,\nappuyez sur la touche marche autant de fois que nécessaire pour reculer`);
+        this.text.setText(`Maintenant que la marche arrière est enclenchée, appuyez sur la touche marche autant de fois que nécessaire pour reculer.`);
         break;
       case 14:
-        this.text.setText(`Une lampe est placée sur le sous-marin,\napprenez à la manipuler ...`);
+        this.text.setText(`Une lampe est placée sur le sous-marin, apprenez à la manipuler...`);
         this.swithToEtape(15, 2000);
         break;
       case 15:
-        this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu\nTourner le contacteur pour le mettre en position basse (0) ou haute (2)`);
+        this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu.\nTournez le contacteur pour le mettre en position basse (0) ou haute (2)`);
         break;
       case 16:
-        this.text.setText(`Actionner sur le contacteur pour le mettre en position basse ou haute`);
+        this.text.setText(`Actionnez le contacteur pour le mettre en position basse ou haute.`);
         break;
       case 17:
-        this.text.setText(`Allumer la lampe en appuyant sur le bouton blanc de gauche, intitulé MS\nLa led jaune s'allume aussi longtemps que la lampe`);
+        this.text.setText(`Allumez la lampe en appuyant sur le bouton blanc de gauche, intitulé [MS].\nLa led jaune s'allume aussi longtemps que la lampe.`);
         break;
       case 18:
-        this.text.setText(`Si un monstre passe dans le faiseau de la lampe,\nle monstre sera éffrayé par la lampe et s'eloignera du sous-marin`);
+        this.text.setText(`Si un monstre passe dans le faiseau de la lampe, il sera éffrayé et s'eloignera du sous-marin.`);
         this.swithToEtape(19, 6000);
         break;
       case 19:
-        this.text.setText(`Remettez le bras en position centrale, commutateur de gauche en position 1, pour continuer ...`);
+        this.text.setText(`Pour continuer, remettez le bras en position centrale (commutateur de gauche en position [1]).`);
         break;
       case 20:
-        this.text.setText(`Mettez le bras en position centrale`);
+        this.text.setText(`Mettez le bras en position centrale.`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible\nD'éviter les monstres ou de les éloigner avec la lampe\net de ne pas toucher les rochers\n\nVous pilotez un vieux sous-marin, il faut être délicat avec le panneau de commande ;)`);
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible en évitant les monstres ou en les éloignant avec la lampe et de ne pas toucher les rochers.\n\nVous pilotez un vieux sous-marin, il faut être délicat avec le panneau de commande ;)`);
         this.swithToEtape(22, 4000);
         break;
       case 22:
-        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs 'TSC' et 'PB' pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs [TSC] et [PB] pour commencer...`);
         break;
       case 100:
         this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultanément sur les boutons blancs 'TSC' et 'PB'`)
