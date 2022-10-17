@@ -72,9 +72,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
         this.setBody(shapes)
         this.setFixedRotation()
-        this.setCollisionCategory(0x0004)
-        this.setCollidesWith([0x0001, 0x0008])
-        this.setCollisionGroup(0)
 
         this.setVelocityX(-this.speed)
 
