@@ -47,11 +47,20 @@ export default class Background {
 
     var composites: MatterJS.CompositeType[] = []
     for (let index = 0; index < constants.NB_BACKGROUND; index++) {
-      var composite = scene.matter.composite.create()
-      var bodyUp = scene.matter.body.create({ isStatic: true })
-      var bodyDown = scene.matter.body.create({ isStatic: true })
-      scene.matter.body.setParts(bodyUp, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[0].vertices))
-      scene.matter.body.setParts(bodyDown, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[1].vertices))
+      var composite = scene.matter.composite.create({
+        label: 'background',
+      })
+      var bodyUp = scene.matter.body.create({ isStatic: true,
+        collisionFilter: shapes.layer1.collisionFilter,
+        label: 'background',
+      })
+      var bodyDown = scene.matter.body.create({
+        isStatic: true,
+        collisionFilter: shapes.layer1.collisionFilter,
+        label: 'background',
+      })
+      scene.matter.body.setParts(bodyUp, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[0].vertices, { label: 'background' }))
+      scene.matter.body.setParts(bodyDown, Phaser.Physics.Matter.PhysicsEditorParser.parseVertices(shapes.layer1.fixtures[1].vertices, { label: 'background' }))
       scene.matter.composite.add(composite, bodyUp)
       scene.matter.composite.add(composite, bodyDown)
 

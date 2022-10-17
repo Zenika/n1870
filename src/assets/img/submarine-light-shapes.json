@@ -8,7 +8,7 @@
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "collisionFilter": { "group": 0, "category": 8, "mask": 4 },
         "label": "up",
         "fixtures": [
           {
@@ -50,7 +50,7 @@
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "collisionFilter": { "group": 0, "category": 8, "mask": 4 },
         "label": "straight",
         "fixtures": [
           {
@@ -98,7 +98,7 @@
         "friction": 0.1,
         "frictionAir": 0.001,
         "frictionStatic": 0.5,
-        "collisionFilter": { "group": 1, "category": 2, "mask": 3 },
+        "collisionFilter": { "group": 0, "category": 8, "mask": 4 },
         "label": "down",
         "fixtures": [
           {

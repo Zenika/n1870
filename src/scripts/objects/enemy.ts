@@ -75,13 +75,13 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
 
         this.setVelocityX(-this.speed)
 
-        if (this.enemyType === "octopus")
+        if (this.enemyType === "octopus") {
             if (Math.random() > 0.5) {
                 this.setVelocityY(-this.speed)
             } else {
                 this.setVelocityY(this.speed)
             }
-
+        }
     }
 
 

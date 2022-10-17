@@ -11,9 +11,9 @@
 		"frictionAir": 0.05,
 		"frictionStatic": 0.5,
 		"collisionFilter": {
-			"group": 1,
-			"category": 2,
-			"mask": 3
+			"group": 0,
+			"category": 1,
+			"mask": 6
 		},
 		"fixtures": [
 			{
