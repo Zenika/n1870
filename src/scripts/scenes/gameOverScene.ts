@@ -14,7 +14,7 @@ export default class GameOverScene extends Phaser.Scene {
     this.add.image(0, 0, 'gameover').setOrigin(0, 0).setScrollFactor(0)
     this.add
       .text(208, 464, `${this.score}`, {
-        color: '#ffffff',
+        color: '#af802a',
         fontSize: '28px',
         align: 'center',
         fixedWidth: 188,
