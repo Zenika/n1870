@@ -83,7 +83,9 @@ export default class MainScene extends Phaser.Scene {
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'enemy')) {
         this.onCollision()
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'background')) {
-        this.score -= 10
+        if (this.score > 10) {
+          this.score -= 10
+        }
         this.submarine.moving = false
         this.currentMovement = Movement.Stopped
       }
