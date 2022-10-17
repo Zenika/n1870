@@ -95,7 +95,17 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 this.setVelocityY(-this.speed)
             }
 
+        }else if (this.runsAway) {
+            const { width, height } = this.scene.scale            
+            let visibleMaxX = this.scene.cameras.main.scrollX+width + this.width
+            let visibleMaxY = height + this.height
+
+            if(this.x >= visibleMaxX || this.y < 0 || this.y >= visibleMaxY) {
+                this.scene.removeEnemy(this)
+                this.destroy()
+            }
         }
+
     }
 
     escape(): void {
@@ -118,15 +128,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 }
             }
             this.runsAway = true
-
-            this.scene.time.addEvent({
-                delay: 10000,
-                callback: () => {
-                    this.runsAway = false
-                    this.setVelocityX(this.speed)
-                },
-                loop: false
-            })
         }
   }
 

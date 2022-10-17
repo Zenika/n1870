@@ -230,4 +230,14 @@ export default class MainScene extends Phaser.Scene {
     }
     return enemies
   }
+
+  removeEnemy(enemy:Enemy): void {
+
+    const index: number = this.ennemis.indexOf(enemy, 0);
+    if (index > -1) {
+      this.ennemis.splice(index, 1);
+    }
+     
+  }
+
 }
