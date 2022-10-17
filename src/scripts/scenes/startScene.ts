@@ -35,15 +35,15 @@ export default class StartScene extends Phaser.Scene {
     const { width, height } = this.scale
 
     this.add.image(0, 0, 'game_tuto').setOrigin(0, 0).setScrollFactor(0)
-    const PADDING = 50
+    const PADDING = 70
     this.text = this.add
-      .text(PADDING, 350, `Bienvenue dans le tutoriel du Jeu N.1870.\nAppuyez sur une touche pour commencer.`, {
+      .text(PADDING, 350, `Bienvenue dans le tutoriel du Jeu N1870.\nAppuyez sur une touche pour commencer.`, {
         color: '#2D1C11',
         fontSize: '18px',
         align: 'center',
-        fixedWidth: width - 3 * PADDING,
+        fixedWidth: width - 2 * PADDING,
         fixedHeight: 100,
-        wordWrap: { width: width - 3 * PADDING, useAdvancedWrap: true },
+        wordWrap: { width: width - 2 * PADDING, useAdvancedWrap: true },
         padding: { x: 10 },
       })
       .setDepth(6)
@@ -226,8 +226,8 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 1:
         this.submarine.update(Movement.Stopped)
-        this.text.setText(`Vous regardez dans le periscope du sous-marin et votre collègue devra utiliser les commandes.\nVoyons comment les utiliser...\n`);
-        this.swithToEtape(2, 6000);
+        this.text.setText(`Vous regardez dans le periscope du sous-marin et votre collègue devra utiliser les commandes.\n\nVoyons comment les utiliser...\n`);
+        this.swithToEtape(2, 5500);
         break;
       case 2:
         this.submarine.update(Movement.Stopped)
