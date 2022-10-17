@@ -51,7 +51,7 @@ export default class MainScene extends Phaser.Scene {
       callback: () => {
         this._time--
         if (!this._time) {
-          this.scene.start('GameOverScene', { score: this.score })
+          this.scene.start('GameOverScene', { score: this.getScoreToDisplay() })
         }
       },
       loop: true
@@ -67,7 +67,7 @@ export default class MainScene extends Phaser.Scene {
     this.background = new Background(this)
 
     this.scoreText = this.add
-      .text(100, 50, `Time: ${this._time} Score: ${this.score}`, {
+      .text(100, 50, `Time: ${this._time} Score: ${this.getScoreToDisplay()}`, {
         color: '#ffffff',
         fontSize: '24px',
         align: 'center',
@@ -157,8 +157,12 @@ export default class MainScene extends Phaser.Scene {
     event.preventDefault()
   }
 
+  getScoreToDisplay(): number {
+    return Math.floor(this.score)
+  }
+
   update() {
-    this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
+    this.scoreText.setText(`Time: ${this._time} Score: ${this.getScoreToDisplay()}`)
 
 
     if (this.ballaste === Ballast.Fill) {
@@ -174,7 +178,7 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
 
         if (this.submarine.x > this.lastScorePos) {
-          this.score += Math.floor(this.submarine.x - this.lastScorePos)
+          this.score += this.submarine.x - this.lastScorePos
           this.lastScorePos = this.submarine.x
         }
       } else if (this.currentMovement === Movement.Backward) {
