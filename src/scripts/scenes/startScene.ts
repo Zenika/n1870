@@ -282,10 +282,10 @@ export default class StartScene extends Phaser.Scene {
         this.swithToEtape(15, 2000);
         break;
       case 15:
-        this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu.\nTournez le contacteur pour le mettre en position basse (0) ou haute (2)`);
+        this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu.\nTournez le contacteur pour le mettre en position basse [0] ou haute [2].`);
         break;
       case 16:
-        this.text.setText(`Actionnez le contacteur pour le mettre en position basse ou haute.`);
+        this.text.setText(`Actionnez le contacteur pour le mettre en position basse [0] ou haute [2].`);
         break;
       case 17:
         this.text.setText(`Allumez la lampe en appuyant sur le bouton blanc de gauche, intitulé [MS].\nLa led jaune s'allume aussi longtemps que la lampe.`);
@@ -312,7 +312,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs [TSC] et [PB] pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultanément sur les boutons blancs 'TSC' et 'PB'`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultanément sur les boutons blancs [TSC] et [PB].`)
         break;
     }
   }
