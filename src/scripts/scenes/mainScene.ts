@@ -51,7 +51,7 @@ export default class MainScene extends Phaser.Scene {
       callback: () => {
         this._time--
         if (!this._time) {
-          this.scene.start('GameOverScene', { score: this.score })
+          this.scene.start('GameOverScene', { score: this.getScoreToDisplay() })
         }
       },
       loop: true
@@ -67,7 +67,7 @@ export default class MainScene extends Phaser.Scene {
     this.background = new Background(this)
 
     this.scoreText = this.add
-      .text(100, 50, `Time: ${this._time} Score: ${this.score}`, {
+      .text(100, 50, `Time: ${this._time} Score: ${this.getScoreToDisplay()}`, {
         color: '#ffffff',
         fontSize: '24px',
         align: 'center',
@@ -78,22 +78,16 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis = this.generateRandomEnemies()
 
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
-      if (
-        bodyA.label === 'submarine-light' &&
-        bodyB.label === 'enemy' &&
-        this.submarine.light.currentBody.render.visible
-      ) {
-        bodyB.gameObject.escape()
-      } else if (
-        bodyB.label === 'submarine-light' &&
-        bodyA.label === 'enemy' &&
-        this.submarine.light.currentBody.render.visible
-      ) {
-        bodyA.gameObject.escape()
-      } else if (bodyA.label === 'submarine' && bodyB.label === 'enemy') {
+      if (this.checkCollision(bodyA, bodyB, 'submarine-light', 'enemy') && this.submarine.light.currentBody.render.visible) {
+        this.getGameObjectCollision(bodyA, bodyB, 'enemy').escape()
+      } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'enemy')) {
         this.onCollision()
-      } else if (bodyB.label === 'submarine' && bodyA.label === 'enemy') {
-        this.onCollision()
+      } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'background')) {
+        if (this.score > 10) {
+          this.score -= 10
+        }
+        this.submarine.moving = false
+        this.currentMovement = Movement.Stopped
       }
     })
 
@@ -163,8 +157,12 @@ export default class MainScene extends Phaser.Scene {
     event.preventDefault()
   }
 
+  getScoreToDisplay(): number {
+    return Math.floor(this.score)
+  }
+
   update() {
-    this.scoreText.setText(`Time: ${this._time} Score: ${this.score}`)
+    this.scoreText.setText(`Time: ${this._time} Score: ${this.getScoreToDisplay()}`)
 
 
     if (this.ballaste === Ballast.Fill) {
@@ -180,7 +178,7 @@ export default class MainScene extends Phaser.Scene {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
 
         if (this.submarine.x > this.lastScorePos) {
-          this.score += Math.floor(this.submarine.x - this.lastScorePos)
+          this.score += this.submarine.x - this.lastScorePos
           this.lastScorePos = this.submarine.x
         }
       } else if (this.currentMovement === Movement.Backward) {
@@ -230,4 +228,29 @@ export default class MainScene extends Phaser.Scene {
     }
     return enemies
   }
+
+  checkCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType, label1: String, label2: String) {
+    return (bodyA.label === label1 && bodyB.label === label2) || (bodyB.label === label1 && bodyA.label === label2)
+  }
+
+  getGameObjectCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType, label: String) {
+    if (bodyA.label === label) {
+      return bodyA.gameObject
+    } else if (bodyB.label === label) {
+      return bodyB.gameObject
+    }
+    return null;
+  }
+
+  
+  removeEnemy(enemy:Enemy): void {
+
+    const index: number = this.ennemis.indexOf(enemy, 0);
+    if (index > -1) {
+      this.ennemis.splice(index, 1);
+    }
+     
+  }
+
+
 }
