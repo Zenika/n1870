@@ -21,7 +21,8 @@ export default class GameOverScene extends Phaser.Scene {
       })
       .setDepth(6)
     this.input.keyboard.on('keydown', (event) => {
-      if (event.which === Phaser.Input.Keyboard.KeyCodes.P) {
+      if (event.which === Phaser.Input.Keyboard.KeyCodes.P
+        || event.which === Phaser.Input.Keyboard.KeyCodes.R) {
         this.scene.start('StartScene')
       }
     })

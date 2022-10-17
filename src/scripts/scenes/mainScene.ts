@@ -7,7 +7,6 @@ export const NB_BACKGROUND = 10
 export const INIT_TIME = 90
 
 export default class MainScene extends Phaser.Scene {
-  fpsText
   submarine: Submarine
   background: Background
   cursors: Phaser.Types.Input.Keyboard.CursorKeys

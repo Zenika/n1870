@@ -95,7 +95,11 @@ export default class StartScene extends Phaser.Scene {
         case Phaser.Input.Keyboard.KeyCodes.F:
           document.querySelector("#phaser-game")?.requestFullscreen();
           break;
+        case Phaser.Input.Keyboard.KeyCodes.R:
+          this.swithToEtape(0);
+          break;
         case Phaser.Input.Keyboard.KeyCodes.P:
+        case Phaser.Input.Keyboard.KeyCodes.S:
           if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
             this.scene.start('MainScene');
           }
@@ -309,10 +313,10 @@ export default class StartScene extends Phaser.Scene {
         this.swithToEtape(23, 4000);
         break;
       case 23:
-        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs [TSC] et [PB] pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur le bouton rouge en position [START] pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur les simultanément sur les boutons blancs [TSC] et [PB].`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin appuyez sur le bouton rouge en position [START].`)
         break;
     }
   }
