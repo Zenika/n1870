@@ -78,24 +78,14 @@ export default class MainScene extends Phaser.Scene {
     this.ennemis = this.generateRandomEnemies()
 
     this.matter.world.on('collisionstart', (event, bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) => {
-      console.log(bodyA, bodyB)
-      if (
-        bodyA.label === 'submarine-light' &&
-        bodyB.label === 'enemy' &&
-        this.submarine.light.currentBody.render.visible
-      ) {
-        bodyB.gameObject.escape()
-      } else if (
-        bodyB.label === 'submarine-light' &&
-        bodyA.label === 'enemy' &&
-        this.submarine.light.currentBody.render.visible
-      ) {
-        bodyA.gameObject.escape()
-      } else if ((bodyA.label === 'submarine' && bodyB.label === 'enemy') 
-      || (bodyB.label === 'submarine' && bodyA.label === 'enemy')) {
+      if (this.checkCollision(bodyA, bodyB, 'submarine-light', 'enemy') && this.submarine.light.currentBody.render.visible) {
+        this.getGameObjectCollision(bodyA, bodyB, 'enemy').escape()
+      } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'enemy')) {
         this.onCollision()
-      } else {
-        
+      } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'background')) {
+        this.score -= 10
+        this.submarine.moving = false
+        this.currentMovement = Movement.Stopped
       }
     })
 
@@ -231,5 +221,18 @@ export default class MainScene extends Phaser.Scene {
       
     }
     return enemies
+  }
+
+  checkCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType, label1: String, label2: String) {
+    return (bodyA.label === label1 && bodyB.label === label2) || (bodyB.label === label1 && bodyA.label === label2)
+  }
+
+  getGameObjectCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType, label: String) {
+    if (bodyA.label === label) {
+      return bodyA.gameObject
+    } else if (bodyB.label === label) {
+      return bodyB.gameObject
+    }
+    return null;
   }
 }
