@@ -34,16 +34,17 @@ export default class StartScene extends Phaser.Scene {
 
     const { width, height } = this.scale
 
-    this.add.image(0, 0, 'background').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
+    this.add.image(0, 0, 'game_tuto').setOrigin(0, 0).setScrollFactor(0)
+    const PADDING = 50
     this.text = this.add
-      .text(10, height / 2, `Bienvenue dans le tutoriel du Jeu.\nAppuyez sur une touche pour commencer.`, {
-        color: '#000000',
+      .text(PADDING, 350, `Bienvenue dans le tutoriel du Jeu.\nAppuyez sur une touche pour commencer.`, {
+        color: '#2D1C11',
         fontSize: '18px',
         align: 'center',
-        fixedWidth: width - 20,
-        wordWrap: { width: width - 20, useAdvancedWrap: true },
+        fixedWidth: width - 2 * PADDING,
+        fixedHeight: 100,
+        wordWrap: { width: width - 2 * PADDING, useAdvancedWrap: true },
         padding: { x: 10 },
-        backgroundColor: '#ffffff'
       })
       .setDepth(6)
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width / 2, height / 3).setDepth(5)
@@ -290,7 +291,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Allumez la lampe en appuyant sur le bouton blanc de gauche, intitulé [MS].\nLa led jaune s'allume aussi longtemps que la lampe.`);
         break;
       case 18:
-        this.text.setText(`Si un monstre passe dans le faiseau de la lampe, il sera éffrayé et s'eloignera du sous-marin.`);
+        this.text.setText(`Si un monstre passe dans le faiseau de la lampe, il sera effrayé et s'eloignera du sous-marin.`);
         this.swithToEtape(19, 6000);
         break;
       case 19:
@@ -300,10 +301,14 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le bras en position centrale.`);
         break;
       case 21:
-        this.text.setText(`Le but du jeu est d'avancer le plus loin possible en évitant les monstres ou en les éloignant avec la lampe et de ne pas toucher les rochers.\n\nVous pilotez un vieux sous-marin, il faut être délicat avec le panneau de commande ;)`);
+        this.text.setText(`Le but du jeu est d'avancer le plus loin possible en évitant les monstres ou en les éloignant avec la lampe et de ne pas toucher les rochers.`);
         this.swithToEtape(22, 4000);
         break;
       case 22:
+        this.text.setText(`Vous pilotez un vieux sous-marin, il faut être délicat avec le panneau de commande ;)`)
+        this.swithToEtape(23, 4000);
+        break;
+      case 23:
         this.text.setText(`Dès que vous êtes prêt, appuyez simultanément sur les boutons blancs [TSC] et [PB] pour commencer...`);
         break;
       case 100:
