@@ -13,12 +13,13 @@ export default class GameOverScene extends Phaser.Scene {
   create() {
     const { width, height } = this.scale
 
-    this.add.image(0, 0, 'gameover').setOrigin(0, 0).setScrollFactor(0).setScale(width, height)
+    this.add.image(0, 0, 'gameover').setOrigin(0, 0).setScrollFactor(0)
     this.add
-      .text(150, height / 2 + 50, `Votre score ${this.score}`, {
+      .text(208, 475, `${this.score}`, {
         color: '#ffffff',
-        fontSize: '24px',
+        fontSize: '28px',
         align: 'center',
+        fixedWidth: 185,
       })
       .setDepth(6)
     this.input.keyboard.on('keydown', (event) => {
