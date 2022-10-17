@@ -225,15 +225,6 @@ export default class MainScene extends Phaser.Scene {
     return enemies
   }
 
-  removeEnemy(enemy:Enemy): void {
-
-    const index: number = this.ennemis.indexOf(enemy, 0);
-    if (index > -1) {
-      this.ennemis.splice(index, 1);
-    }
-     
-  }
-
   checkCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType, label1: String, label2: String) {
     return (bodyA.label === label1 && bodyB.label === label2) || (bodyB.label === label1 && bodyA.label === label2)
   }
@@ -246,4 +237,14 @@ export default class MainScene extends Phaser.Scene {
     }
     return null;
   }
+  
+  removeEnemy(enemy:Enemy): void {
+
+    const index: number = this.ennemis.indexOf(enemy, 0);
+    if (index > -1) {
+      this.ennemis.splice(index, 1);
+    }
+     
+  }
+
 }
