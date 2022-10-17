@@ -44,7 +44,7 @@ export default class StartScene extends Phaser.Scene {
         fixedWidth: width - 2 * PADDING,
         fixedHeight: 100,
         wordWrap: { width: width - 2 * PADDING, useAdvancedWrap: true },
-        padding: { x: 10 },
+        padding: { x: 10 }, 
       })
       .setDepth(6)
     this.submarine = new Submarine(this, this.cameras.main.width / 2, 0).setPosition(width / 2, height / 3).setDepth(5)
