@@ -95,9 +95,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 this.setVelocityY(-this.speed)
             }
 
-        }else if (this.runsAway) {
+        } else if (this.runsAway) {
             const { width, height } = this.scene.scale            
-            let visibleMaxX = this.scene.cameras.main.scrollX+width + this.width
+            let visibleMaxX = this.scene.cameras.main.scrollX + width + this.width
             let visibleMaxY = height + this.height
 
             if(this.x >= visibleMaxX || this.y < 0 || this.y >= visibleMaxY) {
