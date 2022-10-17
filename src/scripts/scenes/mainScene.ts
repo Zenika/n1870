@@ -237,6 +237,7 @@ export default class MainScene extends Phaser.Scene {
     }
     return null;
   }
+
   
   removeEnemy(enemy:Enemy): void {
 
@@ -246,5 +247,6 @@ export default class MainScene extends Phaser.Scene {
     }
      
   }
+
 
 }
