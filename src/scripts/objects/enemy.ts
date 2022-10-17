@@ -1,4 +1,5 @@
 import MainScene from "../scenes/mainScene"
+import GraphicHelper from "../utils/GraphiHelper"
 import Submarine, { Movement } from "./submarine"
 
 export type EnemyType = 'octopus' | 'shark' | 'fish'
@@ -15,8 +16,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
     scene: MainScene
     enemyType: EnemyType
     speed: number = ENEMY_DEFAULT_SPEED
+    killing: boolean = false
 
-    constructor(scene: MainScene, x, y, enemyType: EnemyType, submarine: Submarine, onCollision: () => void) {
+    constructor(scene: MainScene, x, y, enemyType: EnemyType, submarine: Submarine) {
         super(scene.matter.world, x, y, enemyType.toString())
         this.yPosition = y
         scene.add.existing(this)
@@ -82,6 +84,14 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
                 this.setVelocityY(this.speed)
             }
         }
+
+        this.scene.anims.create({
+            key: 'smoke',
+            frames: this.anims.generateFrameNumbers('smoke', { start: 0, end: 9 }),
+            frameRate: 10,
+            repeat: 0
+        });
+
     }
 
 
@@ -143,5 +153,22 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite {
       default:
         return 'octopus'
     }
+  }
+
+  killhim(): void {
+
+    if (!this.killing) {
+      this.killing = true
+      this.setVelocityX(0)
+      this.setVisible(false)
+      var smoke = this.scene.add.sprite(this.x, this.y, 'smoke').setDepth(8);
+      smoke.anims.play('smoke').addListener(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        console.log('end')
+        this.scene.removeEnemy(this)
+        this.destroy()
+        smoke.destroy()
+       });
+    }
+
   }
 }

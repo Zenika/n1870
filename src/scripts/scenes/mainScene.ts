@@ -1,6 +1,7 @@
 import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
+import { BodyType } from 'matter'
 
 
 export const NB_BACKGROUND = 10
@@ -81,7 +82,7 @@ export default class MainScene extends Phaser.Scene {
       if (this.checkCollision(bodyA, bodyB, 'submarine-light', 'enemy') && this.submarine.light.currentBody.render.visible) {
         this.getGameObjectCollision(bodyA, bodyB, 'enemy').escape()
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'enemy')) {
-        this.onCollision()
+        this.onCollision((bodyA.label === 'enemy') ? bodyA : bodyB)
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'background')) {
         if (this.score > 10) {
           this.score -= 10
@@ -103,7 +104,7 @@ export default class MainScene extends Phaser.Scene {
     this.lastScorePos = this.submarine.x
   }
 
-  onCollision() {
+  onCollision(enemyBody: BodyType) {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
@@ -111,6 +112,8 @@ export default class MainScene extends Phaser.Scene {
         this.score -= 50
       }
       this.submarine.startFlash()
+
+      enemyBody.gameObject.killhim()
     }
   }
 
@@ -222,7 +225,7 @@ export default class MainScene extends Phaser.Scene {
         const randomEnemyType: EnemyType = Enemy.getRandomEnemyType()
         randomYPosition = Math.floor(Math.random() * (MAX_Y_POSITION - MIN_Y_POSITION) + MIN_Y_POSITION)
         enemies.push(
-          new Enemy(this, this.scale.width * i, randomYPosition, randomEnemyType, this.submarine, this.onCollision.bind(this))
+          new Enemy(this, this.scale.width * i, randomYPosition, randomEnemyType, this.submarine)
         )
       
     }
