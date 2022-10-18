@@ -100,7 +100,7 @@ export default class StartScene extends Phaser.Scene {
           break;
         case Phaser.Input.Keyboard.KeyCodes.P:
         case Phaser.Input.Keyboard.KeyCodes.S:
-          if (this.lightPosition === 2 && this.currentMovement === Movement.Backward) {
+          if (this.lightPosition === 2 && this.currentMovement === Movement.Forward) {
             this.scene.start('MainScene');
           }
           else {
@@ -313,10 +313,10 @@ export default class StartScene extends Phaser.Scene {
         this.swithToEtape(23, 5000);
         break;
       case 23:
-        this.text.setText(`Dès que vous êtes prêt, appuyez ouvrez le capot rouge du bouton [START] et lever l'interrupteur pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, Mettez le sous-marin en marche avant, puis ouvrez le capot rouge du bouton [DANGER] et lever l'interrupteur pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche arrière,\n et enfin basculer en position haute le bouton rouge [START].`)
+        this.text.setText(`Pour commencer, mettez la lampe en position centrale,\nle sous-marin en marche avant,\n et enfin basculer en position haute le bouton rouge [DANGER].`)
         break;
     }
   }
