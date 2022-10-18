@@ -163,6 +163,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   update() {
+    if (this._time <= 10) {
+      this.scoreText.setColor('#ff0000')
+    }
     this.scoreText.setText(`Time: ${this._time} Score: ${this.getScoreToDisplay()}`)
 
 
