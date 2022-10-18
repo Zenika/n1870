@@ -57,6 +57,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('gameover', 'assets/background/game_over.png')
     this.load.image('game_tuto', 'assets/background/game_tuto.png')
     this.load.image('bubble', 'assets/img/bubble.png')
+    this.load.spritesheet('smoke', 'assets/img/smoke.png', { frameWidth: 64, frameHeight: 64 })
 
     this.load.json('rock', 'assets/background/layer1-shapes.json')
     this.load.json('submarine-box', 'assets/img/submarine-shapes.json')

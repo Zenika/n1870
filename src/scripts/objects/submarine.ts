@@ -97,7 +97,7 @@ export default class Submarine extends Phaser.Physics.Matter.Sprite {
 
   }
 
-  startFlash() {
+  startFlash(): void {
 
     if (!this.flashing) {
       this.flashing = true
