@@ -2,7 +2,6 @@
 
 export default class GameOverScene extends Phaser.Scene {
   score: number = 0
-  creditText: Phaser.GameObjects.Text;
   constructor() {
     super({ key: 'GameOverScene' })
   }
@@ -21,13 +20,6 @@ export default class GameOverScene extends Phaser.Scene {
         fixedWidth: 188,
       })
       .setDepth(6)
-    this.creditText = this.add
-      .text(150, 580, `Créé par Arthur, Chloé, Guillaume M, Guillaume R, Jérémy, Nicolas, Patrice, Stéphane et Thomas`, {
-        color: '#ffffff',
-        fontSize: '16px',
-        align: 'center',
-      })
-      .setDepth(6)
     
     this.input.keyboard.on('keydown', (event) => {
       if (event.which === Phaser.Input.Keyboard.KeyCodes.P
@@ -35,12 +27,5 @@ export default class GameOverScene extends Phaser.Scene {
         this.scene.start('StartScene')
       }
     })
-  }
-
-  update() {
-    this.creditText.x -= 1
-    if (this.creditText.x < -600) {
-      this.creditText.x = 600
-    }
   }
 }
