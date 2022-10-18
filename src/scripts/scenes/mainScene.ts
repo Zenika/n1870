@@ -82,7 +82,7 @@ export default class MainScene extends Phaser.Scene {
       if (this.checkCollision(bodyA, bodyB, 'submarine-light', 'enemy') && this.submarine.light.currentBody.render.visible) {
         this.getGameObjectCollision(bodyA, bodyB, 'enemy').escape()
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'enemy')) {
-        this.onCollision((bodyA.label === 'enemy') ? bodyA : bodyB)
+        this.onCollision(this.getGameObjectCollision(bodyA, bodyB, 'enemy'))
       } else if (this.checkCollision(bodyA, bodyB, 'submarine', 'background')) {
         if (this.score > 10) {
           this.score -= 10
@@ -104,7 +104,7 @@ export default class MainScene extends Phaser.Scene {
     this.lastScorePos = this.submarine.x
   }
 
-  onCollision(enemyBody: BodyType) {
+  onCollision(enemy: Enemy) {
     if (!this.submarine.flashing) {
       this.submarine.moving = false
       this.submarine.setVelocityX(0)
@@ -113,7 +113,7 @@ export default class MainScene extends Phaser.Scene {
       }
       this.submarine.startFlash()
 
-      enemyBody.gameObject.killhim()
+      enemy.killhim()
     }
   }
 
