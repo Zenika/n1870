@@ -201,17 +201,17 @@ export default class StartScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
-    if (this.ballaste === Ballast.Fill) {
+    if (this.ballaste === Ballast.Fill && this.submarine.y < 250) {
       this.submarine.setVelocityY(SUBMARINE_SPEED_STEP)
-    } else if (this.ballaste === Ballast.Empty) {
+    } else if (this.ballaste === Ballast.Empty && this.submarine.y > 100) {
       this.submarine.setVelocityY(-SUBMARINE_SPEED_STEP)
     } else {
       this.submarine.setVelocityY(0)
     }
     if (this.moving) {
-      if (this.currentMovement === Movement.Forward) {
+      if (this.currentMovement === Movement.Forward && this.submarine.x < 450) {
         this.submarine.setVelocityX(SUBMARINE_SPEED_STEP)
-      } else if (this.currentMovement === Movement.Backward) {
+      } else if (this.currentMovement === Movement.Backward && this.submarine.x > 150) {
         this.submarine.setVelocityX(-SUBMARINE_SPEED_STEP)
       }
       this.submarine.update(this.currentMovement);
