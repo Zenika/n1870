@@ -231,7 +231,7 @@ export default class StartScene extends Phaser.Scene {
       case 1:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Vous regardez dans le periscope du sous-marin et votre collègue devra utiliser les commandes.\n\nVoyons comment les utiliser...\n`);
-        this.swithToEtape(2, 5500);
+        this.swithToEtape(2, 8000);
         break;
       case 2:
         this.submarine.update(Movement.Stopped)
@@ -244,7 +244,7 @@ export default class StartScene extends Phaser.Scene {
       case 4:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est maintenant lesté, il va s'enfoncer dans les profondeurs...`);
-        this.swithToEtape(5, 3000);
+        this.swithToEtape(5, 5000);
         break;
       case 5:
         this.submarine.update(Movement.Stopped)
@@ -257,7 +257,7 @@ export default class StartScene extends Phaser.Scene {
       case 7:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est rempli d'air, il va maintenant remonter vers la surface...`);
-        this.swithToEtape(8, 4000);
+        this.swithToEtape(8, 5000);
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
@@ -283,7 +283,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 14:
         this.text.setText(`Une lampe est placée sur le sous-marin, apprenez à la manipuler...`);
-        this.swithToEtape(15, 2000);
+        this.swithToEtape(15, 5000);
         break;
       case 15:
         this.text.setText(`Le contacteur trois positions de gauche permet de mettre le bras en haut, en bas ou au milieu.\nTournez le contacteur pour le mettre en position basse [0] ou haute [2].`);
@@ -292,11 +292,11 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Actionnez le contacteur pour le mettre en position basse [0] ou haute [2].`);
         break;
       case 17:
-        this.text.setText(`Allumez la lampe en appuyant sur le bouton blanc de gauche, intitulé [MS].\nLa led jaune s'allume aussi longtemps que la lampe.`);
+        this.text.setText(`Allumez la lampe en appuyant sur le bouton blanc de gauche, intitulé [LAMPE].\nLa led jaune s'allume aussi longtemps que la lampe.`);
         break;
       case 18:
         this.text.setText(`Si un monstre passe dans le faiseau de la lampe, il sera effrayé et s'eloignera du sous-marin.`);
-        this.swithToEtape(19, 6000);
+        this.swithToEtape(19, 8000);
         break;
       case 19:
         this.text.setText(`Pour continuer, remettez le bras en position centrale (commutateur de gauche en position [1]).`);
@@ -306,11 +306,11 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 21:
         this.text.setText(`Le but du jeu est d'avancer le plus loin possible en évitant les monstres ou en les éloignant avec la lampe et de ne pas toucher les rochers.`);
-        this.swithToEtape(22, 4000);
+        this.swithToEtape(22, 5000);
         break;
       case 22:
         this.text.setText(`Vous pilotez un vieux sous-marin, il faut être délicat avec le panneau de commande ;)`)
-        this.swithToEtape(23, 4000);
+        this.swithToEtape(23, 5000);
         break;
       case 23:
         this.text.setText(`Dès que vous êtes prêt, appuyez ouvrez le capot rouge du bouton [START] et lever l'interrupteur pour commencer...`);
