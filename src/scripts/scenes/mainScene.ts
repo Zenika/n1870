@@ -1,7 +1,6 @@
 import Submarine, { Ballast, Movement, SUBMARINE_SPEED_STEP } from '../objects/submarine'
 import Background from '../objects/background'
 import Enemy, { EnemyType } from '../objects/enemy'
-import { BodyType } from 'matter'
 
 
 export const NB_BACKGROUND = 10
@@ -87,7 +86,7 @@ export default class MainScene extends Phaser.Scene {
           this.score -= 10
         }
         this.submarine.moving = false
-        this.currentMovement = Movement.Stopped
+        //this.currentMovement = Movement.Stopped
       }
     })
 
