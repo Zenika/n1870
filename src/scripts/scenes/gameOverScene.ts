@@ -22,7 +22,7 @@ export default class GameOverScene extends Phaser.Scene {
       })
       .setDepth(6)
     this.creditText = this.add
-      .text(150, 580, `Créé par Chloé, Guillaume M, Guillaume R, Jérémy, Patrice, Stéphane`, {
+      .text(150, 580, `Créé par Arthur, Chloé, Guillaume M, Guillaume R, Jérémy, Patrice, Stéphane`, {
         color: '#ffffff',
         fontSize: '16px',
         align: 'center',
