@@ -14,7 +14,7 @@ export default class MainScene extends Phaser.Scene {
   score: number = 0
   scoreText: Phaser.GameObjects.Text
   _time: number = 0
-  currentMovement: Movement = Movement.Stopped
+  currentMovement: Movement = Movement.Forward
   ballaste: Ballast = Ballast.Keep
 
   lastScorePos: number = 0
