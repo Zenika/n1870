@@ -149,7 +149,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 10:
         if (this.moving) {
-          this.swithToEtape(14);
+          this.swithToEtape(14, 2000);
         }
         break;
       case 11:
