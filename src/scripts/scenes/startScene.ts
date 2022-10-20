@@ -34,6 +34,7 @@ export default class StartScene extends Phaser.Scene {
 
     const { width, height } = this.scale
     this.etape = 0;
+    this.currentMovement = Movement.Forward
 
     this.add.image(0, 0, 'game_tuto').setOrigin(0, 0).setScrollFactor(0)
     const PADDING = 70
@@ -123,7 +124,7 @@ export default class StartScene extends Phaser.Scene {
       case 2:
       case 3:
         if (this.ballaste === Ballast.Fill) {
-          this.swithToEtape(4);
+          this.swithToEtape(4, 1000);
         }
         if (this.ballaste === Ballast.Empty) {
           this.swithToEtape(3);
@@ -132,7 +133,7 @@ export default class StartScene extends Phaser.Scene {
       case 5:
       case 6:
         if (this.ballaste === Ballast.Empty) {
-          this.swithToEtape(7);
+          this.swithToEtape(7, 1000);
         }
         if (this.ballaste === Ballast.Fill) {
           this.swithToEtape(6);
@@ -141,7 +142,7 @@ export default class StartScene extends Phaser.Scene {
       case 8:
       case 9:
         if (this.currentMovement === Movement.Forward) {
-          this.swithToEtape(10);
+          this.swithToEtape(10, 1000);
         }
         if (this.currentMovement === Movement.Backward) {
           this.swithToEtape(9);
@@ -169,7 +170,7 @@ export default class StartScene extends Phaser.Scene {
       case 15:
       case 16:
         if (this.lightPosition === 1 || this.lightPosition === 3) {
-          this.swithToEtape(17);
+          this.swithToEtape(17, 2000);
         }
         if (this.lightPosition === 2) {
           this.swithToEtape(16);
@@ -177,7 +178,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 17:
         if (this.light) {
-          this.swithToEtape(18);
+          this.swithToEtape(18, 2000);
         }
         break;
       case 19:
@@ -266,6 +267,8 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le sous-marin en marche avant avec le commutateur de [DIRECTION] sur la position [2]`);
         break;
       case 10:
+        this.currentMovement = Movement.Forward;
+        this.submarine.setPosition(300, 200)
         this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant, appuyez sur la touche [marche] autant de fois que nécessaire pour avancer, la led verte sur le poste de commande s'allume à chaque appui.`);
         break;
       case 11:
