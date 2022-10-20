@@ -33,6 +33,7 @@ export default class StartScene extends Phaser.Scene {
 
 
     const { width, height } = this.scale
+    this.etape = 0;
 
     this.add.image(0, 0, 'game_tuto').setOrigin(0, 0).setScrollFactor(0)
     const PADDING = 70
