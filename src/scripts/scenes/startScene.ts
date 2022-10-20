@@ -98,7 +98,7 @@ export default class StartScene extends Phaser.Scene {
           break;
         case Phaser.Input.Keyboard.KeyCodes.P:
         case Phaser.Input.Keyboard.KeyCodes.S:
-          if (this.lightPosition === 2 && this.currentMovement === Movement.Forward) {
+          if (this.lightPosition === 2) {
             this.scene.start('MainScene');
           }
           else {
@@ -149,7 +149,7 @@ export default class StartScene extends Phaser.Scene {
         break;
       case 10:
         if (this.moving) {
-          this.swithToEtape(11);
+          this.swithToEtape(14);
         }
         break;
       case 11:
@@ -255,7 +255,7 @@ export default class StartScene extends Phaser.Scene {
       case 7:
         this.submarine.update(Movement.Stopped)
         this.text.setText(`Le sous-marin est rempli d'air, il va maintenant remonter vers la surface...`);
-        this.swithToEtape(8, 5000);
+        this.swithToEtape(10, 5000);
         break;
       case 8:
         this.submarine.update(Movement.Stopped)
@@ -266,7 +266,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Mettez le sous-marin en marche avant avec le commutateur de [DIRECTION] sur la position [2]`);
         break;
       case 10:
-        this.text.setText(`Maintenant que la marche avant est enclenchée, appuyez sur la touche [marche] autant de fois que nécessaire pour avancer, la led verte sur le poste de commande s'allume à chaque appui.`);
+        this.text.setText(`Maintenant faisons avancer le sous-marin vers l'avant, appuyez sur la touche [marche] autant de fois que nécessaire pour avancer, la led verte sur le poste de commande s'allume à chaque appui.`);
         break;
       case 11:
         this.submarine.update(Movement.Stopped)
@@ -280,6 +280,7 @@ export default class StartScene extends Phaser.Scene {
         this.text.setText(`Maintenant que la marche arrière est enclenchée, appuyez sur la touche marche autant de fois que nécessaire pour reculer.`);
         break;
       case 14:
+        this.submarine.setPosition(300, 200)
         this.text.setText(`Une lampe est placée sur le sous-marin, apprenez à la manipuler...`);
         this.swithToEtape(15, 5000);
         break;
@@ -311,10 +312,10 @@ export default class StartScene extends Phaser.Scene {
         this.swithToEtape(23, 5000);
         break;
       case 23:
-        this.text.setText(`Dès que vous êtes prêt, Mettez le sous-marin en marche avant, puis ouvrez le capot rouge du bouton [DANGER] et lever l'interrupteur pour commencer...`);
+        this.text.setText(`Dès que vous êtes prêt, ouvrez le capot rouge du bouton [DANGER] et lever l'interrupteur pour commencer...`);
         break;
       case 100:
-        this.text.setText(`Pour commencer, mettez le commutateur [BRAS] en position centrale [1],\nle sous-marin en marche avant commutateur [DIRECTION] en position [1],\n et enfin basculer en position haute le bouton rouge [DANGER].`)
+        this.text.setText(`Pour commencer, mettez le commutateur [BRAS] en position centrale [1],\n et enfin basculer en position haute le bouton rouge [DANGER].`)
         break;
     }
   }
